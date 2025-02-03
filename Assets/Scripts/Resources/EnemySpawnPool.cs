@@ -7,9 +7,10 @@ public struct EnemyWeights
 {
     [SerializeField] GameObject enemy;
     [SerializeField] int weight;
+    [SerializeField] int cost;
 }
 
-[CreateAssetMenu(menuName = "Enemy Spawn Pool")]
+[CreateAssetMenu(fileName = "EnemySpawnPool", menuName = "Procedural Generation/Enemy Spawn Pool")]
 public class EnemySpawnPool : ScriptableObject
 {
     public List<EnemyWeights> weights;
