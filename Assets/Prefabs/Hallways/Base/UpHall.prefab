@@ -93,8 +93,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2551894132310345328}
-  - component: {fileID: 2925199297304565138}
   - component: {fileID: 6918780208502980012}
+  - component: {fileID: 41226756485079984}
   m_Layer: 0
   m_Name: UpHall
   m_TagString: Untagged
@@ -118,19 +118,6 @@ Transform:
   - {fileID: 97891969547527962}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2925199297304565138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3361006130134516234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4471186ff0fb7f54480975ec7c9d911f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 0
 --- !u!61 &6918780208502980012
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -176,3 +163,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &41226756485079984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3361006130134516234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4471186ff0fb7f54480975ec7c9d911f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 0
+  connected: 0
