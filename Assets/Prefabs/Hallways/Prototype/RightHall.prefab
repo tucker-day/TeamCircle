@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4471186ff0fb7f54480975ec7c9d911f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 2
+  direction: 3
   connected: 0
 --- !u!50 &-94826987663654381
 Rigidbody2D:
