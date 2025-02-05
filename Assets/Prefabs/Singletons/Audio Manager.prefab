@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b2beda915ceb254386db4a6ffb436fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: {fileID: 0}
+  gameState: {fileID: 117523268409199176, guid: d8ee5709ee1856e4aa1ce236d0eddb14, type: 3}
   mus_calm: {fileID: 7512336318142599494}
   mus_combat: {fileID: 3201447964340420225}
 --- !u!82 &7512336318142599494
