@@ -9,12 +9,15 @@ public class AudioManager : MonoBehaviour
     public GameManager gameState;
 
     [SerializeField]
-    AudioSource mus_calm, mus_combat;
+    AudioSource mus_calm, mus_combat, sfxAudio;
 
-    AudioSource sfxAudio;
+    public AudioClip[] soundEffects;
 
-    bool combatToCalm = false;
-    bool calmToCombat = false;
+    bool combatToCalm;
+    bool calmToCombat;
+
+    public float musVolume;
+    public float sfxVolume;
 
     // Start is called before the first frame update
     void Start()
@@ -29,14 +32,7 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        AudioSource[] sources = GetComponents<AudioSource>();
-        foreach (AudioSource source in sources)
-        {
-            if (source.clip == null)
-            {
-                sfxAudio = source;
-            }
-        }
+        combatToCalm = true;
     }
 
     // Update is called once per frame
@@ -44,6 +40,7 @@ public class AudioManager : MonoBehaviour
     {
         CheckMusicUpdate();
         MusicFade();
+        TestSoundEffects();
     }
 
     void CheckMusicUpdate()
@@ -51,13 +48,13 @@ public class AudioManager : MonoBehaviour
         // For testing fading between music variants.
         // Press Escape to switch to Combat music.
         // Press Tab to switch to Calm music.
-        if ((Input.GetKey(KeyCode.Escape) && mus_combat.volume == 0f) || gameState.enemiesPresent)
+        if ((Input.GetKeyDown(KeyCode.Escape) && mus_combat.volume == 0f) || gameState.enemiesPresent)
         {
             calmToCombat = true;
             combatToCalm = false;
             gameState.enemiesPresent = true;
         }
-        if ((Input.GetKey(KeyCode.Tab) && mus_calm.volume == 0f) || !gameState.enemiesPresent)
+        if ((Input.GetKeyDown(KeyCode.Tab) && mus_calm.volume == 0f) || !gameState.enemiesPresent)
         {
             combatToCalm = true;
             calmToCombat = false;
@@ -85,5 +82,41 @@ public class AudioManager : MonoBehaviour
     public void PlaySFX(AudioClip clip)
     {
         sfxAudio.PlayOneShot(clip);
+    }
+
+    // This function is for testing sound effects.
+    // Press any of the keys below to play a sound.
+    void TestSoundEffects()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            // Press Q to play melee enemy attack sound.
+            PlaySFX(soundEffects[0]);
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            // Press W to play melee enemy damage sound.
+            PlaySFX(soundEffects[1]);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            // Press E to play melee enemy death sound.
+            PlaySFX(soundEffects[2]);
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            // Press A to play ranged enemy attack sound.
+            PlaySFX(soundEffects[3]);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            // Press S to play ranged enemy damage sound.
+            PlaySFX(soundEffects[4]);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            // Press D to play ranged enemy death sound.
+            PlaySFX(soundEffects[5]);
+        }
     }
 }
