@@ -9,6 +9,11 @@ public class DungeonManager : MonoBehaviour
     int branchReduction = 0;
     bool bossRoomSpawned = false;
 
+    public void Start()
+    {
+        GenerateDungeon();
+    }
+
     public void GenerateDungeon() 
     {
         StartCoroutine(SpawnSpawnRoom());
@@ -21,11 +26,16 @@ public class DungeonManager : MonoBehaviour
         GameObject spawnRoom = Instantiate(settings.tileset.spawnRoom, gameObject.transform);
         Hallway spawnHall = spawnRoom.GetComponent<ChildRoom>().hallways[0];
 
+        // Starts the spawn recursion
         yield return SpawnChildRoom(spawnHall, 0);
+        // Everything after happens once recursion is finished
 
         float endTime = Time.realtimeSinceStartup - startTime;
 
         Debug.Log("Generation Complete in " + endTime + " seconds or approx. " + (int)(endTime * 50) + " fixed updates");
+
+        ChildRoom[] game = GetComponentsInChildren<ChildRoom>();
+        Debug.Log("Created " + game.Length + " rooms");
     }
 
     private IEnumerator SpawnChildRoom(Hallway connect, int currentDistance)
@@ -35,11 +45,12 @@ public class DungeonManager : MonoBehaviour
         if (currentDistance < settings.maxLength - branchReduction)
         {
             List<GameObject> exclude = new List<GameObject>();
+            List<GameObject> tiles = settings.tileset.tiles;
 
             while (!connect.connected)
             {
                 // Get random tile and spawn it
-                GameObject prefab = GetRandomGameObjectFromList(settings.tileset.tiles, exclude);
+                GameObject prefab = GetRandomGameObjectFromList(tiles, exclude);
 
                 if (prefab != null)
                 {
@@ -66,10 +77,8 @@ public class DungeonManager : MonoBehaviour
                 }
                 else
                 {
-                    // Will implement spawning cap rooms here later. For now, just say the
-                    // hall gets connected and move on
-                    Debug.Log("Couldn't spawn non-cap room.");
-                    connect.connected = true;
+                    tiles = settings.tileset.capTiles;
+                    exclude.Clear();
                 }
             }
         }
