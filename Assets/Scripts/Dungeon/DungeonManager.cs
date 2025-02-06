@@ -21,12 +21,16 @@ public class DungeonManager : MonoBehaviour
 
     private IEnumerator SpawnSpawnRoom()
     {
+        float startTime = Time.realtimeSinceStartup;
+        
         GameObject spawnRoom = Instantiate(settings.tileset.spawnRoom, gameObject.transform);
         Hallway spawnHall = spawnRoom.GetComponent<ChildRoom>().hallways[0];
 
         yield return SpawnChildRoom(spawnHall, 0);
 
-        Debug.Log("Generation Complete");
+        float endTime = Time.realtimeSinceStartup - startTime;
+
+        Debug.Log("Generation Complete in " + endTime + " seconds or approx. " + (int)(endTime * 50) + " fixed updates");
     }
 
     private IEnumerator SpawnChildRoom(Hallway connect, int currentDistance)
