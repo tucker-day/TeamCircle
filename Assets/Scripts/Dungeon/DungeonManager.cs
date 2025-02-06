@@ -14,7 +14,6 @@ public class DungeonManager : MonoBehaviour
         GenerateDungeon();
     }
 
-    // Start the dungeon generation
     public void GenerateDungeon() 
     {
         StartCoroutine(SpawnSpawnRoom());
@@ -34,19 +33,21 @@ public class DungeonManager : MonoBehaviour
 
         if (currentDistance < settings.maxLength - branchReduction)
         {
+            List<GameObject> exclude = new List<GameObject>();
+
             while (!connect.connected)
             {
                 // Get random tile and spawn it
-                GameObject prefab = GetRandomGameObjectFromList(settings.tileset.tiles);
+                GameObject prefab = GetRandomGameObjectFromList(settings.tileset.tiles, exclude);
                 GameObject roomObject = Instantiate(prefab, spawnPoint, Quaternion.identity, gameObject.transform);
                 ChildRoom childRoom = roomObject.GetComponent<ChildRoom>();
 
                 // Wait for collisions to happen
                 yield return new WaitForFixedUpdate();
-                // yield return new WaitForSeconds(0.25f);
 
                 if (!childRoom.InValidPosition())
                 {
+                    exclude.Add(prefab);
                     Destroy(roomObject);
                 }
                 else
@@ -92,6 +93,33 @@ public class DungeonManager : MonoBehaviour
 
     private GameObject GetRandomGameObjectFromList(List<GameObject> list)
     {
-        return list[Random.Range(0, list.Count)];
+        if (list.Count > 0)
+        {
+            return list[Random.Range(0, list.Count)];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    // Gets a random object from list that is not contained in the exclude list.
+    // Returns null if none can be found.
+    private GameObject GetRandomGameObjectFromList(List<GameObject> list, List<GameObject> exclude)
+    {
+        GameObject result = null;
+
+        // Assuming that exclude only contains values that are also in list, if
+        // exclude is larger or equal to list, there is no possible object that
+        // can be returned, so return null.
+        if (exclude.Count < list.Count)
+        {
+            do
+            {
+                result = list[Random.Range(0, list.Count)];
+            } while (exclude.Contains(result));
+        }
+
+        return result;
     }
 }
