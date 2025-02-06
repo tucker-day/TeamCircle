@@ -32,3 +32,4 @@ MonoBehaviour:
   - {fileID: 8205624513170101846, guid: 9f1954a1ccef3914fb42ff634b95bebd, type: 3}
   bossRooms: []
   endRooms: []
+  tileSize: {x: 20, y: 20}
