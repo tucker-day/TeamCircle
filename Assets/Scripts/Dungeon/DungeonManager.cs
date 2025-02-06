@@ -9,11 +9,6 @@ public class DungeonManager : MonoBehaviour
     int branchReduction = 0;
     bool bossRoomSpawned = false;
 
-    private void Start()
-    {
-        GenerateDungeon();
-    }
-
     public void GenerateDungeon() 
     {
         StartCoroutine(SpawnSpawnRoom());
