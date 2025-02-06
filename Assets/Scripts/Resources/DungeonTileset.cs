@@ -10,4 +10,5 @@ public class DungeonTileset : ScriptableObject
     public List<GameObject> capTiles;
     public List<GameObject> bossRooms;
     public List<GameObject> endRooms;
+    public Vector2 tileSize;
 }
