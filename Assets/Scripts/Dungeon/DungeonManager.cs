@@ -25,6 +25,8 @@ public class DungeonManager : MonoBehaviour
         Hallway spawnHall = spawnRoom.GetComponent<ChildRoom>().hallways[0];
 
         yield return SpawnChildRoom(spawnHall, 0);
+
+        Debug.Log("Generation Complete");
     }
 
     private IEnumerator SpawnChildRoom(Hallway connect, int currentDistance)
@@ -39,31 +41,42 @@ public class DungeonManager : MonoBehaviour
             {
                 // Get random tile and spawn it
                 GameObject prefab = GetRandomGameObjectFromList(settings.tileset.tiles, exclude);
-                GameObject roomObject = Instantiate(prefab, spawnPoint, Quaternion.identity, gameObject.transform);
-                ChildRoom childRoom = roomObject.GetComponent<ChildRoom>();
 
-                // Wait for collisions to happen
-                yield return new WaitForFixedUpdate();
-
-                if (!childRoom.InValidPosition())
+                if (prefab != null)
                 {
-                    exclude.Add(prefab);
-                    Destroy(roomObject);
+                    GameObject roomObject = Instantiate(prefab, spawnPoint, Quaternion.identity, gameObject.transform);
+                    ChildRoom childRoom = roomObject.GetComponent<ChildRoom>();
+
+                    // Wait for collisions to happen
+                    yield return new WaitForFixedUpdate();
+
+                    if (!childRoom.InValidPosition())
+                    {
+                        exclude.Add(prefab);
+                        Destroy(roomObject);
+                    }
+                    else
+                    {
+                        childRoom.ConnectAllCollidingHalls();
+
+                        foreach (Hallway hall in childRoom.hallways)
+                        {
+                            yield return SpawnChildRoom(hall, currentDistance + 1);
+                        }
+                    }
                 }
                 else
                 {
-                    childRoom.ConnectAllCollidingHalls();
-
-                    foreach (Hallway hall in childRoom.hallways)
-                    {
-                        yield return SpawnChildRoom(hall, currentDistance + 1);
-                    }
+                    // Will implement spawning cap rooms here later. For now, just say the
+                    // hall gets connected and move on
+                    Debug.Log("Couldn't spawn non-cap room.");
+                    connect.connected = true;
                 }
             }
         }
         else
         {
-            // Boss room spawning will be implemented here later
+            // Boss room & cap room spawning will be implemented here later
         }
     }
 
