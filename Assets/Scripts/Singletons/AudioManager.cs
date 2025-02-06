@@ -51,15 +51,17 @@ public class AudioManager : MonoBehaviour
         // For testing fading between music variants.
         // Press Escape to switch to Combat music.
         // Press Tab to switch to Calm music.
-        if ((Input.GetKeyDown(KeyCode.Escape) && mus_combat.volume == 0f) || gameState.enemiesPresent)
+        if ((Input.GetKey(KeyCode.Escape) && mus_combat.volume == 0f) || gameState.enemiesPresent)
         {
             calmToCombat = true;
             combatToCalm = false;
+            gameState.enemiesPresent = true;
         }
-        if ((Input.GetKeyDown(KeyCode.Tab) && mus_calm.volume == 0f) || !gameState.enemiesPresent)
+        if ((Input.GetKey(KeyCode.Tab) && mus_calm.volume == 0f) || !gameState.enemiesPresent)
         {
             combatToCalm = true;
             calmToCombat = false;
+            gameState.enemiesPresent = false;
         }
     }
 
