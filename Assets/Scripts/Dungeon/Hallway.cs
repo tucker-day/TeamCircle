@@ -11,6 +11,8 @@ public enum HallwayDirection
     Right
 }
 
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Hallway : MonoBehaviour
 {
     public HallwayDirection direction = HallwayDirection.Up;
