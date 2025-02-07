@@ -30,6 +30,10 @@ MonoBehaviour:
   - {fileID: 8205624513170101846, guid: 526e966ed884b914d9092df6ef515348, type: 3}
   - {fileID: 8205624513170101846, guid: f25e4ca476143a541885014c98513055, type: 3}
   - {fileID: 8205624513170101846, guid: 9f1954a1ccef3914fb42ff634b95bebd, type: 3}
-  bossRooms: []
+  bossRooms:
+  - {fileID: 8205624513170101846, guid: 1195e0010a7c76644b13c638121facdc, type: 3}
+  - {fileID: 8205624513170101846, guid: fde14f88c25753b43ae8474d293da293, type: 3}
+  - {fileID: 8205624513170101846, guid: b00c349c55dc369499fdaca1a2867481, type: 3}
+  - {fileID: 8205624513170101846, guid: ab8ceef467563e742b079a3c794fac8d, type: 3}
   endRooms: []
   tileSize: {x: 20, y: 20}
