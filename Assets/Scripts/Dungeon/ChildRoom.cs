@@ -39,7 +39,7 @@ public class ChildRoom : MonoBehaviour
 
     public bool InValidPosition()
     {
-        bool result = true;
+        bool validPosition = true;
 
         // check if the room can connect to claims on current spot
         if (collidingClaims.Count != 0)
@@ -60,14 +60,14 @@ public class ChildRoom : MonoBehaviour
 
                 if (!canConnect)
                 {
-                    result = false;
+                    validPosition = false;
                     break;
                 }
             }
         }
 
         // check if hallways can connect to neighbor rooms
-        if (result)
+        if (validPosition)
         {
             foreach (Hallway hall in hallways)
             {
@@ -87,17 +87,17 @@ public class ChildRoom : MonoBehaviour
 
                     if (!noConflict)
                     {
-                        result = false;
+                        validPosition = false;
                         break;
                     }
                 }
             }
         }
 
-        return result;
+        return validPosition;
     }
 
-    public void ConnectAllCollidingHalls()
+    public void ConnectAllClaims()
     {
         if (collidingClaims.Count != 0)
         {

@@ -38,16 +38,16 @@ public class DungeonManager : MonoBehaviour
         Debug.Log("Created " + game.Length + " rooms");
     }
 
-    private IEnumerator SpawnChildRoom(Hallway connect, int currentDistance)
+    private IEnumerator SpawnChildRoom(Hallway connection, int currentDistance)
     {
-        Vector3 spawnPoint = SpawnPointFromHall(connect);
+        Vector3 spawnPoint = SpawnPointFromHall(connection);
 
         if (currentDistance < settings.maxLength - branchReduction)
         {
             List<GameObject> exclude = new List<GameObject>();
             List<GameObject> tiles = settings.tileset.tiles;
 
-            while (!connect.connected)
+            while (!connection.connected)
             {
                 // Get random tile and spawn it
                 GameObject prefab = GetRandomGameObjectFromList(tiles, exclude);
@@ -67,7 +67,7 @@ public class DungeonManager : MonoBehaviour
                     }
                     else
                     {
-                        childRoom.ConnectAllCollidingHalls();
+                        childRoom.ConnectAllClaims();
 
                         foreach (Hallway hall in childRoom.hallways)
                         {
@@ -133,7 +133,7 @@ public class DungeonManager : MonoBehaviour
         // Assuming that exclude only contains values that are also in list, if
         // exclude is larger or equal to list, there is no possible object that
         // can be returned, so return null.
-        if (exclude.Count < list.Count)
+        if (list.Count > exclude.Count)
         {
             do
             {
