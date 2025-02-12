@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -14,6 +15,8 @@ public class Hallway : MonoBehaviour
 {
     public HallwayDirection direction = HallwayDirection.Up;
     public bool connected = false;
+
+    public ChildRoom collidingRoom = null;
 
     public void Open()
     {
@@ -43,5 +46,29 @@ public class Hallway : MonoBehaviour
         // an error and returning just in case
         Debug.LogError("Ended opposite dir without finding opposite");
         return direction;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Keep track of what room the hall claim is colliding with
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Child Room"))
+        {
+            if (collision.gameObject.TryGetComponent(out ChildRoom room))
+            {
+                collidingRoom = room;
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        // Remove room when it disapears
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Child Room"))
+        {
+            if (collision.gameObject.TryGetComponent(out ChildRoom room))
+            {
+                collidingRoom = null;
+            }
+        }
     }
 }

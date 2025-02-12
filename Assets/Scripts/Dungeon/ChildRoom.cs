@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,11 +10,6 @@ public class ChildRoom : MonoBehaviour
     public List<Hallway> collidingClaims;
 
     bool enemiesSpawned;
-
-    private void FixedUpdate()
-    {
-        Debug.Log(name + " is in a " + (InValidPosition() ? "Valid" : "Invalid") + " position");
-    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -45,6 +39,7 @@ public class ChildRoom : MonoBehaviour
     {
         bool result = true;
 
+        // check if the room can connect to claims on current spot
         if (collidingClaims.Count != 0)
         {
             foreach (Hallway claim in collidingClaims)
@@ -69,6 +64,53 @@ public class ChildRoom : MonoBehaviour
             }
         }
 
+        // check if hallways can connect to neighbor rooms
+        if (result)
+        {
+            foreach (Hallway hall in hallways)
+            {
+                if (hall.collidingRoom != null)
+                {
+                    bool noConflict = false;
+
+                    foreach (Hallway connection in hall.collidingRoom.hallways)
+                    {
+                        if (connection.direction == hall.OppositeDir() &&
+                            connection.gameObject.transform.position == hall.gameObject.transform.position)
+                        {
+                            noConflict = true;
+                            break;
+                        }
+                    }
+
+                    if (!noConflict)
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+        }
+
         return result;
+    }
+
+    public void ConnectAllCollidingHalls()
+    {
+        if (collidingClaims.Count != 0)
+        {
+            foreach (Hallway claim in collidingClaims)
+            {
+                foreach (Hallway hall in hallways)
+                {
+                    if (claim.direction == hall.OppositeDir() &&
+                        claim.gameObject.transform.position == hall.gameObject.transform.position)
+                    {
+                        claim.connected = true;
+                        hall.connected = true;
+                    }
+                }
+            }
+        }
     }
 }

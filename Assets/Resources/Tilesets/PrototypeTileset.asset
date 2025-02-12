@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4868e23efa549744bbebed972f12678, type: 3}
   m_Name: PrototypeTileset
   m_EditorClassIdentifier: 
-  spawnRoom: {fileID: 0}
+  spawnRoom: {fileID: 8205624513170101846, guid: 526e966ed884b914d9092df6ef515348, type: 3}
   tiles:
   - {fileID: 8205624513170101846, guid: af986bfd8369f55428f86bbb0e20826c, type: 3}
   - {fileID: 8205624513170101846, guid: 1ebfb09c6fb20974ba7135de82a390a5, type: 3}
@@ -32,3 +32,4 @@ MonoBehaviour:
   - {fileID: 8205624513170101846, guid: 9f1954a1ccef3914fb42ff634b95bebd, type: 3}
   bossRooms: []
   endRooms: []
+  tileSize: {x: 20, y: 20}
