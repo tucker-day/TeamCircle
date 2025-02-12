@@ -9,8 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Menus/Main Menu.unity
+    path: Assets/Scenes/Menus/Main.unity
     guid: 319847988f60a534ebb0046dc3625b93
+  - enabled: 1
+    path: Assets/Scenes/Menus/Credit.unity
+    guid: 17a296902f508fa4d81b7a2a8176380d
+  - enabled: 1
+    path: Assets/Scenes/Menus/Pause.unity
+    guid: 5fe5b126e90d9054ca37ef35dd18fb66
+  - enabled: 1
+    path: Assets/Scenes/Menus/Setting.unity
+    guid: 59acd50efda3bd54eb88e9099be3c012
   - enabled: 1
     path: Assets/Scenes/Gameplay/Dungeon.unity
     guid: d73813514b63c274cb8c82a2d06c498f
