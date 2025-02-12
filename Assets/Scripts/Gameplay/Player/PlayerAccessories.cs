@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDroppable 
+public class PlayerAccessories : Equipment
 {
-    void Drop();
-    void Pickup();
+    
 }

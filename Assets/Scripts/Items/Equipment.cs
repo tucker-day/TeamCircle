@@ -17,10 +17,10 @@ public abstract class Equipment : MonoBehaviour
 
 }
 
-class Weapons : Equipment
+public class Weapons : Equipment
 {
     //placeholder common weapon stats
-    public float attack = 5.0f;
+    public float attackDmg = 5.0f;
     public float attackSpeed = 2.0f;
 
 }
@@ -28,4 +28,5 @@ class Weapons : Equipment
 class Accessories : Equipment
 {
     //stubbed out the Accessories class for inheritance
+    //public float 
 }

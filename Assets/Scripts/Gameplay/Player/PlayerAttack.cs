@@ -6,13 +6,9 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public float Timer = 0.0f;
-    public float AttackDelay = 2.0f;
+    public float attackSpeed = 2.0f;
     public float WaitTime = 2.0f;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void AutoAttack()
     {
@@ -23,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         Timer += Time.deltaTime;
-        if(Timer > AttackDelay)
+        if(Timer > attackSpeed)
         {
             AutoAttack();
             Timer = Timer - WaitTime;
