@@ -16,24 +16,20 @@ public class ChildRoom : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Keep track of what hall claims the room is colliding with
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Hallway Claim"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Hallway Claim") &&
+            collision.gameObject.TryGetComponent(out Hallway hall))
         {
-            if (collision.gameObject.TryGetComponent(out Hallway hall))
-            {
-                collidingClaims.Add(hall);
-            }
+            collidingClaims.Add(hall);
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         // Remove hall claims when they disapear
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Hallway Claim"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Hallway Claim") &&
+            collision.gameObject.TryGetComponent(out Hallway hall))
         {
-            if (collision.gameObject.TryGetComponent(out Hallway hall))
-            {
-                collidingClaims.Remove(hall);
-            }
+            collidingClaims.Remove(hall);
         }
     }
 
