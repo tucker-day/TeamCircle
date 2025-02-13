@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
+    [SerializeField]
+    public GameObject prefabQuery;
+
     public DungeonSettings settings;
 
     int branchReduction = 0;
     bool bossRoomSpawned = false;
+    GameObject query;
 
     public void Start()
     {
@@ -25,6 +29,9 @@ public class DungeonManager : MonoBehaviour
         
         GameObject spawnRoom = Instantiate(settings.tileset.spawnRoom, gameObject.transform);
         Hallway spawnHall = spawnRoom.GetComponent<ChildRoom>().hallways[0];
+
+        // create an instance of the query object
+        query = Instantiate(prefabQuery, gameObject.transform);
 
         // Starts the spawn recursion
         yield return SpawnChildRoom(spawnHall, 0);
