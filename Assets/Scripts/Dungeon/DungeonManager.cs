@@ -31,7 +31,7 @@ public class DungeonManager : MonoBehaviour
 
         // create an instance of the query object and set its size
         query = Instantiate(prefabQuery, transform).GetComponent<DungeonQuery>();
-        query.gameObject.GetComponent<BoxCollider2D>().size = settings.tileset.tileSize * 2;
+        query.gameObject.GetComponent<BoxCollider2D>().size = settings.tileset.tileSize * 4;
 
         GameObject spawnRoom = Instantiate(settings.tileset.spawnRoom, transform);
         Hallway spawnHall = spawnRoom.GetComponent<ChildRoom>().hallways[0];
