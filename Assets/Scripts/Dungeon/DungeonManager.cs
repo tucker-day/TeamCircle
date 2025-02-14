@@ -5,13 +5,15 @@ using UnityEngine;
 public class DungeonManager : MonoBehaviour
 {
     [SerializeField]
-    public GameObject prefabQuery;
+    GameObject prefabQuery;
 
     public DungeonSettings settings;
 
     int branchReduction = 0;
     bool bossRoomSpawned = false;
-    GameObject query;
+    DungeonQuery query;
+
+    public DungeonQueryResults results;
 
     public void Start()
     {
@@ -26,16 +28,19 @@ public class DungeonManager : MonoBehaviour
     private IEnumerator SpawnSpawnRoom()
     {
         float startTime = Time.realtimeSinceStartup;
-        
-        GameObject spawnRoom = Instantiate(settings.tileset.spawnRoom, gameObject.transform);
-        Hallway spawnHall = spawnRoom.GetComponent<ChildRoom>().hallways[0];
 
-        // create an instance of the query object
-        query = Instantiate(prefabQuery, gameObject.transform);
+        // create an instance of the query object and set its size
+        query = Instantiate(prefabQuery, transform).GetComponent<DungeonQuery>();
+        query.gameObject.GetComponent<BoxCollider2D>().size = settings.tileset.tileSize * 2;
+
+        GameObject spawnRoom = Instantiate(settings.tileset.spawnRoom, transform);
+        Hallway spawnHall = spawnRoom.GetComponent<ChildRoom>().hallways[0];
 
         // Starts the spawn recursion
         yield return SpawnChildRoom(spawnHall, 0);
         // Everything after happens once recursion is finished
+
+        results = query.GetQueryResults();
 
         float endTime = Time.realtimeSinceStartup - startTime;
 

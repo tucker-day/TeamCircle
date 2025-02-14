@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8056610428174725739}
   - component: {fileID: 3602201619584101772}
   - component: {fileID: 8122896171445191757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DungeonQuery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
