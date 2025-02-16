@@ -7,6 +7,7 @@ public class Chase : IEnemyState
     public void EnterState(Enemy enemy)
     {
         Debug.Log("Entering chase state");
+        enemy.Chase();
     }
     public void UpdateState(Enemy enemy)
     {

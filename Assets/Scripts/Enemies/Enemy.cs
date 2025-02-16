@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     public IEnemyState currentState;
 
     Animator anim;
-    Transform target;
+    public Transform target;
 
     public int hp;
     public int damage;
@@ -17,9 +17,9 @@ public class Enemy : MonoBehaviour
     float attackRange;
     bool isDead = false;
 
-    void Start()
+    protected void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Chase()
     {
-
+        Debug.Log("Base enemy chase");
     }
 
     public virtual void Attack()
