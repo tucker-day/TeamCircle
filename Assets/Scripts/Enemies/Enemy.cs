@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public IEnemyState currentState;
+
     Animator anim;
     Transform target;
 
@@ -22,12 +24,24 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        
+        currentState.UpdateState(this);
+    }
+
+    public void ChangeState(IEnemyState state)
+    {
+        if(currentState != null)
+        {
+            currentState.ExitState(this);
+        }
+
+        currentState = state;
+        currentState.EnterState(this);
     }
     public virtual void Move()
     {
 
     }
+
     public virtual void Chase()
     {
 
@@ -35,7 +49,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Attack()
     {
-        Debug.Log("Attacking");
+        Debug.Log("Base enemy attack");
     }
 
     public void TakeDamage(int damage)
