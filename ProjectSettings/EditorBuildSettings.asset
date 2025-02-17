@@ -18,12 +18,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/Pause.unity
     guid: 5fe5b126e90d9054ca37ef35dd18fb66
   - enabled: 1
+    path: Assets/Scenes/Menus/Achievement.unity
+    guid: 8c86833363ff24944829b8a6e5f10d1b
+  - enabled: 1
     path: Assets/Scenes/Menus/Setting.unity
     guid: 59acd50efda3bd54eb88e9099be3c012
   - enabled: 1
     path: Assets/Scenes/Gameplay/Dungeon.unity
     guid: d73813514b63c274cb8c82a2d06c498f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menus/Achievement.unity
     guid: 9362a3967bc8dbf418fc59d007a548ef
   m_configObjects: {}
