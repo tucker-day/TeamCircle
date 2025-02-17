@@ -7,11 +7,11 @@ public class Attack : IEnemyState
     public void EnterState(Enemy enemy)
     {
         Debug.Log("Entering attack state");
-        enemy.Attack();
     }
     public void UpdateState(Enemy enemy)
     {
         Debug.Log("Executing attack state");
+        enemy.Attack();
         float distance = Vector3.Distance(enemy.player.transform.position, enemy.transform.position);
 
         if (distance >= enemy.attackRange)

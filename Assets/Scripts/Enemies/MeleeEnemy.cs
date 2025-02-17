@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class MeleeEnemy : Enemy
 {
-    public float attackRange = 1.0f;
+    public MeleeEnemy()
+    {
+        attackRange = 1.0f;
+    }
 
     void Start()
     {
