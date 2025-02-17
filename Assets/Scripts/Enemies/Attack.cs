@@ -12,6 +12,13 @@ public class Attack : IEnemyState
     public void UpdateState(Enemy enemy)
     {
         Debug.Log("Executing attack state");
+        float distance = Vector3.Distance(enemy.player.transform.position, enemy.transform.position);
+
+        if (distance >= enemy.attackRange)
+        {
+            enemy.anim.SetBool("isColliding", false);
+            enemy.ChangeState(new Chase());
+        }
     }
     public void ExitState(Enemy enemy)
     {
