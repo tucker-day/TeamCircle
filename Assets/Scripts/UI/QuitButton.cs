@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class QuitButton : MonoBehaviour
 {
-       public Button QuitButton;
+       public Button quitButton;
     void Start()
     {
         
-        QuitButton.onClick.AddListener(OnQuitButtonPressed);
+        quitButton.onClick.AddListener(OnQuitButtonPressed);
     }
 
 
