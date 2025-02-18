@@ -5,38 +5,48 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    Animator anim;
-    Transform target;
+    public IEnemyState currentState;
+
+    //public PlayerStats playerStats;   // PlayerStats script currently unavailable
+   
+    // Placeholder player stats
+    public float playerHP = 100;
+
+    public Animator anim;
+    public Transform player;
 
     public int hp;
     public int damage;
     public float speed;
-    float detectionRange;
-    float attackRange;
+    public float detectionRange;
+    public float attackRange;
     bool isDead = false;
 
-    void Start()
+    protected void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        
-    }
-    public virtual void Move()
-    {
-
-    }
-    public virtual void Chase()
-    {
-
+        currentState.UpdateState(this);
     }
 
-    public virtual void Attack()
+    public void ChangeState(IEnemyState state)
     {
-        Debug.Log("Attacking");
+        if(currentState != null)
+        {
+            currentState.ExitState(this);
+        }
+
+        currentState = state;
+        currentState.EnterState(this);
     }
+    public virtual void Move() { }
+
+    public virtual void Chase() { }
+
+    public virtual void Attack() { }
 
     public void TakeDamage(int damage)
     {
