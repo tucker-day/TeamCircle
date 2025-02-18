@@ -1238,10 +1238,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 117523268409199176, guid: d8ee5709ee1856e4aa1ce236d0eddb14, type: 3}
-      propertyPath: enemiesPresent
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1190454817504952324, guid: d8ee5709ee1856e4aa1ce236d0eddb14, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.071582

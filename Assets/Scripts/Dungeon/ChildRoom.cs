@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class ChildRoom : MonoBehaviour
 {
     // [SerializeField]
@@ -14,30 +16,26 @@ public class ChildRoom : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Keep track of what hall claims the room is colliding with
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Hallway Claim"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Hallway Claim") &&
+            collision.gameObject.TryGetComponent(out Hallway hall))
         {
-            if (collision.gameObject.TryGetComponent(out Hallway hall))
-            {
-                collidingClaims.Add(hall);
-            }
+            collidingClaims.Add(hall);
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         // Remove hall claims when they disapear
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Hallway Claim"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Hallway Claim") &&
+            collision.gameObject.TryGetComponent(out Hallway hall))
         {
-            if (collision.gameObject.TryGetComponent(out Hallway hall))
-            {
-                collidingClaims.Remove(hall);
-            }
+            collidingClaims.Remove(hall);
         }
     }
 
     public bool InValidPosition()
     {
-        bool result = true;
+        bool validPosition = true;
 
         // check if the room can connect to claims on current spot
         if (collidingClaims.Count != 0)
@@ -58,14 +56,14 @@ public class ChildRoom : MonoBehaviour
 
                 if (!canConnect)
                 {
-                    result = false;
+                    validPosition = false;
                     break;
                 }
             }
         }
 
         // check if hallways can connect to neighbor rooms
-        if (result)
+        if (validPosition)
         {
             foreach (Hallway hall in hallways)
             {
@@ -85,17 +83,17 @@ public class ChildRoom : MonoBehaviour
 
                     if (!noConflict)
                     {
-                        result = false;
+                        validPosition = false;
                         break;
                     }
                 }
             }
         }
 
-        return result;
+        return validPosition;
     }
 
-    public void ConnectAllCollidingHalls()
+    public void ConnectAllClaims()
     {
         if (collidingClaims.Count != 0)
         {

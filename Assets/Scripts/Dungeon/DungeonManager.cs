@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
+    [SerializeField]
+    GameObject prefabQuery;
+
     public DungeonSettings settings;
 
     int branchReduction = 0;
     bool bossRoomSpawned = false;
+    DungeonQuery query;
+
+    public DungeonQueryResults results;
+
+    public void Start()
+    {
+        GenerateDungeon();
+    }
 
     public void GenerateDungeon() 
     {
@@ -17,29 +28,41 @@ public class DungeonManager : MonoBehaviour
     private IEnumerator SpawnSpawnRoom()
     {
         float startTime = Time.realtimeSinceStartup;
-        
-        GameObject spawnRoom = Instantiate(settings.tileset.spawnRoom, gameObject.transform);
+
+        // create an instance of the query object and set its size
+        query = Instantiate(prefabQuery, transform).GetComponent<DungeonQuery>();
+        query.gameObject.GetComponent<BoxCollider2D>().size = settings.tileset.tileSize * 4;
+
+        GameObject spawnRoom = Instantiate(settings.tileset.spawnRoom, transform);
         Hallway spawnHall = spawnRoom.GetComponent<ChildRoom>().hallways[0];
 
+        // Starts the spawn recursion
         yield return SpawnChildRoom(spawnHall, 0);
+        // Everything after happens once recursion is finished
+
+        results = query.GetQueryResults();
 
         float endTime = Time.realtimeSinceStartup - startTime;
 
         Debug.Log("Generation Complete in " + endTime + " seconds or approx. " + (int)(endTime * 50) + " fixed updates");
+
+        ChildRoom[] game = GetComponentsInChildren<ChildRoom>();
+        Debug.Log("Created " + game.Length + " rooms");
     }
 
-    private IEnumerator SpawnChildRoom(Hallway connect, int currentDistance)
+    private IEnumerator SpawnChildRoom(Hallway connection, int currentDistance)
     {
-        Vector3 spawnPoint = SpawnPointFromHall(connect);
+        Vector3 spawnPoint = SpawnPointFromHall(connection);
 
         if (currentDistance < settings.maxLength - branchReduction)
         {
             List<GameObject> exclude = new List<GameObject>();
+            List<GameObject> tiles = settings.tileset.tiles;
 
-            while (!connect.connected)
+            while (!connection.connected)
             {
                 // Get random tile and spawn it
-                GameObject prefab = GetRandomGameObjectFromList(settings.tileset.tiles, exclude);
+                GameObject prefab = GetRandomGameObjectFromList(tiles, exclude);
 
                 if (prefab != null)
                 {
@@ -56,7 +79,7 @@ public class DungeonManager : MonoBehaviour
                     }
                     else
                     {
-                        childRoom.ConnectAllCollidingHalls();
+                        childRoom.ConnectAllClaims();
 
                         foreach (Hallway hall in childRoom.hallways)
                         {
@@ -66,10 +89,8 @@ public class DungeonManager : MonoBehaviour
                 }
                 else
                 {
-                    // Will implement spawning cap rooms here later. For now, just say the
-                    // hall gets connected and move on
-                    Debug.Log("Couldn't spawn non-cap room.");
-                    connect.connected = true;
+                    tiles = settings.tileset.capTiles;
+                    exclude.Clear();
                 }
             }
         }
@@ -124,7 +145,7 @@ public class DungeonManager : MonoBehaviour
         // Assuming that exclude only contains values that are also in list, if
         // exclude is larger or equal to list, there is no possible object that
         // can be returned, so return null.
-        if (exclude.Count < list.Count)
+        if (list.Count > exclude.Count)
         {
             do
             {
