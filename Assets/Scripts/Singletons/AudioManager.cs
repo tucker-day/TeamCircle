@@ -9,12 +9,18 @@ public class AudioManager : MonoBehaviour
     public GameManager gameState;
 
     [SerializeField]
-    AudioSource mus_calm, mus_combat, sfxAudio;
+    AudioSource mus_calm, mus_combat, mus_miniboss, sfxAudio;
 
     public AudioClip[] soundEffects;
 
     bool combatToCalm;
+    bool minibossToCalm;
+
     bool calmToCombat;
+    bool minibossToCombat;
+
+    bool calmToMiniboss;
+    bool combatToMiniboss;
 
     public float musVolume;
     public float sfxVolume;
@@ -39,7 +45,6 @@ public class AudioManager : MonoBehaviour
     void Update()
     {
         CheckMusicUpdate();
-        MusicFade();
         TestSoundEffects();
     }
 
@@ -48,34 +53,48 @@ public class AudioManager : MonoBehaviour
         // For testing fading between music variants.
         // Press Escape to switch to Combat music.
         // Press Tab to switch to Calm music.
-        if ((Input.GetKeyDown(KeyCode.Escape) && mus_combat.volume == 0f) || gameState.enemiesPresent)
+        // Press Left Shift to switch to Miniboss music.
+        if ((Input.GetKeyDown(KeyCode.Escape) && mus_combat.volume == 0f) || gameState.enemiesPresent && !gameState.minibossPresent)
         {
             calmToCombat = true;
+            minibossToCombat = true;
+
             combatToCalm = false;
+            minibossToCalm = false;
+            calmToMiniboss = false;
+            combatToMiniboss = false;
+
             gameState.enemiesPresent = true;
+            gameState.minibossPresent = false;
+            StartCoroutine("FadeMusic");
         }
         if ((Input.GetKeyDown(KeyCode.Tab) && mus_calm.volume == 0f) || !gameState.enemiesPresent)
         {
             combatToCalm = true;
+            minibossToCalm = true;
+
             calmToCombat = false;
+            minibossToCombat = false;
+            calmToMiniboss = false;
+            combatToMiniboss = false;
+
             gameState.enemiesPresent = false;
+            gameState.minibossPresent = false;
+            StartCoroutine("FadeMusic");
         }
-    }
-
-    void MusicFade()
-    {
-        // If combat to calm is true, fade from combat into calm version.
-        if (combatToCalm && mus_combat.volume > 0.00f)
+        if ((Input.GetKeyDown(KeyCode.LeftShift) && mus_miniboss.volume == 0f) || gameState.minibossPresent)
         {
-            mus_calm.volume += 0.002f;
-            mus_combat.volume -= 0.002f;
-        }
+            calmToMiniboss = true;
+            combatToMiniboss = true;
 
-        // If calm to combat is true, fade from calm into combat version.
-        if (calmToCombat && mus_calm.volume > 0.00f)
-        {
-            mus_combat.volume += 0.002f;
-            mus_calm.volume -= 0.002f;
+            calmToCombat = false;
+            minibossToCombat = false;
+            combatToCalm = false;
+            minibossToCalm = false;
+
+            gameState.enemiesPresent = true;
+            gameState.minibossPresent = true;
+            StartCoroutine("FadeMusic");
         }
     }
 
@@ -117,6 +136,49 @@ public class AudioManager : MonoBehaviour
         {
             // Press D to play ranged enemy death sound.
             PlaySFX(soundEffects[5]);
+        }
+    }
+
+    IEnumerator FadeMusic()
+    {
+        if (mus_calm.volume < 0)
+        {
+            mus_calm.volume = 0;
+        }
+        if (mus_combat.volume < 0)
+        {
+            mus_combat.volume = 0;
+        }
+        if (mus_miniboss.volume < 0)
+        {
+            mus_miniboss.volume = 0;
+        }
+
+        // If combat or miniboss to calm is true, fade into calm version.
+        if (combatToCalm && mus_combat.volume > 0.00f || minibossToCalm && mus_miniboss.volume > 0.00f)
+        {
+            mus_calm.volume += 0.002f;
+            mus_combat.volume -= 0.002f;
+            mus_miniboss.volume -= 0.002f;
+            yield return null;
+        }
+
+        // If calm or miniboss to combat is true, fade into combat version.
+        else if (calmToCombat && mus_calm.volume > 0.00f || minibossToCombat && mus_miniboss.volume > 0.00f)
+        {
+            mus_combat.volume += 0.002f;
+            mus_calm.volume -= 0.002f;
+            mus_miniboss.volume -= 0.002f;
+            yield return null;
+        }
+
+        // If calm or combat to miniboss is true, fade into miniboss version.
+        else if (calmToMiniboss && mus_calm.volume > 0.00f || combatToMiniboss && mus_combat.volume > 0.00f)
+        {
+            mus_miniboss.volume += 0.002f;
+            mus_calm.volume -= 0.002f;
+            mus_combat.volume -= 0.002f;
+            yield return null;
         }
     }
 }
