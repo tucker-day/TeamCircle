@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public bool enemiesPresent = false;
+    public bool minibossPresent = false;
 
     // Start is called before the first frame update
     void Start()
