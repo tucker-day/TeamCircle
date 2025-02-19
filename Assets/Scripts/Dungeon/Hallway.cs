@@ -11,6 +11,8 @@ public enum HallwayDirection
     Right
 }
 
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Hallway : MonoBehaviour
 {
     public HallwayDirection direction = HallwayDirection.Up;
@@ -51,24 +53,20 @@ public class Hallway : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Keep track of what room the hall claim is colliding with
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Child Room"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Child Room") &&
+            collision.gameObject.TryGetComponent(out ChildRoom room))
         {
-            if (collision.gameObject.TryGetComponent(out ChildRoom room))
-            {
-                collidingRoom = room;
-            }
+            collidingRoom = room;
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         // Remove room when it disapears
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Child Room"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Child Room") &&
+            collision.gameObject.TryGetComponent(out ChildRoom room))
         {
-            if (collision.gameObject.TryGetComponent(out ChildRoom room))
-            {
-                collidingRoom = null;
-            }
+            collidingRoom = null;
         }
     }
 }
