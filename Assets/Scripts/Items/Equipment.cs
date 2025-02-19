@@ -28,5 +28,5 @@ public class Weapons : Equipment
 class Accessories : Equipment
 {
     //stubbed out the Accessories class for inheritance
-    //public float 
+    public float MaxHP = 105.0f;
 }
