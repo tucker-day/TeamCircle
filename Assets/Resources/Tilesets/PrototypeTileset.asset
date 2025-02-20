@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4868e23efa549744bbebed972f12678, type: 3}
+  m_Name: PrototypeTileset
+  m_EditorClassIdentifier: 
+  spawnRoom: {fileID: 8205624513170101846, guid: 230c59e849e7bd441a353b972bfee32a, type: 3}
+  tiles:
+  - {fileID: 8205624513170101846, guid: af986bfd8369f55428f86bbb0e20826c, type: 3}
+  - {fileID: 8205624513170101846, guid: 1ebfb09c6fb20974ba7135de82a390a5, type: 3}
+  - {fileID: 8205624513170101846, guid: 27963e3268c1777438a6472e96158f72, type: 3}
+  - {fileID: 8205624513170101846, guid: 4e3ec95d0d9cbc641bdf21908a571958, type: 3}
+  - {fileID: 8205624513170101846, guid: 848e57a7e39912841b953503f327df41, type: 3}
+  - {fileID: 8205624513170101846, guid: 9c03e45ee394add428370ea14720058e, type: 3}
+  - {fileID: 8205624513170101846, guid: 32e29a2693470b24b8df90cba7d7dfbf, type: 3}
+  - {fileID: 8205624513170101846, guid: c85ade544f1df6c47be7b99129d39fb4, type: 3}
+  - {fileID: 8205624513170101846, guid: 6e5cffcd59cf8594bb754e6bfe6dbd60, type: 3}
+  - {fileID: 8205624513170101846, guid: f8e508d8ad6e15f4a9f086732f268caf, type: 3}
+  - {fileID: 8205624513170101846, guid: e6d9394aa725f1d48b4ca7678a92b3dd, type: 3}
+  capTiles:
+  - {fileID: 8205624513170101846, guid: a7261e1d60046f6498710efd21fa5eb7, type: 3}
+  - {fileID: 8205624513170101846, guid: 526e966ed884b914d9092df6ef515348, type: 3}
+  - {fileID: 8205624513170101846, guid: f25e4ca476143a541885014c98513055, type: 3}
+  - {fileID: 8205624513170101846, guid: 9f1954a1ccef3914fb42ff634b95bebd, type: 3}
+  bossRooms:
+  - {fileID: 8205624513170101846, guid: 1195e0010a7c76644b13c638121facdc, type: 3}
+  - {fileID: 8205624513170101846, guid: fde14f88c25753b43ae8474d293da293, type: 3}
+  - {fileID: 8205624513170101846, guid: b00c349c55dc369499fdaca1a2867481, type: 3}
+  - {fileID: 8205624513170101846, guid: ab8ceef467563e742b079a3c794fac8d, type: 3}
+  endRooms: []
+  tileSize: {x: 20, y: 20}
