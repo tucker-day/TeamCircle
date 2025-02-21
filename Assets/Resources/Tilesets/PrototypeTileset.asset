@@ -14,23 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRoom: {fileID: 8205624513170101846, guid: 230c59e849e7bd441a353b972bfee32a, type: 3}
   rooms:
-  - {fileID: 8205624513170101846, guid: 1ebfb09c6fb20974ba7135de82a390a5, type: 3}
+  - item: {fileID: 8205624513170101846, guid: 1ebfb09c6fb20974ba7135de82a390a5, type: 3}
+    weight: 1
+    cost: 1
   bossRooms:
-  - {fileID: 8205624513170101846, guid: 1195e0010a7c76644b13c638121facdc, type: 3}
+  - item: {fileID: 8205624513170101846, guid: 1195e0010a7c76644b13c638121facdc, type: 3}
+    weight: 1
+    cost: 1
   endRooms: []
-  halls:
-  - {fileID: 4545500088779003197, guid: 07ad9409de9caa44c90ca23468c3d762, type: 3}
-  - {fileID: 2416631695340807976, guid: 0519c8272c6912449858e51942e6fd83, type: 3}
-  - {fileID: 7904676624330061319, guid: 63650a21dd6f5f545bc7efaf2d75d6cf, type: 3}
-  - {fileID: 1534938104928593270, guid: 99e059ae70aee8141b78bbd1892fac1e, type: 3}
-  walls:
-  - {fileID: 1172427265754954242, guid: 0cded716f5399fd4e8971bea02f3b1fa, type: 3}
-  - {fileID: 7617236520172128549, guid: 9217bd54c27ec4e4a96c901936bae301, type: 3}
-  - {fileID: 6713100221082150687, guid: 2661730ff519cf0458573756889c6330, type: 3}
-  - {fileID: 8919108880552426637, guid: 84a6358bcd97055419083008c4c424e8, type: 3}
-  corners:
-  - {fileID: 4331588192761108848, guid: fafc0c9a64028b04587acb63c1117ab5, type: 3}
-  - {fileID: 8291519884084381305, guid: 0f676c68f44f13141a3f15dd9db2e236, type: 3}
-  - {fileID: 6745808367429224071, guid: a4519649cba4b504385510ae1ab34156, type: 3}
-  - {fileID: 807813016557514334, guid: bddc0da131b59a54fba7624e01c95db6, type: 3}
+  upperHall: {fileID: 1534938104928593270, guid: 99e059ae70aee8141b78bbd1892fac1e, type: 3}
+  rightHall: {fileID: 7904676624330061319, guid: 63650a21dd6f5f545bc7efaf2d75d6cf, type: 3}
+  lowerHall: {fileID: 2416631695340807976, guid: 0519c8272c6912449858e51942e6fd83, type: 3}
+  leftHall: {fileID: 4545500088779003197, guid: 07ad9409de9caa44c90ca23468c3d762, type: 3}
+  upperWall: {fileID: 8919108880552426637, guid: 84a6358bcd97055419083008c4c424e8, type: 3}
+  rightWall: {fileID: 6713100221082150687, guid: 2661730ff519cf0458573756889c6330, type: 3}
+  lowerWall: {fileID: 7617236520172128549, guid: 9217bd54c27ec4e4a96c901936bae301, type: 3}
+  leftWall: {fileID: 1172427265754954242, guid: 0cded716f5399fd4e8971bea02f3b1fa, type: 3}
+  upperLeftCorner: {fileID: 6745808367429224071, guid: a4519649cba4b504385510ae1ab34156, type: 3}
+  upperRightCorner: {fileID: 807813016557514334, guid: bddc0da131b59a54fba7624e01c95db6, type: 3}
+  lowerLeftCorner: {fileID: 4331588192761108848, guid: fafc0c9a64028b04587acb63c1117ab5, type: 3}
+  lowerRightCorner: {fileID: 8291519884084381305, guid: 0f676c68f44f13141a3f15dd9db2e236, type: 3}
   tileSize: {x: 20, y: 20}

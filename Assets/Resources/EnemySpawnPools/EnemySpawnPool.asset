@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EnemySpawnPool
   m_EditorClassIdentifier: 
   weights:
-  - enemy: {fileID: 0}
+  - item: {fileID: 0}
     weight: 0
     cost: 0

@@ -11,10 +11,23 @@ public class DungeonTileset : ScriptableObject
     public List<WeightedItem<GameObject>> bossRooms;
     public List<WeightedItem<GameObject>> endRooms;
 
-    [Header("Edge Fillers")]
-    public List<GameObject> halls;
-    public List<GameObject> walls;
-    public List<GameObject> corners;
+    [Header("Halls")]
+    public GameObject upperHall;
+    public GameObject rightHall;
+    public GameObject lowerHall;
+    public GameObject leftHall;
+
+    [Header("Walls")]
+    public GameObject upperWall;
+    public GameObject rightWall;
+    public GameObject lowerWall;
+    public GameObject leftWall;
+
+    [Header("Corners")]
+    public GameObject upperLeftCorner;
+    public GameObject upperRightCorner;
+    public GameObject lowerLeftCorner;
+    public GameObject lowerRightCorner;
 
     public Vector2 tileSize;
 }
