@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DungeonTileset", menuName = "Procedural Generation/Dungeon Tileset")]
@@ -60,7 +58,7 @@ public class DungeonTileset : ScriptableObject
             weightProgress += item.weight;
 
             if (selection < weightProgress)
-            {
+            { 
                 room = item.item;
                 cost = item.cost;
             }
