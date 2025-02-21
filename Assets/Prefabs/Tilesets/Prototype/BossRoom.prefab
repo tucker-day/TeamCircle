@@ -94,10 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1446455166080344785}
   - component: {fileID: 3762161469427488847}
-  - component: {fileID: 479602280391733675}
-  - component: {fileID: -8975079878437951007}
+  - component: {fileID: -1490670101686014156}
+  - component: {fileID: 5058870876017151433}
   m_Layer: 6
-  m_Name: BossRoom3
+  m_Name: BossRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,11 +131,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07e282441a5f58468d63e9d02ca68bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 0
-  hallways:
-  - {fileID: 0}
-  collidingClaims: []
---- !u!50 &479602280391733675
+  upperEdgeRestrictions:
+    <canBeWall>k__BackingField: 1
+    <canBeDoor>k__BackingField: 1
+    <canBeOpen>k__BackingField: 1
+  rightEdgeRestrictions:
+    <canBeWall>k__BackingField: 1
+    <canBeDoor>k__BackingField: 1
+    <canBeOpen>k__BackingField: 1
+  lowerEdgeRestrictions:
+    <canBeWall>k__BackingField: 1
+    <canBeDoor>k__BackingField: 1
+    <canBeOpen>k__BackingField: 1
+  leftEdgeRestrictions:
+    <canBeWall>k__BackingField: 1
+    <canBeDoor>k__BackingField: 1
+    <canBeOpen>k__BackingField: 1
+--- !u!50 &-1490670101686014156
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -162,7 +174,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &-8975079878437951007
+--- !u!61 &5058870876017151433
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

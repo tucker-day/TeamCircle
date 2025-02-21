@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.024614573, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,10 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1446455166080344785}
   - component: {fileID: 3762161469427488847}
-  - component: {fileID: -2048095562234852076}
+  - component: {fileID: 8127597815675003238}
   - component: {fileID: -8975079878437951007}
   m_Layer: 6
-  m_Name: BossRoom4
+  m_Name: SpawnRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,11 +131,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07e282441a5f58468d63e9d02ca68bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 0
-  hallways:
-  - {fileID: 0}
-  collidingClaims: []
---- !u!50 &-2048095562234852076
+  upperEdgeRestrictions:
+    <canBeWall>k__BackingField: 1
+    <canBeDoor>k__BackingField: 1
+    <canBeOpen>k__BackingField: 1
+  rightEdgeRestrictions:
+    <canBeWall>k__BackingField: 1
+    <canBeDoor>k__BackingField: 1
+    <canBeOpen>k__BackingField: 1
+  lowerEdgeRestrictions:
+    <canBeWall>k__BackingField: 1
+    <canBeDoor>k__BackingField: 1
+    <canBeOpen>k__BackingField: 1
+  leftEdgeRestrictions:
+    <canBeWall>k__BackingField: 1
+    <canBeDoor>k__BackingField: 1
+    <canBeOpen>k__BackingField: 1
+--- !u!50 &8127597815675003238
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

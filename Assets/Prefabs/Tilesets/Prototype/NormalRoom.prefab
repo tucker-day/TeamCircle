@@ -94,10 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1446455166080344785}
   - component: {fileID: 3762161469427488847}
-  - component: {fileID: -550063072269888884}
-  - component: {fileID: -9004918442845006873}
+  - component: {fileID: 7374316391898477783}
+  - component: {fileID: -465483231164322300}
   m_Layer: 6
-  m_Name: BranchTile3
+  m_Name: NormalRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   collidingClaims: []
---- !u!50 &-550063072269888884
+--- !u!50 &7374316391898477783
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &-9004918442845006873
+--- !u!61 &-465483231164322300
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
