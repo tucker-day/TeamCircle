@@ -7,9 +7,9 @@ public class DungeonTileset : ScriptableObject
 {
     [Header("Rooms")]
     public GameObject spawnRoom;
-    public List<GameObject> rooms;
-    public List<GameObject> bossRooms;
-    public List<GameObject> endRooms;
+    public List<WeightedItem<GameObject>> rooms;
+    public List<WeightedItem<GameObject>> bossRooms;
+    public List<WeightedItem<GameObject>> endRooms;
 
     [Header("Edge Fillers")]
     public List<GameObject> halls;
