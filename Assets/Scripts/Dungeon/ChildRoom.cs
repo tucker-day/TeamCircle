@@ -1,22 +1,24 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [Serializable]
-public class EdgeRestrictions
+public class EdgeRules
 {
-    [field: SerializeField] public bool canBeWall { get; private set; } = true;
-    [field: SerializeField] public bool canBeDoor { get; private set; } = true;
-    [field: SerializeField] public bool canBeOpen { get; private set; } = true;
+    [field: SerializeField] public bool CanBeWall { get; private set; } = true;
+    [field: SerializeField] public bool CanBeDoor { get; private set; } = true;
+    [field: SerializeField] public bool CanBeOpen { get; private set; } = true;
+    [SerializeField] public GameObject ForcedSpawn = null;
 }
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class ChildRoom : MonoBehaviour
 {
-    [Header("Edge Restrictions")]
-    public EdgeRestrictions upperEdgeRestrictions = new EdgeRestrictions();
-    public EdgeRestrictions rightEdgeRestrictions = new EdgeRestrictions();
-    public EdgeRestrictions lowerEdgeRestrictions = new EdgeRestrictions();
-    public EdgeRestrictions leftEdgeRestrictions = new EdgeRestrictions();
+    [Header("Edge Rules")]
+    public EdgeRules upperEdgeRules = new EdgeRules();
+    public EdgeRules rightEdgeRules = new EdgeRules();
+    public EdgeRules lowerEdgeRules = new EdgeRules();
+    public EdgeRules leftEdgeRules = new EdgeRules();
 }
