@@ -25,6 +25,7 @@ public class RoomData
 
     public EdgeType GetEdgeType(Edges edge)
     {
+        // shift to get only the bits that specify the desired edge's type
         byte temp = (byte)(_edgeData >> (int)edge);
         temp = (byte)(temp & 0b_0000_0011);
 
@@ -33,20 +34,26 @@ public class RoomData
 
     public void SetEdgeType(Edges edge, EdgeType type)
     {
+        // get the bits for the new type and shift it into the correct position
         byte newType = GetByteConversion(type);
         newType = (byte)(newType << (int)edge);
 
+        // create a filter for the edge data to remove old data
         byte filter = 0b00000011;
         filter = (byte)(filter << (int)edge);
         filter = (byte)~filter;
 
+        // remove the old data, and instert the new data
         _edgeData = (byte)(_edgeData & filter);
         _edgeData = (byte)(_edgeData | newType);
     }
 
+    // takes in a byte, and returrns the matching edge type enum
     public EdgeType GetEnumConversion(byte type)
     {
-        // this cannot be a switch statment. trust me, i tried.
+        // this cannot be a switch statment. trust me, i tried. c# dislikes
+        // it when you use functions in your switch cases so I had to use
+        // if else statments
         if (type == GetByteConversion(EdgeType.Wall))
         {
             return EdgeType.Wall;
@@ -70,6 +77,7 @@ public class RoomData
         }
     }
 
+    // converts an enum edge type into its byte representation
     public byte GetByteConversion(EdgeType type)
     {
         switch (type)
