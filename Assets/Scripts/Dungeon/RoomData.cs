@@ -20,16 +20,28 @@ public enum EdgeType
 
 public class RoomData
 {
-    private byte _edgeData;
+    public byte distance = 0;
+    private byte _edgeData = 0;
 
     public EdgeType GetEdgeType(Edges edge)
     {
-        return GetEnumConversion(_edgeData);
+        byte temp = (byte)(_edgeData >> (int)edge);
+        temp = (byte)(temp & 0b_0000_0011);
+
+        return GetEnumConversion(temp);
     }
 
     public void SetEdgeType(Edges edge, EdgeType type)
     {
+        byte newType = GetByteConversion(type);
+        newType = (byte)(newType << (int)edge);
 
+        byte filter = 0b00000011;
+        filter = (byte)(filter << (int)edge);
+        filter = (byte)~filter;
+
+        _edgeData = (byte)(_edgeData & filter);
+        _edgeData = (byte)(_edgeData | newType);
     }
 
     public EdgeType GetEnumConversion(byte type)
@@ -53,6 +65,7 @@ public class RoomData
         }
         else
         {
+            Debug.Log("Invalid Input into GetEnumConversion()!");
             return 0;
         }
     }
@@ -62,15 +75,16 @@ public class RoomData
         switch (type)
         {
             case EdgeType.Wall:
-                return 0b0000000;
+                return 0b_0000_0000;
             case EdgeType.Door:
-                return 0b0000001;
+                return 0b_0000_0001;
             case EdgeType.Breakable:
-                return 0b0000010;
+                return 0b_0000_0010;
             case EdgeType.Open:
-                return 0b0000011;
+                return 0b_0000_0011;
         }
 
+        Debug.Log("Invalid Input into GetByteConversion()!");
         return 0;
     }
 }
