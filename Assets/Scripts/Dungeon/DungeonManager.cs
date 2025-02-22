@@ -202,6 +202,9 @@ public class DungeonManager : MonoBehaviour
         return true;
     }
 
+    // NOTE: this function does not check if what it's doing is valid as you're
+    // only supposed to use this after you check if the room is in a vaild position.
+    // using on an invalid room will cause bugs.
     private RoomData CreateRoomData(Vector2Int pos, ChildRoom child, int cost)
     {
         int lowestDistance = 0;
@@ -353,64 +356,59 @@ public class DungeonManager : MonoBehaviour
     {
         Vector2 spawnOrigin = GetSpawnPos(pos);
 
-        // upper
-        Vector2 spawnPoint = spawnOrigin + new Vector2(0, settings.tileset.tileSize.y / 2);
-        if (roomData.GetEdgeType(Edges.Upper) == EdgeType.Hall)
+        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Upper, parent);
+        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Lower, parent);
+        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Right, parent);
+        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Left, parent);
+    }
+
+    private void SpawnObjectsOnEdge(Vector2 pos, RoomData data, Edges edge, GameObject parent)
+    {
+        Vector2 adjustment = Vector2.zero;
+        EdgeGroup edgeGroup = new();
+
+        switch (edge)
         {
-            Instantiate(settings.tileset.edges.upper.hall, spawnPoint, Quaternion.identity, parent.transform);
-        }
-        else if (roomData.GetEdgeType(Edges.Upper) == EdgeType.Wall)
-        {
-            Instantiate(settings.tileset.edges.upper.wall, spawnPoint, Quaternion.identity, parent.transform);
-        }
-        else if (roomData.GetEdgeType(Edges.Upper) == EdgeType.Open)
-        {
-            Instantiate(settings.tileset.edges.upper.open, spawnPoint, Quaternion.identity, parent.transform);
+            case Edges.Upper:
+                adjustment = new Vector2(0, settings.tileset.tileSize.y / 2);
+                edgeGroup = settings.tileset.edges.upper;
+                break;
+            case Edges.Lower:
+                adjustment = new Vector2(0, -settings.tileset.tileSize.y / 2);
+                edgeGroup = settings.tileset.edges.lower;
+                break;
+            case Edges.Left:
+                adjustment = new Vector2(-settings.tileset.tileSize.x / 2, 0);
+                edgeGroup = settings.tileset.edges.left;
+                break;
+            case Edges.Right:
+                adjustment = new Vector2(settings.tileset.tileSize.x / 2, 0);
+                edgeGroup = settings.tileset.edges.right;
+                break;
         }
 
-        // lower
-        spawnPoint = spawnOrigin + new Vector2(0, -settings.tileset.tileSize.y / 2);
-        if (roomData.GetEdgeType(Edges.Lower) == EdgeType.Hall)
+        Vector2 spawnPoint = pos + adjustment;
+        GameObject prefab;
+
+        if (data.GetEdgeType(edge) == EdgeType.Hall)
         {
-            Instantiate(settings.tileset.edges.lower.hall, spawnPoint, Quaternion.identity, parent.transform);
+            prefab = edgeGroup.hall;        
         }
-        else if (roomData.GetEdgeType(Edges.Lower) == EdgeType.Wall)
+        else if (data.GetEdgeType(edge) == EdgeType.Wall)
         {
-            Instantiate(settings.tileset.edges.lower.wall, spawnPoint, Quaternion.identity, parent.transform);
+            prefab = edgeGroup.wall;
         }
-        else if (roomData.GetEdgeType(Edges.Lower) == EdgeType.Open)
+        else if (data.GetEdgeType(edge) == EdgeType.Open)
         {
-            Instantiate(settings.tileset.edges.lower.open, spawnPoint, Quaternion.identity, parent.transform);
+            prefab = edgeGroup.open;
+        }
+        else
+        {
+            // it should be impossible to get here, but if it does just spawn a wall and print errror
+            Debug.LogError("Tried spawning objects on invalid edge!");
+            prefab = edgeGroup.wall;
         }
 
-        // right
-        spawnPoint = spawnOrigin + new Vector2(settings.tileset.tileSize.x / 2, 0);
-        if (roomData.GetEdgeType(Edges.Right) == EdgeType.Hall)
-        {
-            Instantiate(settings.tileset.edges.right.hall, spawnPoint, Quaternion.identity, parent.transform);
-        }
-        else if (roomData.GetEdgeType(Edges.Right) == EdgeType.Wall)
-        {
-            Instantiate(settings.tileset.edges.right.wall, spawnPoint, Quaternion.identity, parent.transform);
-        }
-        else if (roomData.GetEdgeType(Edges.Right) == EdgeType.Open)
-        {
-            Instantiate(settings.tileset.edges.right.open, spawnPoint, Quaternion.identity, parent.transform);
-        }
-
-        // left
-        spawnPoint = spawnOrigin + new Vector2(-settings.tileset.tileSize.x / 2, 0);
-        if (roomData.GetEdgeType(Edges.Left) == EdgeType.Hall)
-        {
-            Instantiate(settings.tileset.edges.left.hall, spawnPoint, Quaternion.identity, parent.transform);
-        }
-        else if (roomData.GetEdgeType(Edges.Left) == EdgeType.Wall)
-        {
-            Instantiate(settings.tileset.edges.left.wall, spawnPoint, Quaternion.identity, parent.transform);
-        }
-        else if (roomData.GetEdgeType(Edges.Left) == EdgeType.Open)
-        {
-            Instantiate(settings.tileset.edges.left.open, spawnPoint, Quaternion.identity, parent.transform);
-        }
+        Instantiate(prefab, spawnPoint, Quaternion.identity, parent.transform);
     }
 }
