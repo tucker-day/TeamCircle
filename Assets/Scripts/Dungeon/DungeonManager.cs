@@ -33,7 +33,7 @@ public class DungeonManager : MonoBehaviour
 
     // spawn a random room in a specific position. if a forceRoom is passed in, it will try to spawn
     // that room instead of a random room.
-    public SpawnRoomResult SpawnRoom(Vector2Int pos, GameObject forceRoom = null)
+    private SpawnRoomResult SpawnRoom(Vector2Int pos, GameObject forceRoom = null)
     {
         // return if position is already claimed
         if (dungeonGrid[pos.x, pos.y] != null)
@@ -41,55 +41,78 @@ public class DungeonManager : MonoBehaviour
             return SpawnRoomResult.AlreadyClaimed;
         }
 
-        GameObject room = forceRoom;
-        ChildRoom child;
+        GameObject room;
         int cost = 0;
 
-        // check if the random room can be placed in the given location
-        int attempt = 0;
-        do
+        if (forceRoom == null)
         {
-            // get a random room if needed
-            if (room == null)
+            // if couldn't get a valid room, return early
+            bool result = GetRandomValidRoom(pos, out room, out cost);
+            if (!result) return SpawnRoomResult.Failed; 
+        }
+        else
+        {
+            room = forceRoom;
+
+            // validate force room, return if impossible to fufil
+            if (!room.TryGetComponent<ChildRoom>(out ChildRoom child))
             {
-                settings.tileset.GetRandomRoom(out room, out cost);
+                Debug.LogError("Force room wasn't a room!");
+                return SpawnRoomResult.ImpossibleForcePlace;
             }
 
-            attempt++;
-
-            if (!room.TryGetComponent<ChildRoom>(out child))
+            if (!IsValidPosition(pos, child))
             {
-                if (forceRoom != null)
-                {
-                    Debug.Log("Recieved a force room that wasn't a room!");
-                    return SpawnRoomResult.ImpossibleForcePlace;
-                }
+                return SpawnRoomResult.ImpossibleForcePlace;
+            }
+        }
 
-                Debug.Log("Got a random room that wasn't a room!");
+        dungeonGrid[pos.x, pos.y] = new RoomData();
+
+        GameObject test = Instantiate(room, pos * settings.tileset.tileSize - spawnOffset, Quaternion.identity, gameObject.transform);
+
+        return SpawnRoomResult.Success;
+    }
+
+    private bool GetRandomValidRoom(Vector2Int pos, out GameObject room, out int cost)
+    {
+        List<GameObject> exclude = new List<GameObject>();
+
+        do
+        {
+            do
+            {
+                // get a random room
+                settings.tileset.GetRandomRoom(out room, out cost);
+            }
+            while (exclude.Contains(room));
+
+            // validate the room
+            if (!room.TryGetComponent<ChildRoom>(out ChildRoom child))
+            {
+                Debug.LogError("Got a random room that wasn't a room!");
+                exclude.Add(room);
                 room = null;
             }
 
             if (!IsValidPosition(pos, child))
             {
+                exclude.Add(room);
                 room = null;
             }
-        } 
-        while (room == null && attempt < 1000);
+        }
+        while (room == null && exclude.Count < settings.tileset.rooms.Count);
 
-        if (attempt >= 1000)
+        if (room == null)
         {
-            Debug.Log("Got stuck in inf loop! Aborting this room placement.");
-
-            return SpawnRoomResult.Failed;
+            Debug.Log("Unable to find valid random room!");
+            return false;
         }
 
-        GameObject test = Instantiate(room, pos * settings.tileset.tileSize - spawnOffset, Quaternion.identity, gameObject.transform);
-        dungeonGrid[pos.x, pos.y] = new RoomData();
-
-        return SpawnRoomResult.Success;
+        return true;
     }
 
-    public bool IsValidPosition(Vector2Int pos, ChildRoom room)
+    private bool IsValidPosition(Vector2Int pos, ChildRoom room)
     {
         // check space above
         RoomData current = dungeonGrid[pos.x, pos.y + 1];
