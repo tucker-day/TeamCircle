@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class DungeonManager : MonoBehaviour
     public DungeonSettings settings;
     private RoomData[,] dungeonGrid;
     private Vector2 spawnOffset;
+    private int dungeonSize;
 
     private void Start()
     {
@@ -23,12 +25,20 @@ public class DungeonManager : MonoBehaviour
     public void GenerateDungeon()
     {
         // create the dungeon grid
-        int dungeonDimensions = settings.maxLength * 2 + 1;
-        dungeonGrid = new RoomData[dungeonDimensions, dungeonDimensions];
-        spawnOffset = new Vector2(dungeonDimensions + 1, dungeonDimensions + 1) * settings.tileset.tileSize / 2;
+        dungeonSize = settings.maxLength * 2 + 1;
+        dungeonGrid = new RoomData[dungeonSize, dungeonSize];
+        spawnOffset = new Vector2(dungeonSize - 1, dungeonSize - 1) * settings.tileset.tileSize / 2;
 
-        SpawnRoom(new Vector2Int(settings.maxLength + 1, settings.maxLength + 1), settings.tileset.spawnRoom);
-        SpawnRoom(new Vector2Int(settings.maxLength + 2, settings.maxLength + 1));
+        SpawnRoom(new Vector2Int(settings.maxLength, settings.maxLength), settings.tileset.spawnRoom);
+
+        // temporarily fill the array with tiles
+        for (int x = 0; x < dungeonGrid.GetLength(0); x++)
+        {
+            for (int y = 0; y < dungeonGrid.GetLength(1); y++)
+            {
+                SpawnRoom(new Vector2Int(x, y));
+            }
+        }
     }
 
     // spawn a random room in a specific position. if a forceRoom is passed in, it will try to spawn
@@ -70,9 +80,15 @@ public class DungeonManager : MonoBehaviour
 
         dungeonGrid[pos.x, pos.y] = CreateRoomData(pos, child, cost);
 
-        GameObject test = Instantiate(room, pos * settings.tileset.tileSize - spawnOffset, Quaternion.identity, gameObject.transform);
+        GameObject spawnedRoom = Instantiate(room, GetSpawnPos(pos), Quaternion.identity, gameObject.transform);
+        SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], spawnedRoom);
 
         return SpawnRoomResult.Success;
+    }
+
+    private Vector2 GetSpawnPos(Vector2Int pos)
+    {
+        return pos * settings.tileset.tileSize - spawnOffset;
     }
 
     private bool GetRandomValidRoom(Vector2Int pos, out GameObject room, out ChildRoom child, out int cost)
@@ -120,82 +136,94 @@ public class DungeonManager : MonoBehaviour
     private bool IsValidPosition(Vector2Int pos, ChildRoom room)
     {
         // check space above
-        RoomData current = dungeonGrid[pos.x, pos.y + 1];
-        if (current != null)
+        if (pos.y < dungeonSize - 1)
         {
-            EdgeType edgeType = current.GetEdgeType(Edges.Lower);
-
-            switch (edgeType)
+            RoomData current = dungeonGrid[pos.x, pos.y + 1];
+            if (current != null)
             {
-                case EdgeType.Wall:
-                    if (!room.upperEdgeRules.CanBeWall) return false;
-                    break;
-                case EdgeType.Door:
-                    if (!room.upperEdgeRules.CanBeDoor) return false;
-                    break;
-                case EdgeType.Open:
-                    if (!room.upperEdgeRules.CanBeOpen) return false;
-                    break;
+                EdgeType edgeType = current.GetEdgeType(Edges.Lower);
+
+                switch (edgeType)
+                {
+                    case EdgeType.Wall:
+                        if (!room.upperEdgeRules.CanBeWall) return false;
+                        break;
+                    case EdgeType.Door:
+                        if (!room.upperEdgeRules.CanBeDoor) return false;
+                        break;
+                    case EdgeType.Open:
+                        if (!room.upperEdgeRules.CanBeOpen) return false;
+                        break;
+                }
             }
         }
 
-        // check space below
-        current = dungeonGrid[pos.x, pos.y - 1];
-        if (current != null)
+        if (pos.y > 0)
         {
-            EdgeType edgeType = current.GetEdgeType(Edges.Upper);
-
-            switch (edgeType)
+            // check space below
+            RoomData current = dungeonGrid[pos.x, pos.y - 1];
+            if (current != null)
             {
-                case EdgeType.Wall:
-                    if (!room.lowerEdgeRules.CanBeWall) return false;
-                    break;
-                case EdgeType.Door:
-                    if (!room.lowerEdgeRules.CanBeDoor) return false;
-                    break;
-                case EdgeType.Open:
-                    if (!room.lowerEdgeRules.CanBeOpen) return false;
-                    break;
+                EdgeType edgeType = current.GetEdgeType(Edges.Upper);
+
+                switch (edgeType)
+                {
+                    case EdgeType.Wall:
+                        if (!room.lowerEdgeRules.CanBeWall) return false;
+                        break;
+                    case EdgeType.Door:
+                        if (!room.lowerEdgeRules.CanBeDoor) return false;
+                        break;
+                    case EdgeType.Open:
+                        if (!room.lowerEdgeRules.CanBeOpen) return false;
+                        break;
+                }
             }
         }
 
-        // check space to right
-        current = dungeonGrid[pos.x + 1, pos.y];
-        if (current != null)
+        if (pos.x < dungeonSize - 1)
         {
-            EdgeType edgeType = current.GetEdgeType(Edges.Left);
-
-            switch (edgeType)
+            // check space to right
+            RoomData current = dungeonGrid[pos.x + 1, pos.y];
+            if (current != null)
             {
-                case EdgeType.Wall:
-                    if (!room.rightEdgeRules.CanBeWall) return false;
-                    break;
-                case EdgeType.Door:
-                    if (!room.rightEdgeRules.CanBeDoor) return false;
-                    break;
-                case EdgeType.Open:
-                    if (!room.rightEdgeRules.CanBeOpen) return false;
-                    break;
+                EdgeType edgeType = current.GetEdgeType(Edges.Left);
+
+                switch (edgeType)
+                {
+                    case EdgeType.Wall:
+                        if (!room.rightEdgeRules.CanBeWall) return false;
+                        break;
+                    case EdgeType.Door:
+                        if (!room.rightEdgeRules.CanBeDoor) return false;
+                        break;
+                    case EdgeType.Open:
+                        if (!room.rightEdgeRules.CanBeOpen) return false;
+                        break;
+                }
             }
         }
 
-        // check space to left
-        current = dungeonGrid[pos.x - 1, pos.y];
-        if (current != null)
+        if (pos.x > 0)
         {
-            EdgeType edgeType = current.GetEdgeType(Edges.Right);
-
-            switch (edgeType)
+            // check space to left
+            RoomData current = dungeonGrid[pos.x - 1, pos.y];
+            if (current != null)
             {
-                case EdgeType.Wall:
-                    if (!room.leftEdgeRules.CanBeWall) return false;
-                    break;
-                case EdgeType.Door:
-                    if (!room.leftEdgeRules.CanBeDoor) return false;
-                    break;
-                case EdgeType.Open:
-                    if (!room.leftEdgeRules.CanBeOpen) return false;
-                    break;
+                EdgeType edgeType = current.GetEdgeType(Edges.Right);
+
+                switch (edgeType)
+                {
+                    case EdgeType.Wall:
+                        if (!room.leftEdgeRules.CanBeWall) return false;
+                        break;
+                    case EdgeType.Door:
+                        if (!room.leftEdgeRules.CanBeDoor) return false;
+                        break;
+                    case EdgeType.Open:
+                        if (!room.leftEdgeRules.CanBeOpen) return false;
+                        break;
+                }
             }
         }
 
@@ -213,61 +241,73 @@ public class DungeonManager : MonoBehaviour
         bool downSet = false;
         bool leftSet = false;
 
-        // compare upper edge data to touching tile
-        RoomData comparison = dungeonGrid[pos.x, pos.y + 1];
-        if (comparison != null)
+        if (pos.y < dungeonSize - 1)
         {
-            if (lowestDistance > comparison.distance)
+            // compare upper edge data to touching tile
+            RoomData comparison = dungeonGrid[pos.x, pos.y + 1];
+            if (comparison != null)
             {
-                lowestDistance = comparison.distance;
-            }
+                if (lowestDistance > comparison.distance)
+                {
+                    lowestDistance = comparison.distance;
+                }
 
-            newData.SetEdgeType(Edges.Upper, comparison.GetEdgeType(Edges.Lower));
-            upSet = true;
+                newData.SetEdgeType(Edges.Upper, comparison.GetEdgeType(Edges.Lower));
+                upSet = true;
+            }
         }
 
-        // compare lower edge data to touching tile
-        comparison = dungeonGrid[pos.x, pos.y - 1];
-        if (comparison != null)
+        if (pos.y > 0)
         {
-            if (lowestDistance > comparison.distance)
+            // compare lower edge data to touching tile
+            RoomData comparison = dungeonGrid[pos.x, pos.y - 1];
+            if (comparison != null)
             {
-                lowestDistance = comparison.distance;
-            }
+                if (lowestDistance > comparison.distance)
+                {
+                    lowestDistance = comparison.distance;
+                }
 
-            newData.SetEdgeType(Edges.Lower, comparison.GetEdgeType(Edges.Upper));
-            downSet = true;
+                newData.SetEdgeType(Edges.Lower, comparison.GetEdgeType(Edges.Upper));
+                downSet = true;
+            }
         }
 
-        // compare right edge data to touching tile
-        comparison = dungeonGrid[pos.x + 1, pos.y];
-        if (comparison != null)
+        if (pos.x < dungeonSize - 1)
         {
-            if (lowestDistance > comparison.distance)
+            // compare right edge data to touching tile
+            RoomData comparison = dungeonGrid[pos.x + 1, pos.y];
+            if (comparison != null)
             {
-                lowestDistance = comparison.distance;
-            }
+                if (lowestDistance > comparison.distance)
+                {
+                    lowestDistance = comparison.distance;
+                }
 
-            newData.SetEdgeType(Edges.Right, comparison.GetEdgeType(Edges.Left));
-            rightSet = true;
+                newData.SetEdgeType(Edges.Right, comparison.GetEdgeType(Edges.Left));
+                rightSet = true;
+            }
         }
 
-        // compare left edge data to touching tile
-        comparison = dungeonGrid[pos.x - 1, pos.y];
-        if (comparison != null)
+        if (pos.x > 0)
         {
-            if (lowestDistance > comparison.distance)
+            // compare left edge data to touching tile
+            RoomData comparison = dungeonGrid[pos.x - 1, pos.y];
+            if (comparison != null)
             {
-                lowestDistance = comparison.distance;
-            }
+                if (lowestDistance > comparison.distance)
+                {
+                    lowestDistance = comparison.distance;
+                }
 
-            newData.SetEdgeType(Edges.Left, comparison.GetEdgeType(Edges.Right));
-            leftSet = true;
-        }
+                newData.SetEdgeType(Edges.Left, comparison.GetEdgeType(Edges.Right));
+                leftSet = true;
+            }
+        }    
 
         if (!upSet)
         {
-            int type = Random.Range(0, 2);
+            int type = UnityEngine.Random.Range(0, 2);
             if (type == 0)
             {
                 newData.SetEdgeType(Edges.Upper, EdgeType.Door);
@@ -280,7 +320,7 @@ public class DungeonManager : MonoBehaviour
 
         if (!downSet)
         {
-            int type = Random.Range(0, 2);
+            int type = UnityEngine.Random.Range(0, 2);
             if (type == 0)
             {
                 newData.SetEdgeType(Edges.Lower, EdgeType.Door);
@@ -293,7 +333,7 @@ public class DungeonManager : MonoBehaviour
 
         if (!rightSet)
         {
-            int type = Random.Range(0, 2);
+            int type = UnityEngine.Random.Range(0, 2);
             if (type == 0)
             {
                 newData.SetEdgeType(Edges.Right, EdgeType.Door);
@@ -306,7 +346,7 @@ public class DungeonManager : MonoBehaviour
 
         if (!leftSet)
         {
-            int type = Random.Range(0, 2);
+            int type = UnityEngine.Random.Range(0, 2);
             if (type == 0)
             {
                 newData.SetEdgeType(Edges.Left, EdgeType.Door);
@@ -320,5 +360,54 @@ public class DungeonManager : MonoBehaviour
         newData.distance = (byte)(lowestDistance + cost);
 
         return newData;
+    }
+
+    private void SpawnPerimeterObjects(Vector2Int pos, RoomData roomData, GameObject parent)
+    {
+        Vector2 spawnOrigin = GetSpawnPos(pos);
+
+        // upper
+        Vector2 spawnPoint = spawnOrigin + new Vector2(0, settings.tileset.tileSize.y / 2);
+        if (roomData.GetEdgeType(Edges.Upper) == EdgeType.Door)
+        {
+            Instantiate(settings.tileset.upperHall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+        else
+        {
+            Instantiate(settings.tileset.upperWall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+
+        // lower
+        spawnPoint = spawnOrigin + new Vector2(0, -settings.tileset.tileSize.y / 2);
+        if (roomData.GetEdgeType(Edges.Lower) == EdgeType.Door)
+        {
+            Instantiate(settings.tileset.lowerHall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+        else
+        {
+            Instantiate(settings.tileset.lowerWall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+
+        // right
+        spawnPoint = spawnOrigin + new Vector2(settings.tileset.tileSize.x / 2, 0);
+        if (roomData.GetEdgeType(Edges.Right) == EdgeType.Door)
+        {
+            Instantiate(settings.tileset.rightHall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+        else
+        {
+            Instantiate(settings.tileset.rightWall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+
+        // left
+        spawnPoint = spawnOrigin + new Vector2(-settings.tileset.tileSize.x / 2, 0);
+        if (roomData.GetEdgeType(Edges.Left) == EdgeType.Door)
+        {
+            Instantiate(settings.tileset.leftHall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+        else
+        {
+            Instantiate(settings.tileset.leftWall, spawnPoint, Quaternion.identity, parent.transform);
+        }
     }
 }
