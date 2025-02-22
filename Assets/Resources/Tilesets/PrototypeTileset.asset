@@ -30,8 +30,15 @@ MonoBehaviour:
   rightWall: {fileID: 6713100221082150687, guid: 2661730ff519cf0458573756889c6330, type: 3}
   lowerWall: {fileID: 7617236520172128549, guid: 9217bd54c27ec4e4a96c901936bae301, type: 3}
   leftWall: {fileID: 1172427265754954242, guid: 0cded716f5399fd4e8971bea02f3b1fa, type: 3}
+  upperOpen: {fileID: 91000256877388287, guid: bf7909762ddd8f2418b56d8a8e7bad15, type: 3}
+  rightOpen: {fileID: 4124040876574136570, guid: cccb8a3811090d8448330d42f071b846, type: 3}
+  lowerOpen: {fileID: 6916408318828758920, guid: af9e72aaeeb8ca848a483af9aee7441c, type: 3}
+  leftOpen: {fileID: 830519464202071315, guid: 79981a01570678a4cb77c0b1a4651784, type: 3}
   upperLeftCorner: {fileID: 6745808367429224071, guid: a4519649cba4b504385510ae1ab34156, type: 3}
   upperRightCorner: {fileID: 807813016557514334, guid: bddc0da131b59a54fba7624e01c95db6, type: 3}
   lowerLeftCorner: {fileID: 4331588192761108848, guid: fafc0c9a64028b04587acb63c1117ab5, type: 3}
   lowerRightCorner: {fileID: 8291519884084381305, guid: 0f676c68f44f13141a3f15dd9db2e236, type: 3}
   tileSize: {x: 20, y: 20}
+  maxWeightRooms: 1
+  maxWeightBossRooms: 1
+  maxWeightEndRooms: 0

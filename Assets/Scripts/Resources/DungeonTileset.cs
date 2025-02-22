@@ -22,6 +22,12 @@ public class DungeonTileset : ScriptableObject
     public GameObject lowerWall;
     public GameObject leftWall;
 
+    [Header("Opens")]
+    public GameObject upperOpen;
+    public GameObject rightOpen;
+    public GameObject lowerOpen;
+    public GameObject leftOpen;
+
     [Header("Corners")]
     public GameObject upperLeftCorner;
     public GameObject upperRightCorner;
