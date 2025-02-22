@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public enum SpawnRoomResult
 {
@@ -18,18 +17,9 @@ public class DungeonManager : MonoBehaviour
     private Vector2 spawnOffset;
     private int dungeonSize;
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            int numChildren = transform.childCount;
-            for (int i = numChildren - 1; i >= 0; i--)
-            {
-                Destroy(transform.GetChild(i).gameObject);
-            }
-
-            GenerateDungeon();
-        }
+        GenerateDungeon();
     }
 
     public void GenerateDungeon()

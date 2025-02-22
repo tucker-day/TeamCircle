@@ -47,7 +47,7 @@ public class RoomData
     }
 
     // takes in a byte, and returrns the matching edge type enum
-    public EdgeType GetEnumConversion(byte type)
+    private static EdgeType GetEnumConversion(byte type)
     {
         // this cannot be a switch statment. trust me, i tried. c# dislikes
         // it when you use functions in your switch cases so I had to use
@@ -76,7 +76,7 @@ public class RoomData
     }
 
     // converts an enum edge type into its byte representation
-    public byte GetByteConversion(EdgeType type)
+    private static byte GetByteConversion(EdgeType type)
     {
         switch (type)
         {
