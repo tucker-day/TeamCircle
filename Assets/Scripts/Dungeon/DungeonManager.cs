@@ -18,9 +18,18 @@ public class DungeonManager : MonoBehaviour
     private Vector2 spawnOffset;
     private int dungeonSize;
 
-    private void Start()
+    private void Update()
     {
-        GenerateDungeon();
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            int numChildren = transform.childCount;
+            for (int i = numChildren - 1; i >= 0; i--)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+
+            GenerateDungeon();
+        }
     }
 
     public void GenerateDungeon()
@@ -31,15 +40,6 @@ public class DungeonManager : MonoBehaviour
         spawnOffset = new Vector2(dungeonSize - 1, dungeonSize - 1) * settings.tileset.tileSize / 2;
 
         SpawnRoom(new Vector2Int(settings.maxLength, settings.maxLength), settings.tileset.spawnRoom);
-
-        // temporarily fill the array with tiles
-        for (int x = 0; x < dungeonGrid.GetLength(0); x++)
-        {
-            for (int y = 0; y < dungeonGrid.GetLength(1); y++)
-            {
-                SpawnRoom(new Vector2Int(x, y));
-            }
-        }
     }
 
     // spawn a random room in a specific position. if a forceRoom is passed in, it will try to spawn
@@ -83,6 +83,12 @@ public class DungeonManager : MonoBehaviour
 
         GameObject spawnedRoom = Instantiate(room, GetSpawnPos(pos), Quaternion.identity, gameObject.transform);
         SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], spawnedRoom);
+
+        if (dungeonGrid[pos.x, pos.y].distance < settings.maxLength)
+        {
+            Debug.Log(dungeonGrid[pos.x, pos.y].distance);
+            SpawnNeighbors(pos);
+        }
 
         return SpawnRoomResult.Success;
     }
@@ -333,11 +339,11 @@ public class DungeonManager : MonoBehaviour
                 break;
         }
 
-        // compare upper edge data to touching tile
+        // compare edge data to touching tile
         RoomData comparison = dungeonGrid[comparePos.x, comparePos.y];
         if (comparison != null)
         {
-            if (data.distance > comparison.distance)
+            if ((data.distance > comparison.distance || data.distance == 0) && comparison.GetEdgeType(compareEdge) != EdgeType.Wall)
             {
                 data.distance = comparison.distance;
             }
@@ -406,5 +412,46 @@ public class DungeonManager : MonoBehaviour
         }
 
         Instantiate(prefab, spawnPoint, Quaternion.identity, parent.transform);
+    }
+
+    public SpawnRoomResult SpawnNeighbors(Vector2Int pos)
+    {
+        RoomData data = dungeonGrid[pos.x, pos.y];
+
+        foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+        {
+            // if edge iss wall, go to next iteration
+            if (data.GetEdgeType(edge).Equals(EdgeType.Wall))
+            {
+                continue;
+            }
+
+            Vector2Int newRoomPos = pos;
+
+            switch (edge)
+            {
+                case Edges.Upper:
+                    newRoomPos += new Vector2Int(0, 1);
+                    break;
+                case Edges.Lower:
+                    newRoomPos += new Vector2Int(0, -1);
+                    break;
+                case Edges.Left:
+                    newRoomPos += new Vector2Int(-1, 0);
+                    break;
+                case Edges.Right:
+                    newRoomPos += new Vector2Int(1, 0);
+                    break;
+            }
+
+            SpawnRoomResult result = SpawnRoom(newRoomPos);
+
+            if (result == SpawnRoomResult.Failed)
+            {
+                return SpawnRoomResult.Failed;
+            }
+        }
+
+        return SpawnRoomResult.Success;
     }
 }
