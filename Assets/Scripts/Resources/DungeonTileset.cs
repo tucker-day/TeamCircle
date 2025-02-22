@@ -31,9 +31,10 @@ public struct CornerData
 [Serializable]
 public struct CornerGroup
 {
-    public GameObject both;
+    public GameObject bothWall;
     public GameObject horizontal;
     public GameObject vertical;
+    public GameObject bothOpen;
 }
 
 [CreateAssetMenu(fileName = "DungeonTileset", menuName = "Procedural Generation/Dungeon Tileset")]
