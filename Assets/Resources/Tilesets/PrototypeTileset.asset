@@ -15,6 +15,9 @@ MonoBehaviour:
   spawnRoom: {fileID: 8205624513170101846, guid: 230c59e849e7bd441a353b972bfee32a, type: 3}
   rooms:
   - item: {fileID: 8205624513170101846, guid: 1ebfb09c6fb20974ba7135de82a390a5, type: 3}
+    weight: 2
+    cost: 1
+  - item: {fileID: 8205624513170101846, guid: 2d0380bfe6e201c45a7b21004e552af1, type: 3}
     weight: 1
     cost: 1
   bossRooms:
@@ -57,6 +60,6 @@ MonoBehaviour:
       horizontal: {fileID: 0}
       vertical: {fileID: 0}
   tileSize: {x: 20, y: 20}
-  maxWeightRooms: 1
+  maxWeightRooms: 3
   maxWeightBossRooms: 1
   maxWeightEndRooms: 0
