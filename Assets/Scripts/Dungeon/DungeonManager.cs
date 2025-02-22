@@ -86,8 +86,42 @@ public class DungeonManager : MonoBehaviour
 
         if (dungeonGrid[pos.x, pos.y].distance < settings.maxLength)
         {
-            Debug.Log(dungeonGrid[pos.x, pos.y].distance);
-            SpawnNeighbors(pos);
+            RoomData data = dungeonGrid[pos.x, pos.y];
+
+            // spawn rooms on edges that aren't walls
+            foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+            {
+                // if edge iss wall, go to next iteration
+                if (data.GetEdgeType(edge).Equals(EdgeType.Wall))
+                {
+                    continue;
+                }
+
+                Vector2Int newRoomPos = pos;
+
+                switch (edge)
+                {
+                    case Edges.Upper:
+                        newRoomPos += new Vector2Int(0, 1);
+                        break;
+                    case Edges.Lower:
+                        newRoomPos += new Vector2Int(0, -1);
+                        break;
+                    case Edges.Left:
+                        newRoomPos += new Vector2Int(-1, 0);
+                        break;
+                    case Edges.Right:
+                        newRoomPos += new Vector2Int(1, 0);
+                        break;
+                }
+
+                SpawnRoomResult result = SpawnRoom(newRoomPos);
+
+                if (result == SpawnRoomResult.Failed)
+                {
+                    return SpawnRoomResult.Failed;
+                }
+            }
         }
 
         return SpawnRoomResult.Success;
@@ -412,46 +446,5 @@ public class DungeonManager : MonoBehaviour
         }
 
         Instantiate(prefab, spawnPoint, Quaternion.identity, parent.transform);
-    }
-
-    public SpawnRoomResult SpawnNeighbors(Vector2Int pos)
-    {
-        RoomData data = dungeonGrid[pos.x, pos.y];
-
-        foreach (Edges edge in Enum.GetValues(typeof(Edges)))
-        {
-            // if edge iss wall, go to next iteration
-            if (data.GetEdgeType(edge).Equals(EdgeType.Wall))
-            {
-                continue;
-            }
-
-            Vector2Int newRoomPos = pos;
-
-            switch (edge)
-            {
-                case Edges.Upper:
-                    newRoomPos += new Vector2Int(0, 1);
-                    break;
-                case Edges.Lower:
-                    newRoomPos += new Vector2Int(0, -1);
-                    break;
-                case Edges.Left:
-                    newRoomPos += new Vector2Int(-1, 0);
-                    break;
-                case Edges.Right:
-                    newRoomPos += new Vector2Int(1, 0);
-                    break;
-            }
-
-            SpawnRoomResult result = SpawnRoom(newRoomPos);
-
-            if (result == SpawnRoomResult.Failed)
-            {
-                return SpawnRoomResult.Failed;
-            }
-        }
-
-        return SpawnRoomResult.Success;
     }
 }
