@@ -42,12 +42,13 @@ public class DungeonManager : MonoBehaviour
         }
 
         GameObject room;
+        ChildRoom child;
         int cost = 0;
 
         if (forceRoom == null)
         {
             // if couldn't get a valid room, return early
-            bool result = GetRandomValidRoom(pos, out room, out cost);
+            bool result = GetRandomValidRoom(pos, out room, out child, out cost);
             if (!result) return SpawnRoomResult.Failed; 
         }
         else
@@ -55,7 +56,7 @@ public class DungeonManager : MonoBehaviour
             room = forceRoom;
 
             // validate force room, return if impossible to fufil
-            if (!room.TryGetComponent<ChildRoom>(out ChildRoom child))
+            if (!room.TryGetComponent<ChildRoom>(out child))
             {
                 Debug.LogError("Force room wasn't a room!");
                 return SpawnRoomResult.ImpossibleForcePlace;
@@ -67,14 +68,14 @@ public class DungeonManager : MonoBehaviour
             }
         }
 
-        dungeonGrid[pos.x, pos.y] = new RoomData();
+        dungeonGrid[pos.x, pos.y] = CreateRoomData(pos, child, cost);
 
         GameObject test = Instantiate(room, pos * settings.tileset.tileSize - spawnOffset, Quaternion.identity, gameObject.transform);
 
         return SpawnRoomResult.Success;
     }
 
-    private bool GetRandomValidRoom(Vector2Int pos, out GameObject room, out int cost)
+    private bool GetRandomValidRoom(Vector2Int pos, out GameObject room, out ChildRoom child, out int cost)
     {
         List<GameObject> exclude = new List<GameObject>();
 
@@ -88,7 +89,7 @@ public class DungeonManager : MonoBehaviour
             while (exclude.Contains(room));
 
             // validate the room
-            if (!room.TryGetComponent<ChildRoom>(out ChildRoom child))
+            if (!room.TryGetComponent<ChildRoom>(out child))
             {
                 Debug.LogError("Got a random room that wasn't a room!");
                 exclude.Add(room);
@@ -106,6 +107,10 @@ public class DungeonManager : MonoBehaviour
         if (room == null)
         {
             Debug.Log("Unable to find valid random room!");
+
+            child = null;
+            cost = 0;
+
             return false;
         }
 
@@ -196,5 +201,124 @@ public class DungeonManager : MonoBehaviour
 
         // if the code made it here, it's a valid position!
         return true;
+    }
+
+    private RoomData CreateRoomData(Vector2Int pos, ChildRoom child, int cost)
+    {
+        int lowestDistance = 0;
+        RoomData newData = new();
+
+        bool upSet = false;
+        bool rightSet = false;
+        bool downSet = false;
+        bool leftSet = false;
+
+        // compare upper edge data to touching tile
+        RoomData comparison = dungeonGrid[pos.x, pos.y + 1];
+        if (comparison != null)
+        {
+            if (lowestDistance > comparison.distance)
+            {
+                lowestDistance = comparison.distance;
+            }
+
+            newData.SetEdgeType(Edges.Upper, comparison.GetEdgeType(Edges.Lower));
+            upSet = true;
+        }
+
+        // compare lower edge data to touching tile
+        comparison = dungeonGrid[pos.x, pos.y - 1];
+        if (comparison != null)
+        {
+            if (lowestDistance > comparison.distance)
+            {
+                lowestDistance = comparison.distance;
+            }
+
+            newData.SetEdgeType(Edges.Lower, comparison.GetEdgeType(Edges.Upper));
+            downSet = true;
+        }
+
+        // compare right edge data to touching tile
+        comparison = dungeonGrid[pos.x + 1, pos.y];
+        if (comparison != null)
+        {
+            if (lowestDistance > comparison.distance)
+            {
+                lowestDistance = comparison.distance;
+            }
+
+            newData.SetEdgeType(Edges.Right, comparison.GetEdgeType(Edges.Left));
+            rightSet = true;
+        }
+
+        // compare left edge data to touching tile
+        comparison = dungeonGrid[pos.x - 1, pos.y];
+        if (comparison != null)
+        {
+            if (lowestDistance > comparison.distance)
+            {
+                lowestDistance = comparison.distance;
+            }
+
+            newData.SetEdgeType(Edges.Left, comparison.GetEdgeType(Edges.Right));
+            leftSet = true;
+        }
+
+        if (!upSet)
+        {
+            int type = Random.Range(0, 2);
+            if (type == 0)
+            {
+                newData.SetEdgeType(Edges.Upper, EdgeType.Door);
+            }
+            else if (type == 1)
+            {
+                newData.SetEdgeType(Edges.Upper, EdgeType.Wall);
+            }
+        }
+
+        if (!downSet)
+        {
+            int type = Random.Range(0, 2);
+            if (type == 0)
+            {
+                newData.SetEdgeType(Edges.Lower, EdgeType.Door);
+            }
+            else if (type == 1)
+            {
+                newData.SetEdgeType(Edges.Lower, EdgeType.Wall);
+            }
+        }
+
+        if (!rightSet)
+        {
+            int type = Random.Range(0, 2);
+            if (type == 0)
+            {
+                newData.SetEdgeType(Edges.Right, EdgeType.Door);
+            }
+            else if (type == 1)
+            {
+                newData.SetEdgeType(Edges.Right, EdgeType.Wall);
+            }
+        }
+
+        if (!leftSet)
+        {
+            int type = Random.Range(0, 2);
+            if (type == 0)
+            {
+                newData.SetEdgeType(Edges.Left, EdgeType.Door);
+            }
+            else if (type == 1)
+            {
+                newData.SetEdgeType(Edges.Left, EdgeType.Wall);
+            }
+        }
+
+        newData.distance = (byte)(lowestDistance + cost);
+
+        return newData;
     }
 }
