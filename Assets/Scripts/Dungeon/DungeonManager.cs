@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum SpawnRoomResult
@@ -40,19 +41,137 @@ public class DungeonManager : MonoBehaviour
             return SpawnRoomResult.AlreadyClaimed;
         }
 
-        dungeonGrid[pos.x, pos.y] = new RoomData();
-
         GameObject room = forceRoom;
+        ChildRoom child;
         int cost = 0;
 
-        // if no force room was given, get a random room
-        if (room == null)
+        // check if the random room can be placed in the given location
+        int attempt = 0;
+        do
         {
-            settings.tileset.GetRandomRoom(out room, out cost);
+            // get a random room if needed
+            if (room == null)
+            {
+                settings.tileset.GetRandomRoom(out room, out cost);
+            }
+
+            attempt++;
+
+            if (!room.TryGetComponent<ChildRoom>(out child))
+            {
+                if (forceRoom != null)
+                {
+                    Debug.Log("Recieved a force room that wasn't a room!");
+                    return SpawnRoomResult.ImpossibleForcePlace;
+                }
+
+                Debug.Log("Got a random room that wasn't a room!");
+                room = null;
+            }
+
+            if (!IsValidPosition(pos, child))
+            {
+                room = null;
+            }
+        } 
+        while (room == null && attempt < 1000);
+
+        if (attempt >= 1000)
+        {
+            Debug.Log("Got stuck in inf loop! Aborting this room placement.");
+
+            return SpawnRoomResult.Failed;
         }
 
         GameObject test = Instantiate(room, pos * settings.tileset.tileSize - spawnOffset, Quaternion.identity, gameObject.transform);
+        dungeonGrid[pos.x, pos.y] = new RoomData();
 
         return SpawnRoomResult.Success;
+    }
+
+    public bool IsValidPosition(Vector2Int pos, ChildRoom room)
+    {
+        // check space above
+        RoomData current = dungeonGrid[pos.x, pos.y + 1];
+        if (current != null)
+        {
+            EdgeType edgeType = current.GetEdgeType(Edges.Lower);
+
+            switch (edgeType)
+            {
+                case EdgeType.Wall:
+                    if (!room.upperEdgeRules.CanBeWall) return false;
+                    break;
+                case EdgeType.Door:
+                    if (!room.upperEdgeRules.CanBeDoor) return false;
+                    break;
+                case EdgeType.Open:
+                    if (!room.upperEdgeRules.CanBeOpen) return false;
+                    break;
+            }
+        }
+
+        // check space below
+        current = dungeonGrid[pos.x, pos.y - 1];
+        if (current != null)
+        {
+            EdgeType edgeType = current.GetEdgeType(Edges.Upper);
+
+            switch (edgeType)
+            {
+                case EdgeType.Wall:
+                    if (!room.lowerEdgeRules.CanBeWall) return false;
+                    break;
+                case EdgeType.Door:
+                    if (!room.lowerEdgeRules.CanBeDoor) return false;
+                    break;
+                case EdgeType.Open:
+                    if (!room.lowerEdgeRules.CanBeOpen) return false;
+                    break;
+            }
+        }
+
+        // check space to right
+        current = dungeonGrid[pos.x + 1, pos.y];
+        if (current != null)
+        {
+            EdgeType edgeType = current.GetEdgeType(Edges.Left);
+
+            switch (edgeType)
+            {
+                case EdgeType.Wall:
+                    if (!room.rightEdgeRules.CanBeWall) return false;
+                    break;
+                case EdgeType.Door:
+                    if (!room.rightEdgeRules.CanBeDoor) return false;
+                    break;
+                case EdgeType.Open:
+                    if (!room.rightEdgeRules.CanBeOpen) return false;
+                    break;
+            }
+        }
+
+        // check space to left
+        current = dungeonGrid[pos.x - 1, pos.y];
+        if (current != null)
+        {
+            EdgeType edgeType = current.GetEdgeType(Edges.Right);
+
+            switch (edgeType)
+            {
+                case EdgeType.Wall:
+                    if (!room.leftEdgeRules.CanBeWall) return false;
+                    break;
+                case EdgeType.Door:
+                    if (!room.leftEdgeRules.CanBeDoor) return false;
+                    break;
+                case EdgeType.Open:
+                    if (!room.leftEdgeRules.CanBeOpen) return false;
+                    break;
+            }
+        }
+
+        // if the code made it here, it's a valid position!
+        return true;
     }
 }
