@@ -139,95 +139,66 @@ public class DungeonManager : MonoBehaviour
         if (pos.y < dungeonSize - 1)
         {
             RoomData current = dungeonGrid[pos.x, pos.y + 1];
-            if (current != null)
+            if (!CompareEdgeToRoomData(current, Edges.Lower, room.edgeRules.upper))
             {
-                EdgeType edgeType = current.GetEdgeType(Edges.Lower);
-
-                switch (edgeType)
-                {
-                    case EdgeType.Wall:
-                        if (!room.edgeRules.lower.CanBeWall) return false;
-                        break;
-                    case EdgeType.Hall:
-                        if (!room.edgeRules.lower.CanBeDoor) return false;
-                        break;
-                    case EdgeType.Open:
-                        if (!room.edgeRules.lower.CanBeOpen) return false;
-                        break;
-                }
+                return false;
             }
         }
 
+        // check space below
         if (pos.y > 0)
         {
-            // check space below
             RoomData current = dungeonGrid[pos.x, pos.y - 1];
-            if (current != null)
+            if (!CompareEdgeToRoomData(current, Edges.Upper, room.edgeRules.lower))
             {
-                EdgeType edgeType = current.GetEdgeType(Edges.Upper);
-
-                switch (edgeType)
-                {
-                    case EdgeType.Wall:
-                        if (!room.edgeRules.upper.CanBeWall) return false;
-                        break;
-                    case EdgeType.Hall:
-                        if (!room.edgeRules.upper.CanBeDoor) return false;
-                        break;
-                    case EdgeType.Open:
-                        if (!room.edgeRules.upper.CanBeOpen) return false;
-                        break;
-                }
+                return false;
             }
         }
 
+        // check space to right
         if (pos.x < dungeonSize - 1)
         {
-            // check space to right
             RoomData current = dungeonGrid[pos.x + 1, pos.y];
-            if (current != null)
+            if (!CompareEdgeToRoomData(current, Edges.Left, room.edgeRules.right))
             {
-                EdgeType edgeType = current.GetEdgeType(Edges.Left);
-
-                switch (edgeType)
-                {
-                    case EdgeType.Wall:
-                        if (!room.edgeRules.left.CanBeWall) return false;
-                        break;
-                    case EdgeType.Hall:
-                        if (!room.edgeRules.left.CanBeDoor) return false;
-                        break;
-                    case EdgeType.Open:
-                        if (!room.edgeRules.left.CanBeOpen) return false;
-                        break;
-                }
+                return false;
             }
         }
 
+        // check space to left
         if (pos.x > 0)
         {
-            // check space to left
             RoomData current = dungeonGrid[pos.x - 1, pos.y];
-            if (current != null)
+            if (!CompareEdgeToRoomData(current, Edges.Right, room.edgeRules.left))
             {
-                EdgeType edgeType = current.GetEdgeType(Edges.Right);
-
-                switch (edgeType)
-                {
-                    case EdgeType.Wall:
-                        if (!room.edgeRules.right.CanBeWall) return false;
-                        break;
-                    case EdgeType.Hall:
-                        if (!room.edgeRules.right.CanBeDoor) return false;
-                        break;
-                    case EdgeType.Open:
-                        if (!room.edgeRules.right.CanBeOpen) return false;
-                        break;
-                }
+                return false;
             }
         }
 
         // if the code made it here, it's a valid position!
+        return true;
+    }
+
+    private bool CompareEdgeToRoomData(RoomData other, Edges edge, EdgeRules rules)
+    {
+        if (other != null)
+        {
+            EdgeType edgeType = other.GetEdgeType(edge);
+
+            switch (edgeType)
+            {
+                case EdgeType.Wall:
+                    if (!rules.CanBeWall) return false;
+                    break;
+                case EdgeType.Hall:
+                    if (!rules.CanBeDoor) return false;
+                    break;
+                case EdgeType.Open:
+                    if (!rules.CanBeOpen) return false;
+                    break;
+            }
+        }
+
         return true;
     }
 
