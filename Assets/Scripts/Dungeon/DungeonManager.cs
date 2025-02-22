@@ -307,7 +307,7 @@ public class DungeonManager : MonoBehaviour
 
         if (!upSet)
         {
-            int type = UnityEngine.Random.Range(0, 2);
+            int type = UnityEngine.Random.Range(0, 3);
             if (type == 0)
             {
                 newData.SetEdgeType(Edges.Upper, EdgeType.Door);
@@ -316,11 +316,15 @@ public class DungeonManager : MonoBehaviour
             {
                 newData.SetEdgeType(Edges.Upper, EdgeType.Wall);
             }
+            else if (type == 2)
+            {
+                newData.SetEdgeType(Edges.Upper, EdgeType.Open);
+            }
         }
 
         if (!downSet)
         {
-            int type = UnityEngine.Random.Range(0, 2);
+            int type = UnityEngine.Random.Range(0, 3);
             if (type == 0)
             {
                 newData.SetEdgeType(Edges.Lower, EdgeType.Door);
@@ -329,11 +333,15 @@ public class DungeonManager : MonoBehaviour
             {
                 newData.SetEdgeType(Edges.Lower, EdgeType.Wall);
             }
+            else if (type == 2)
+            {
+                newData.SetEdgeType(Edges.Lower, EdgeType.Open);
+            }
         }
 
         if (!rightSet)
         {
-            int type = UnityEngine.Random.Range(0, 2);
+            int type = UnityEngine.Random.Range(0, 3);
             if (type == 0)
             {
                 newData.SetEdgeType(Edges.Right, EdgeType.Door);
@@ -342,11 +350,15 @@ public class DungeonManager : MonoBehaviour
             {
                 newData.SetEdgeType(Edges.Right, EdgeType.Wall);
             }
+            else if (type == 2)
+            {
+                newData.SetEdgeType(Edges.Right, EdgeType.Open);
+            }
         }
 
         if (!leftSet)
         {
-            int type = UnityEngine.Random.Range(0, 2);
+            int type = UnityEngine.Random.Range(0, 3);
             if (type == 0)
             {
                 newData.SetEdgeType(Edges.Left, EdgeType.Door);
@@ -354,6 +366,10 @@ public class DungeonManager : MonoBehaviour
             else if (type == 1)
             {
                 newData.SetEdgeType(Edges.Left, EdgeType.Wall);
+            }
+            else if (type == 2)
+            {
+                newData.SetEdgeType(Edges.Left, EdgeType.Open);
             }
         }
 
@@ -372,9 +388,13 @@ public class DungeonManager : MonoBehaviour
         {
             Instantiate(settings.tileset.upperHall, spawnPoint, Quaternion.identity, parent.transform);
         }
-        else
+        else if (roomData.GetEdgeType(Edges.Upper) == EdgeType.Wall)
         {
             Instantiate(settings.tileset.upperWall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+        else if (roomData.GetEdgeType(Edges.Upper) == EdgeType.Open)
+        {
+            Instantiate(settings.tileset.upperOpen, spawnPoint, Quaternion.identity, parent.transform);
         }
 
         // lower
@@ -383,9 +403,13 @@ public class DungeonManager : MonoBehaviour
         {
             Instantiate(settings.tileset.lowerHall, spawnPoint, Quaternion.identity, parent.transform);
         }
-        else
+        else if (roomData.GetEdgeType(Edges.Lower) == EdgeType.Wall)
         {
             Instantiate(settings.tileset.lowerWall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+        else if (roomData.GetEdgeType(Edges.Lower) == EdgeType.Open)
+        {
+            Instantiate(settings.tileset.lowerOpen, spawnPoint, Quaternion.identity, parent.transform);
         }
 
         // right
@@ -394,9 +418,13 @@ public class DungeonManager : MonoBehaviour
         {
             Instantiate(settings.tileset.rightHall, spawnPoint, Quaternion.identity, parent.transform);
         }
-        else
+        else if (roomData.GetEdgeType(Edges.Right) == EdgeType.Wall)
         {
             Instantiate(settings.tileset.rightWall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+        else if (roomData.GetEdgeType(Edges.Right) == EdgeType.Open)
+        {
+            Instantiate(settings.tileset.rightOpen, spawnPoint, Quaternion.identity, parent.transform);
         }
 
         // left
@@ -405,9 +433,13 @@ public class DungeonManager : MonoBehaviour
         {
             Instantiate(settings.tileset.leftHall, spawnPoint, Quaternion.identity, parent.transform);
         }
-        else
+        else if (roomData.GetEdgeType(Edges.Left) == EdgeType.Wall)
         {
             Instantiate(settings.tileset.leftWall, spawnPoint, Quaternion.identity, parent.transform);
+        }
+        else if (roomData.GetEdgeType(Edges.Left) == EdgeType.Open)
+        {
+            Instantiate(settings.tileset.leftOpen, spawnPoint, Quaternion.identity, parent.transform);
         }
     }
 }
