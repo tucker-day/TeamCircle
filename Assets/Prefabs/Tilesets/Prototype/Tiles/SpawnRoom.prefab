@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.02222228, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.33490568, g: 1, b: 0.89972806, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -131,26 +131,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07e282441a5f58468d63e9d02ca68bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperEdgeRules:
-    <CanBeWall>k__BackingField: 1
-    <CanBeDoor>k__BackingField: 1
-    <CanBeOpen>k__BackingField: 0
-    ForcedSpawn: {fileID: 0}
-  rightEdgeRules:
-    <CanBeWall>k__BackingField: 1
-    <CanBeDoor>k__BackingField: 1
-    <CanBeOpen>k__BackingField: 0
-    ForcedSpawn: {fileID: 0}
-  lowerEdgeRules:
-    <CanBeWall>k__BackingField: 1
-    <CanBeDoor>k__BackingField: 1
-    <CanBeOpen>k__BackingField: 0
-    ForcedSpawn: {fileID: 0}
-  leftEdgeRules:
-    <CanBeWall>k__BackingField: 1
-    <CanBeDoor>k__BackingField: 1
-    <CanBeOpen>k__BackingField: 0
-    ForcedSpawn: {fileID: 0}
+  edgeRules:
+    upper:
+      <CanBeWall>k__BackingField: 1
+      <CanBeDoor>k__BackingField: 1
+      <CanBeOpen>k__BackingField: 1
+      ForcedSpawn: {fileID: 0}
+    lower:
+      <CanBeWall>k__BackingField: 1
+      <CanBeDoor>k__BackingField: 1
+      <CanBeOpen>k__BackingField: 1
+      ForcedSpawn: {fileID: 0}
+    right:
+      <CanBeWall>k__BackingField: 1
+      <CanBeDoor>k__BackingField: 1
+      <CanBeOpen>k__BackingField: 1
+      ForcedSpawn: {fileID: 0}
+    left:
+      <CanBeWall>k__BackingField: 1
+      <CanBeDoor>k__BackingField: 1
+      <CanBeOpen>k__BackingField: 1
+      ForcedSpawn: {fileID: 0}
 --- !u!50 &8127597815675003238
 Rigidbody2D:
   serializedVersion: 4
