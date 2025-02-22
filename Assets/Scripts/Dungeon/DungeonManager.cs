@@ -13,9 +13,11 @@ public enum SpawnRoomResult
 public class DungeonManager : MonoBehaviour
 {
     public DungeonSettings settings;
-    private RoomData[,] dungeonGrid;
     private Vector2 spawnOffset;
     private int dungeonSize;
+
+    private RoomData[,] dungeonGrid;
+    private Stack<Vector2Int> spawnList;
 
     private void Start()
     {
@@ -27,9 +29,14 @@ public class DungeonManager : MonoBehaviour
         // create the dungeon grid
         dungeonSize = settings.maxLength * 2 + 1;
         dungeonGrid = new RoomData[dungeonSize, dungeonSize];
+        spawnList = new Stack<Vector2Int>();
         spawnOffset = new Vector2(dungeonSize - 1, dungeonSize - 1) * settings.tileset.tileSize / 2;
 
         SpawnRoom(new Vector2Int(settings.maxLength, settings.maxLength), settings.tileset.spawnRoom);
+        while (spawnList.Count > 0)
+        {
+            SpawnRoom(spawnList.Pop());
+        }
     }
 
     // spawn a random room in a specific position. if a forceRoom is passed in, it will try to spawn
@@ -81,7 +88,7 @@ public class DungeonManager : MonoBehaviour
             // spawn rooms on edges that aren't walls
             foreach (Edges edge in Enum.GetValues(typeof(Edges)))
             {
-                // if edge iss wall, go to next iteration
+                // if edge is wall, go to next iteration
                 if (data.GetEdgeType(edge).Equals(EdgeType.Wall))
                 {
                     continue;
@@ -105,12 +112,7 @@ public class DungeonManager : MonoBehaviour
                         break;
                 }
 
-                SpawnRoomResult result = SpawnRoom(newRoomPos);
-
-                if (result == SpawnRoomResult.Failed)
-                {
-                    return SpawnRoomResult.Failed;
-                }
+                spawnList.Push(newRoomPos);
             }
         }
 
