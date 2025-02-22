@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public enum SpawnRoomResult
 {
@@ -207,7 +208,6 @@ public class DungeonManager : MonoBehaviour
     // using on an invalid room will cause bugs.
     private RoomData CreateRoomData(Vector2Int pos, ChildRoom child, int cost)
     {
-        int lowestDistance = 0;
         RoomData newData = new();
 
         bool upSet = false;
@@ -217,67 +217,25 @@ public class DungeonManager : MonoBehaviour
 
         if (pos.y < dungeonSize - 1)
         {
-            // compare upper edge data to touching tile
-            RoomData comparison = dungeonGrid[pos.x, pos.y + 1];
-            if (comparison != null)
-            {
-                if (lowestDistance > comparison.distance)
-                {
-                    lowestDistance = comparison.distance;
-                }
-
-                newData.SetEdgeType(Edges.Upper, comparison.GetEdgeType(Edges.Lower));
-                upSet = true;
-            }
+            upSet = CopyEdgeFromNeighbor(pos, newData, Edges.Upper);
         }
 
         if (pos.y > 0)
         {
-            // compare lower edge data to touching tile
-            RoomData comparison = dungeonGrid[pos.x, pos.y - 1];
-            if (comparison != null)
-            {
-                if (lowestDistance > comparison.distance)
-                {
-                    lowestDistance = comparison.distance;
-                }
-
-                newData.SetEdgeType(Edges.Lower, comparison.GetEdgeType(Edges.Upper));
-                downSet = true;
-            }
+            downSet = CopyEdgeFromNeighbor(pos, newData, Edges.Lower);
         }
 
         if (pos.x < dungeonSize - 1)
         {
-            // compare right edge data to touching tile
-            RoomData comparison = dungeonGrid[pos.x + 1, pos.y];
-            if (comparison != null)
-            {
-                if (lowestDistance > comparison.distance)
-                {
-                    lowestDistance = comparison.distance;
-                }
-
-                newData.SetEdgeType(Edges.Right, comparison.GetEdgeType(Edges.Left));
-                rightSet = true;
-            }
+            rightSet = CopyEdgeFromNeighbor(pos, newData, Edges.Right);
         }
 
         if (pos.x > 0)
         {
-            // compare left edge data to touching tile
-            RoomData comparison = dungeonGrid[pos.x - 1, pos.y];
-            if (comparison != null)
-            {
-                if (lowestDistance > comparison.distance)
-                {
-                    lowestDistance = comparison.distance;
-                }
+            leftSet = CopyEdgeFromNeighbor(pos, newData, Edges.Left);
+        }
 
-                newData.SetEdgeType(Edges.Left, comparison.GetEdgeType(Edges.Right));
-                leftSet = true;
-            }
-        }    
+        newData.distance += (byte)cost;
 
         if (!upSet)
         {
@@ -347,9 +305,47 @@ public class DungeonManager : MonoBehaviour
             }
         }
 
-        newData.distance = (byte)(lowestDistance + cost);
-
         return newData;
+    }
+
+    private bool CopyEdgeFromNeighbor(Vector2Int pos, RoomData data, Edges edge)
+    {
+        Vector2Int comparePos = pos;
+        Edges compareEdge = edge;
+
+        switch (edge)
+        {
+            case Edges.Upper:
+                comparePos += new Vector2Int(0, 1);
+                compareEdge = Edges.Lower;
+                break;
+            case Edges.Lower:
+                comparePos += new Vector2Int(0, -1);
+                compareEdge = Edges.Upper;
+                break;
+            case Edges.Left:
+                comparePos += new Vector2Int(-1, 0);
+                compareEdge = Edges.Right;
+                break;
+            case Edges.Right:
+                comparePos += new Vector2Int(1, 0);
+                compareEdge = Edges.Left;
+                break;
+        }
+
+        // compare upper edge data to touching tile
+        RoomData comparison = dungeonGrid[comparePos.x, comparePos.y];
+        if (comparison != null)
+        {
+            if (data.distance > comparison.distance)
+            {
+                data.distance = comparison.distance;
+            }
+
+            data.SetEdgeType(edge, comparison.GetEdgeType(compareEdge));
+            return true;
+        }
+        return false;
     }
 
     private void SpawnPerimeterObjects(Vector2Int pos, RoomData roomData, GameObject parent)
