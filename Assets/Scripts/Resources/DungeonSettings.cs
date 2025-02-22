@@ -13,4 +13,13 @@ public class DungeonSettings : ScriptableObject
     [Header("Boss Settings")]
     public bool bossFloor;
     public EnemySpawnPool bossSpawnPool;
+
+    public void OnValidate()
+    {
+        // cap max length at 255
+        if (maxLength > 255)
+        {
+            maxLength = 255;
+        }
+    }
 }
