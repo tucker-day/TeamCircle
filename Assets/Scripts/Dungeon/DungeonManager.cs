@@ -146,13 +146,13 @@ public class DungeonManager : MonoBehaviour
                 switch (edgeType)
                 {
                     case EdgeType.Wall:
-                        if (!room.upperEdgeRules.CanBeWall) return false;
+                        if (!room.edgeRules.lower.CanBeWall) return false;
                         break;
                     case EdgeType.Hall:
-                        if (!room.upperEdgeRules.CanBeDoor) return false;
+                        if (!room.edgeRules.lower.CanBeDoor) return false;
                         break;
                     case EdgeType.Open:
-                        if (!room.upperEdgeRules.CanBeOpen) return false;
+                        if (!room.edgeRules.lower.CanBeOpen) return false;
                         break;
                 }
             }
@@ -169,13 +169,13 @@ public class DungeonManager : MonoBehaviour
                 switch (edgeType)
                 {
                     case EdgeType.Wall:
-                        if (!room.lowerEdgeRules.CanBeWall) return false;
+                        if (!room.edgeRules.upper.CanBeWall) return false;
                         break;
                     case EdgeType.Hall:
-                        if (!room.lowerEdgeRules.CanBeDoor) return false;
+                        if (!room.edgeRules.upper.CanBeDoor) return false;
                         break;
                     case EdgeType.Open:
-                        if (!room.lowerEdgeRules.CanBeOpen) return false;
+                        if (!room.edgeRules.upper.CanBeOpen) return false;
                         break;
                 }
             }
@@ -192,13 +192,13 @@ public class DungeonManager : MonoBehaviour
                 switch (edgeType)
                 {
                     case EdgeType.Wall:
-                        if (!room.rightEdgeRules.CanBeWall) return false;
+                        if (!room.edgeRules.left.CanBeWall) return false;
                         break;
                     case EdgeType.Hall:
-                        if (!room.rightEdgeRules.CanBeDoor) return false;
+                        if (!room.edgeRules.left.CanBeDoor) return false;
                         break;
                     case EdgeType.Open:
-                        if (!room.rightEdgeRules.CanBeOpen) return false;
+                        if (!room.edgeRules.left.CanBeOpen) return false;
                         break;
                 }
             }
@@ -215,13 +215,13 @@ public class DungeonManager : MonoBehaviour
                 switch (edgeType)
                 {
                     case EdgeType.Wall:
-                        if (!room.leftEdgeRules.CanBeWall) return false;
+                        if (!room.edgeRules.right.CanBeWall) return false;
                         break;
                     case EdgeType.Hall:
-                        if (!room.leftEdgeRules.CanBeDoor) return false;
+                        if (!room.edgeRules.right.CanBeDoor) return false;
                         break;
                     case EdgeType.Open:
-                        if (!room.leftEdgeRules.CanBeOpen) return false;
+                        if (!room.edgeRules.right.CanBeOpen) return false;
                         break;
                 }
             }
