@@ -81,9 +81,11 @@ public class DungeonTileset : ScriptableObject
             weightProgress += item.weight;
 
             if (selection < weightProgress)
-            { 
+            {
                 room = item.item;
                 cost = item.cost;
+
+                break;
             }
         }
     }
