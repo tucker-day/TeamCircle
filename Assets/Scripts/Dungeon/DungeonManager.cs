@@ -148,7 +148,7 @@ public class DungeonManager : MonoBehaviour
                     case EdgeType.Wall:
                         if (!room.upperEdgeRules.CanBeWall) return false;
                         break;
-                    case EdgeType.Door:
+                    case EdgeType.Hall:
                         if (!room.upperEdgeRules.CanBeDoor) return false;
                         break;
                     case EdgeType.Open:
@@ -171,7 +171,7 @@ public class DungeonManager : MonoBehaviour
                     case EdgeType.Wall:
                         if (!room.lowerEdgeRules.CanBeWall) return false;
                         break;
-                    case EdgeType.Door:
+                    case EdgeType.Hall:
                         if (!room.lowerEdgeRules.CanBeDoor) return false;
                         break;
                     case EdgeType.Open:
@@ -194,7 +194,7 @@ public class DungeonManager : MonoBehaviour
                     case EdgeType.Wall:
                         if (!room.rightEdgeRules.CanBeWall) return false;
                         break;
-                    case EdgeType.Door:
+                    case EdgeType.Hall:
                         if (!room.rightEdgeRules.CanBeDoor) return false;
                         break;
                     case EdgeType.Open:
@@ -217,7 +217,7 @@ public class DungeonManager : MonoBehaviour
                     case EdgeType.Wall:
                         if (!room.leftEdgeRules.CanBeWall) return false;
                         break;
-                    case EdgeType.Door:
+                    case EdgeType.Hall:
                         if (!room.leftEdgeRules.CanBeDoor) return false;
                         break;
                     case EdgeType.Open:
@@ -310,7 +310,7 @@ public class DungeonManager : MonoBehaviour
             int type = UnityEngine.Random.Range(0, 3);
             if (type == 0)
             {
-                newData.SetEdgeType(Edges.Upper, EdgeType.Door);
+                newData.SetEdgeType(Edges.Upper, EdgeType.Hall);
             }
             else if (type == 1)
             {
@@ -327,7 +327,7 @@ public class DungeonManager : MonoBehaviour
             int type = UnityEngine.Random.Range(0, 3);
             if (type == 0)
             {
-                newData.SetEdgeType(Edges.Lower, EdgeType.Door);
+                newData.SetEdgeType(Edges.Lower, EdgeType.Hall);
             }
             else if (type == 1)
             {
@@ -344,7 +344,7 @@ public class DungeonManager : MonoBehaviour
             int type = UnityEngine.Random.Range(0, 3);
             if (type == 0)
             {
-                newData.SetEdgeType(Edges.Right, EdgeType.Door);
+                newData.SetEdgeType(Edges.Right, EdgeType.Hall);
             }
             else if (type == 1)
             {
@@ -361,7 +361,7 @@ public class DungeonManager : MonoBehaviour
             int type = UnityEngine.Random.Range(0, 3);
             if (type == 0)
             {
-                newData.SetEdgeType(Edges.Left, EdgeType.Door);
+                newData.SetEdgeType(Edges.Left, EdgeType.Hall);
             }
             else if (type == 1)
             {
@@ -384,62 +384,62 @@ public class DungeonManager : MonoBehaviour
 
         // upper
         Vector2 spawnPoint = spawnOrigin + new Vector2(0, settings.tileset.tileSize.y / 2);
-        if (roomData.GetEdgeType(Edges.Upper) == EdgeType.Door)
+        if (roomData.GetEdgeType(Edges.Upper) == EdgeType.Hall)
         {
-            Instantiate(settings.tileset.upperHall, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.upper.hall, spawnPoint, Quaternion.identity, parent.transform);
         }
         else if (roomData.GetEdgeType(Edges.Upper) == EdgeType.Wall)
         {
-            Instantiate(settings.tileset.upperWall, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.upper.wall, spawnPoint, Quaternion.identity, parent.transform);
         }
         else if (roomData.GetEdgeType(Edges.Upper) == EdgeType.Open)
         {
-            Instantiate(settings.tileset.upperOpen, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.upper.open, spawnPoint, Quaternion.identity, parent.transform);
         }
 
         // lower
         spawnPoint = spawnOrigin + new Vector2(0, -settings.tileset.tileSize.y / 2);
-        if (roomData.GetEdgeType(Edges.Lower) == EdgeType.Door)
+        if (roomData.GetEdgeType(Edges.Lower) == EdgeType.Hall)
         {
-            Instantiate(settings.tileset.lowerHall, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.lower.hall, spawnPoint, Quaternion.identity, parent.transform);
         }
         else if (roomData.GetEdgeType(Edges.Lower) == EdgeType.Wall)
         {
-            Instantiate(settings.tileset.lowerWall, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.lower.wall, spawnPoint, Quaternion.identity, parent.transform);
         }
         else if (roomData.GetEdgeType(Edges.Lower) == EdgeType.Open)
         {
-            Instantiate(settings.tileset.lowerOpen, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.lower.open, spawnPoint, Quaternion.identity, parent.transform);
         }
 
         // right
         spawnPoint = spawnOrigin + new Vector2(settings.tileset.tileSize.x / 2, 0);
-        if (roomData.GetEdgeType(Edges.Right) == EdgeType.Door)
+        if (roomData.GetEdgeType(Edges.Right) == EdgeType.Hall)
         {
-            Instantiate(settings.tileset.rightHall, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.right.hall, spawnPoint, Quaternion.identity, parent.transform);
         }
         else if (roomData.GetEdgeType(Edges.Right) == EdgeType.Wall)
         {
-            Instantiate(settings.tileset.rightWall, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.right.wall, spawnPoint, Quaternion.identity, parent.transform);
         }
         else if (roomData.GetEdgeType(Edges.Right) == EdgeType.Open)
         {
-            Instantiate(settings.tileset.rightOpen, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.right.open, spawnPoint, Quaternion.identity, parent.transform);
         }
 
         // left
         spawnPoint = spawnOrigin + new Vector2(-settings.tileset.tileSize.x / 2, 0);
-        if (roomData.GetEdgeType(Edges.Left) == EdgeType.Door)
+        if (roomData.GetEdgeType(Edges.Left) == EdgeType.Hall)
         {
-            Instantiate(settings.tileset.leftHall, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.left.hall, spawnPoint, Quaternion.identity, parent.transform);
         }
         else if (roomData.GetEdgeType(Edges.Left) == EdgeType.Wall)
         {
-            Instantiate(settings.tileset.leftWall, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.left.wall, spawnPoint, Quaternion.identity, parent.transform);
         }
         else if (roomData.GetEdgeType(Edges.Left) == EdgeType.Open)
         {
-            Instantiate(settings.tileset.leftOpen, spawnPoint, Quaternion.identity, parent.transform);
+            Instantiate(settings.tileset.edges.left.open, spawnPoint, Quaternion.identity, parent.transform);
         }
     }
 }

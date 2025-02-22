@@ -11,7 +11,7 @@ public enum Edges
 public enum EdgeType
 {
     Wall,
-    Door,
+    Hall,
     Breakable,
     Open
 }
@@ -56,9 +56,9 @@ public class RoomData
         {
             return EdgeType.Wall;
         }
-        else if (type == GetByteConversion(EdgeType.Door))
+        else if (type == GetByteConversion(EdgeType.Hall))
         {
-            return EdgeType.Door;
+            return EdgeType.Hall;
         }
         else if (type == GetByteConversion(EdgeType.Open))
         {
@@ -82,7 +82,7 @@ public class RoomData
         {
             case EdgeType.Wall:
                 return 0b_0000_0000;
-            case EdgeType.Door:
+            case EdgeType.Hall:
                 return 0b_0000_0001;
             case EdgeType.Breakable:
                 return 0b_0000_0010;

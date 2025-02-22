@@ -1,5 +1,40 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public struct EdgeData
+{
+    public EdgeGroup upper;
+    public EdgeGroup lower;
+    public EdgeGroup left;
+    public EdgeGroup right;
+}
+
+[Serializable]
+public struct EdgeGroup
+{
+    public GameObject hall;
+    public GameObject wall;
+    public GameObject open;
+}
+
+[Serializable]
+public struct CornerData
+{
+    public CornerGroup upperLeft;
+    public CornerGroup upperRight;
+    public CornerGroup lowerLeft;
+    public CornerGroup lowerRight;
+}
+
+[Serializable]
+public struct CornerGroup
+{
+    public GameObject both;
+    public GameObject horizontal;
+    public GameObject vertical;
+}
 
 [CreateAssetMenu(fileName = "DungeonTileset", menuName = "Procedural Generation/Dungeon Tileset")]
 public class DungeonTileset : ScriptableObject
@@ -10,29 +45,11 @@ public class DungeonTileset : ScriptableObject
     public List<WeightedItem<GameObject>> bossRooms;
     public List<WeightedItem<GameObject>> endRooms;
 
-    [Header("Halls")]
-    public GameObject upperHall;
-    public GameObject rightHall;
-    public GameObject lowerHall;
-    public GameObject leftHall;
-
-    [Header("Walls")]
-    public GameObject upperWall;
-    public GameObject rightWall;
-    public GameObject lowerWall;
-    public GameObject leftWall;
-
-    [Header("Opens")]
-    public GameObject upperOpen;
-    public GameObject rightOpen;
-    public GameObject lowerOpen;
-    public GameObject leftOpen;
+    [Header("Edges")]
+    public EdgeData edges;
 
     [Header("Corners")]
-    public GameObject upperLeftCorner;
-    public GameObject upperRightCorner;
-    public GameObject lowerLeftCorner;
-    public GameObject lowerRightCorner;
+    public CornerData corners;
 
     public Vector2 tileSize;
 
@@ -53,7 +70,7 @@ public class DungeonTileset : ScriptableObject
 
     public void GetRandomRoom(out GameObject room, out int cost)
     {
-        int selection = Random.Range(0, maxWeightRooms);
+        int selection = UnityEngine.Random.Range(0, maxWeightRooms);
         int weightProgress = 0;
 
         room = null;
