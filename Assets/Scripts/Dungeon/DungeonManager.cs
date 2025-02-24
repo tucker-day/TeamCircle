@@ -299,71 +299,74 @@ public class DungeonManager : MonoBehaviour
 
         newData.distance += (byte)cost;
 
-        if (!upSet)
+        if (newData.distance < settings.maxLength)
         {
-            int type = UnityEngine.Random.Range(0, 3);
-            if (type == 0)
+            if (!upSet)
             {
-                newData.SetEdgeType(Edges.Upper, EdgeType.Hall);
+                int type = UnityEngine.Random.Range(0, 3);
+                if (type == 0)
+                {
+                    newData.SetEdgeType(Edges.Upper, EdgeType.Hall);
+                }
+                else if (type == 1)
+                {
+                    newData.SetEdgeType(Edges.Upper, EdgeType.Wall);
+                }
+                else if (type == 2)
+                {
+                    newData.SetEdgeType(Edges.Upper, EdgeType.Open);
+                }
             }
-            else if (type == 1)
-            {
-                newData.SetEdgeType(Edges.Upper, EdgeType.Wall);
-            }
-            else if (type == 2)
-            {
-                newData.SetEdgeType(Edges.Upper, EdgeType.Open);
-            }
-        }
 
-        if (!downSet)
-        {
-            int type = UnityEngine.Random.Range(0, 3);
-            if (type == 0)
+            if (!downSet)
             {
-                newData.SetEdgeType(Edges.Lower, EdgeType.Hall);
+                int type = UnityEngine.Random.Range(0, 3);
+                if (type == 0)
+                {
+                    newData.SetEdgeType(Edges.Lower, EdgeType.Hall);
+                }
+                else if (type == 1)
+                {
+                    newData.SetEdgeType(Edges.Lower, EdgeType.Wall);
+                }
+                else if (type == 2)
+                {
+                    newData.SetEdgeType(Edges.Lower, EdgeType.Open);
+                }
             }
-            else if (type == 1)
-            {
-                newData.SetEdgeType(Edges.Lower, EdgeType.Wall);
-            }
-            else if (type == 2)
-            {
-                newData.SetEdgeType(Edges.Lower, EdgeType.Open);
-            }
-        }
 
-        if (!rightSet)
-        {
-            int type = UnityEngine.Random.Range(0, 3);
-            if (type == 0)
+            if (!rightSet)
             {
-                newData.SetEdgeType(Edges.Right, EdgeType.Hall);
+                int type = UnityEngine.Random.Range(0, 3);
+                if (type == 0)
+                {
+                    newData.SetEdgeType(Edges.Right, EdgeType.Hall);
+                }
+                else if (type == 1)
+                {
+                    newData.SetEdgeType(Edges.Right, EdgeType.Wall);
+                }
+                else if (type == 2)
+                {
+                    newData.SetEdgeType(Edges.Right, EdgeType.Open);
+                }
             }
-            else if (type == 1)
-            {
-                newData.SetEdgeType(Edges.Right, EdgeType.Wall);
-            }
-            else if (type == 2)
-            {
-                newData.SetEdgeType(Edges.Right, EdgeType.Open);
-            }
-        }
 
-        if (!leftSet)
-        {
-            int type = UnityEngine.Random.Range(0, 3);
-            if (type == 0)
+            if (!leftSet)
             {
-                newData.SetEdgeType(Edges.Left, EdgeType.Hall);
-            }
-            else if (type == 1)
-            {
-                newData.SetEdgeType(Edges.Left, EdgeType.Wall);
-            }
-            else if (type == 2)
-            {
-                newData.SetEdgeType(Edges.Left, EdgeType.Open);
+                int type = UnityEngine.Random.Range(0, 3);
+                if (type == 0)
+                {
+                    newData.SetEdgeType(Edges.Left, EdgeType.Hall);
+                }
+                else if (type == 1)
+                {
+                    newData.SetEdgeType(Edges.Left, EdgeType.Wall);
+                }
+                else if (type == 2)
+                {
+                    newData.SetEdgeType(Edges.Left, EdgeType.Open);
+                }
             }
         }
 
