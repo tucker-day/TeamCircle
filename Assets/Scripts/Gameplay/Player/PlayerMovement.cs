@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     float horizontal;
     float vertical;
-
+    private PlayerStats playerStats;
     public float speed = 5.0f;
 
 
@@ -16,13 +16,25 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        if (playerStats.CurrentHP != 0)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
+        }
+        else { 
+            horizontal = 0;
+            vertical = 0;
+        }
+        if (Input.GetKeyDown("h"))
+        {
+            playerStats.CurrentHP = 0f;
+        }
     }
 
     private void FixedUpdate()

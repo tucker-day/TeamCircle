@@ -14,26 +14,6 @@ public struct BaseStuct
 
 
 
-public class PlayerStats 
-{
-    BaseStuct test = new BaseStuct();
-    void TakeDamage()
-    { 
-        test.CurrentHP = 1.0f;//testing taking damage and death
-
-        if(test.CurrentHP == 0.0f)
-        {
-            GameOver();
-        }
-    }
-    void GameOver()
-    {
-        Debug.Log("Game over");
-    }
-}
-
-
-
 
 
 
