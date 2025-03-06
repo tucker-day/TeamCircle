@@ -51,24 +51,11 @@ public class AudioManager : MonoBehaviour
     void CheckMusicUpdate()
     {
         // For testing fading between music variants.
-        // Press Escape to switch to Combat music.
-        // Press Tab to switch to Calm music.
+        // Press Escape to switch to Calm music.
+        // Press Tab to switch to Combat music.
         // Press Left Shift to switch to Miniboss music.
-        if ((Input.GetKeyDown(KeyCode.Escape) && mus_combat.volume == 0f) || gameState.enemiesPresent && !gameState.minibossPresent)
-        {
-            calmToCombat = true;
-            minibossToCombat = true;
 
-            combatToCalm = false;
-            minibossToCalm = false;
-            calmToMiniboss = false;
-            combatToMiniboss = false;
-
-            gameState.enemiesPresent = true;
-            gameState.minibossPresent = false;
-            StartCoroutine("FadeMusic");
-        }
-        if ((Input.GetKeyDown(KeyCode.Tab) && mus_calm.volume == 0f) || !gameState.enemiesPresent)
+        if ((Input.GetKeyDown(KeyCode.Escape) && mus_calm.volume == 0f) || !gameState.enemiesPresent)
         {
             combatToCalm = true;
             minibossToCalm = true;
@@ -79,6 +66,20 @@ public class AudioManager : MonoBehaviour
             combatToMiniboss = false;
 
             gameState.enemiesPresent = false;
+            gameState.minibossPresent = false;
+            StartCoroutine("FadeMusic");
+        }
+        if ((Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) || gameState.enemiesPresent && !gameState.minibossPresent)
+        {
+            calmToCombat = true;
+            minibossToCombat = true;
+
+            combatToCalm = false;
+            minibossToCalm = false;
+            calmToMiniboss = false;
+            combatToMiniboss = false;
+
+            gameState.enemiesPresent = true;
             gameState.minibossPresent = false;
             StartCoroutine("FadeMusic");
         }
@@ -107,35 +108,50 @@ public class AudioManager : MonoBehaviour
     // Press any of the keys below to play a sound.
     void TestSoundEffects()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            // Press Q to play melee enemy attack sound.
+            // Press 1 to play melee enemy attack sound.
             PlaySFX(soundEffects[0]);
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            // Press W to play melee enemy damage sound.
+            // Press 2 to play melee enemy damage sound.
             PlaySFX(soundEffects[1]);
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            // Press E to play melee enemy death sound.
+            // Press 3 to play melee enemy death sound.
             PlaySFX(soundEffects[2]);
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            // Press A to play ranged enemy attack sound.
+            // Press 4 to play ranged enemy attack sound.
             PlaySFX(soundEffects[3]);
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            // Press S to play ranged enemy damage sound.
+            // Press 5 to play ranged enemy damage sound.
             PlaySFX(soundEffects[4]);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            // Press D to play ranged enemy death sound.
+            // Press 6 to play ranged enemy death sound.
             PlaySFX(soundEffects[5]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            // Press 7 to play axe attack sound.
+            PlaySFX(soundEffects[6]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            // Press 8 to play spear attack sound.
+            PlaySFX(soundEffects[7]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            // Press 9 to play sword attack sound.
+            PlaySFX(soundEffects[8]);
         }
     }
 
