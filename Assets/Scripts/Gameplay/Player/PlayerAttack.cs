@@ -8,7 +8,15 @@ public class PlayerAttack : MonoBehaviour
     public float Timer = 0.0f;
     public float attackSpeed = 2.0f;
     public float WaitTime = 2.0f;
-    // Start is called before the first frame update
+
+    private PlayerStats playerStats;
+
+
+    public void Start()
+    {
+        playerStats = GetComponent<PlayerStats>(); 
+    }
+
 
     public void AutoAttack()
     {
@@ -16,13 +24,17 @@ public class PlayerAttack : MonoBehaviour
     }
 
     // Update is called once per frame
+
     void Update()
     {
-        Timer += Time.deltaTime;
-        if(Timer > attackSpeed)
+        if (playerStats.CurrentHP != 0)
         {
-            AutoAttack();
-            Timer = Timer - WaitTime;
+            Timer += Time.deltaTime;
+            if (Timer > attackSpeed)
+            {
+                AutoAttack();
+                Timer = Timer - WaitTime;
+            }
         }
     }
 }
