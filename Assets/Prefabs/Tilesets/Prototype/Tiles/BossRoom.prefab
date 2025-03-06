@@ -131,22 +131,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07e282441a5f58468d63e9d02ca68bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperEdgeRestrictions:
-    <canBeWall>k__BackingField: 1
-    <canBeDoor>k__BackingField: 1
-    <canBeOpen>k__BackingField: 1
-  rightEdgeRestrictions:
-    <canBeWall>k__BackingField: 1
-    <canBeDoor>k__BackingField: 1
-    <canBeOpen>k__BackingField: 1
-  lowerEdgeRestrictions:
-    <canBeWall>k__BackingField: 1
-    <canBeDoor>k__BackingField: 1
-    <canBeOpen>k__BackingField: 1
-  leftEdgeRestrictions:
-    <canBeWall>k__BackingField: 1
-    <canBeDoor>k__BackingField: 1
-    <canBeOpen>k__BackingField: 1
+  upperEdgeRules:
+    <CanBeWall>k__BackingField: 1
+    <CanBeDoor>k__BackingField: 1
+    <CanBeOpen>k__BackingField: 0
+    ForcedSpawn: {fileID: 0}
+  rightEdgeRules:
+    <CanBeWall>k__BackingField: 1
+    <CanBeDoor>k__BackingField: 1
+    <CanBeOpen>k__BackingField: 0
+    ForcedSpawn: {fileID: 0}
+  lowerEdgeRules:
+    <CanBeWall>k__BackingField: 1
+    <CanBeDoor>k__BackingField: 1
+    <CanBeOpen>k__BackingField: 0
+    ForcedSpawn: {fileID: 0}
+  leftEdgeRules:
+    <CanBeWall>k__BackingField: 1
+    <CanBeDoor>k__BackingField: 1
+    <CanBeOpen>k__BackingField: 0
+    ForcedSpawn: {fileID: 0}
 --- !u!50 &-1490670101686014156
 Rigidbody2D:
   serializedVersion: 4
