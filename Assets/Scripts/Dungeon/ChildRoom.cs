@@ -2,6 +2,15 @@ using System;
 using UnityEngine;
 
 [Serializable]
+public class EdgeRulesGroup
+{
+    public EdgeRules upper;
+    public EdgeRules lower;
+    public EdgeRules right;
+    public EdgeRules left;
+}
+
+[Serializable]
 public class EdgeRules
 {
     [field: SerializeField] public bool CanBeWall { get; private set; } = true;
@@ -15,8 +24,5 @@ public class EdgeRules
 public class ChildRoom : MonoBehaviour
 {
     [Header("Edge Rules")]
-    public EdgeRules upperEdgeRules = new EdgeRules();
-    public EdgeRules rightEdgeRules = new EdgeRules();
-    public EdgeRules lowerEdgeRules = new EdgeRules();
-    public EdgeRules leftEdgeRules = new EdgeRules();
+    public EdgeRulesGroup edgeRules = new();
 }

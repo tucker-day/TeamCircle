@@ -11,7 +11,7 @@ public enum Edges
 public enum EdgeType
 {
     Wall,
-    Door,
+    Hall,
     Breakable,
     Open
 }
@@ -47,7 +47,7 @@ public class RoomData
     }
 
     // takes in a byte, and returrns the matching edge type enum
-    public EdgeType GetEnumConversion(byte type)
+    private static EdgeType GetEnumConversion(byte type)
     {
         // this cannot be a switch statment. trust me, i tried. c# dislikes
         // it when you use functions in your switch cases so I had to use
@@ -56,9 +56,9 @@ public class RoomData
         {
             return EdgeType.Wall;
         }
-        else if (type == GetByteConversion(EdgeType.Door))
+        else if (type == GetByteConversion(EdgeType.Hall))
         {
-            return EdgeType.Door;
+            return EdgeType.Hall;
         }
         else if (type == GetByteConversion(EdgeType.Open))
         {
@@ -76,13 +76,13 @@ public class RoomData
     }
 
     // converts an enum edge type into its byte representation
-    public byte GetByteConversion(EdgeType type)
+    private static byte GetByteConversion(EdgeType type)
     {
         switch (type)
         {
             case EdgeType.Wall:
                 return 0b_0000_0000;
-            case EdgeType.Door:
+            case EdgeType.Hall:
                 return 0b_0000_0001;
             case EdgeType.Breakable:
                 return 0b_0000_0010;
