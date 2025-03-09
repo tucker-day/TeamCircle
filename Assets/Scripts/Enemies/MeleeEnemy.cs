@@ -24,8 +24,7 @@ public class MeleeEnemy : Enemy
 
     public override void Attack()
     {
-        playerHP -= damage; // Placeholder
-        // playerStats.TakeDamage(damage);
+        playerStats.TakeDamage(damage);
         Debug.Log("Melee is attacking the player");
     }
 }

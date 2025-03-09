@@ -3,17 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+
 public class Enemy : MonoBehaviour
 {
     public IEnemyState currentState;
 
-    //public PlayerStats playerStats;   // PlayerStats script currently unavailable
-   
-    // Placeholder player stats
-    public float playerHP = 100;
-
     public Animator anim;
     public Transform player;
+    public PlayerStats playerStats;
 
     public int hp;
     public int damage;
