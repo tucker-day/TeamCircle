@@ -19,7 +19,7 @@ public class MeleeEnemy : Enemy
     public override void Chase()
     {
         Debug.Log("Melee is chasing the player");
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
     }
 
     public override void Attack()

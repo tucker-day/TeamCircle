@@ -10,7 +10,8 @@ public class Enemy : MonoBehaviour
     public IEnemyState currentState;
 
     public Animator anim;
-    public Transform player;
+    public GameObject playerObj;
+    public Transform playerPos;
     public PlayerStats playerStats;
 
     public int hp;
@@ -23,6 +24,10 @@ public class Enemy : MonoBehaviour
     protected void Start()
     {
         anim = GetComponent<Animator>();
+
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerPos = playerObj.transform;
+        playerStats = playerObj.GetComponent<PlayerStats>();
     }
 
     void Update()
