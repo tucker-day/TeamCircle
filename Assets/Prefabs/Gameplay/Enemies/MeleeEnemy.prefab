@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2896196276352168039}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -69,7 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 3768287529265729499}
-  player: {fileID: 1574595745127572957, guid: 38902b9d744d364429ec27536e2f35b5, type: 3}
+  playerObj: {fileID: 0}
+  playerPos: {fileID: 0}
   playerStats: {fileID: 0}
   hp: 0
   damage: 0
