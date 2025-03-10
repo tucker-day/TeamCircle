@@ -1,9 +1,11 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeEnemy : Enemy
 {
+    public float distance;
     public MeleeEnemy()
     {
         attackRange = 1.0f;
@@ -18,13 +20,11 @@ public class MeleeEnemy : Enemy
 
     public override void Chase()
     {
-        Debug.Log("Melee is chasing the player");
-        transform.position = Vector3.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
     }
 
     public override void Attack()
     {
         playerStats.TakeDamage(damage);
-        Debug.Log("Melee is attacking the player");
     }
 }

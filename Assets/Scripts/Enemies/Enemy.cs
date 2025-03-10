@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
 
     public int hp;
     public int damage;
-    public float speed;
+    public float speed = 2f;
     public float detectionRange;
     public float attackRange;
     bool isDead = false;
@@ -64,6 +64,6 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Debug.Log("Enemy killed");
-        // Destroy(gameObject);
+        Destroy(gameObject);
     }
 }
