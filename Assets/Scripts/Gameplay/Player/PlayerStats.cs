@@ -20,9 +20,11 @@ public class PlayerStats : MonoBehaviour
         Debug.Log(PlayerSpeed);
     }
 
-    void TakeDamage()
+    public void TakeDamage(int damage)
     {
         test.CurrentHP = 1.0f;//testing taking damage and death
+
+        // test.CurrentHP -= (float)damage; // Uncomment to test 
 
         if (test.CurrentHP == 0.0f)
         {

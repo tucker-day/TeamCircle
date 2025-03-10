@@ -3,21 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+
 public class Enemy : MonoBehaviour
 {
     public IEnemyState currentState;
 
-    //public PlayerStats playerStats;   // PlayerStats script currently unavailable
-   
-    // Placeholder player stats
-    public float playerHP = 100;
-
     public Animator anim;
-    public Transform player;
+    public GameObject playerObj;
+    public Transform playerPos;
+    public PlayerStats playerStats;
 
     public int hp;
     public int damage;
-    public float speed;
+    public float speed = 2f;
     public float detectionRange;
     public float attackRange;
     bool isDead = false;
@@ -25,6 +24,10 @@ public class Enemy : MonoBehaviour
     protected void Start()
     {
         anim = GetComponent<Animator>();
+
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerPos = playerObj.transform;
+        playerStats = playerObj.GetComponent<PlayerStats>();
     }
 
     void Update()
@@ -41,6 +44,14 @@ public class Enemy : MonoBehaviour
 
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Projectile")
+        {
+            TakeDamage(damage);
+        }
     }
     public virtual void Move() { }
 
@@ -61,6 +72,6 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Debug.Log("Enemy killed");
-        // Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

@@ -10,9 +10,8 @@ public class Attack : IEnemyState
     }
     public void UpdateState(Enemy enemy)
     {
-        Debug.Log("Executing attack state");
         enemy.Attack();
-        float distance = Vector3.Distance(enemy.player.transform.position, enemy.transform.position);
+        float distance = Vector3.Distance(enemy.playerPos.position, enemy.transform.position);
 
         if (distance >= enemy.attackRange)
         {
