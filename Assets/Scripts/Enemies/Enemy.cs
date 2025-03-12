@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
 
     public int hp;
     public int damage;
-    public float speed = 2f;
+    public float speed;
     public float detectionRange;
     public float attackRange;
     bool isDead = false;
