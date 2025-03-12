@@ -12,6 +12,7 @@ public class PlayerStats : MonoBehaviour
     public float PlayerSpeed;
     //public float PlayerLuck = 100.0f;
 
+    AudioManager audioManager;
     public void Start()
     {
         MaxHP = 100.0f;
@@ -22,9 +23,9 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        test.CurrentHP = 1.0f;//testing taking damage and death
+        //test.CurrentHP = 1.0f;//testing taking damage and death
 
-        // test.CurrentHP -= (float)damage; // Uncomment to test 
+        test.CurrentHP -= (float)damage; // Uncomment to test 
 
         if (test.CurrentHP == 0.0f)
         {
@@ -33,6 +34,7 @@ public class PlayerStats : MonoBehaviour
     }
     void GameOver()
     {
+        //AudioManager.instance.PlaySFX();
         Debug.Log("Game over");
     }
 }
