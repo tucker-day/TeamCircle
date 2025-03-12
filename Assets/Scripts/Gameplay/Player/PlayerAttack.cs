@@ -27,7 +27,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (playerStats.CurrentHP != 0)
+        if (playerStats.CurrentHP > 0)
         {
             Timer += Time.deltaTime;
             if (Timer > attackSpeed)

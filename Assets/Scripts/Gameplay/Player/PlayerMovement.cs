@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerStats.CurrentHP != 0)
+        if (playerStats.CurrentHP > 0)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown("h"))
         {
-            playerStats.CurrentHP = 0f;
+            playerStats.CurrentHP = 0;
         }
     }
 
