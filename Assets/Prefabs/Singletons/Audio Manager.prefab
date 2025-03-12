@@ -60,6 +60,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6cab5223b3f39b943b6a68695bdbb29b, type: 3}
   - {fileID: 8300000, guid: 31a995901afc0be4abe74a2f565a5278, type: 3}
   - {fileID: 8300000, guid: 0dc40004a3edfaf4c9314361c056184a, type: 3}
+  - {fileID: 8300000, guid: eceb724868033b3418bdcbac40a492c1, type: 3}
+  - {fileID: 8300000, guid: a6b1a1c84fa26fa4db2a4329ed7b4aa6, type: 3}
+  - {fileID: 8300000, guid: 8eb1351ff3b6fc94da4c72a21c807f13, type: 3}
+  - {fileID: 8300000, guid: e35a89d7143e4894285e26ab6c4cf5e6, type: 3}
+  - {fileID: 8300000, guid: c108ddbd19d2e4643ad8691b9400139a, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   musVolume: 100
   sfxVolume: 100
 --- !u!82 &7512336318142599494
