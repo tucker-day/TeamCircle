@@ -29,10 +29,10 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        playerStats.CurrentHP = 1;//testing taking damage and death
+        //playerStats.CurrentHP = 1;//testing taking damage and death
 
         playerStats.CurrentHP -= (int)damage; // Uncomment to test 
-
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[6]);
 
 
         if (playerStats.CurrentHP <= 0)
@@ -42,7 +42,7 @@ public class PlayerStats : MonoBehaviour
     }
     void GameOver()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[2]);
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[7]);
         Debug.Log("Game over");
     }
 }
