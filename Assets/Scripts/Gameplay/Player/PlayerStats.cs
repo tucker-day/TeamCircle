@@ -7,34 +7,42 @@ public class PlayerStats : MonoBehaviour
 {
     BaseStuct test = new BaseStuct();
 
-    public float MaxHP;
-    public float CurrentHP;
+    public int MaxHP;
+    public int CurrentHP;
     public float PlayerSpeed;
     //public float PlayerLuck = 100.0f;
+    private PlayerStats playerStats;
 
-    AudioManager audioManager;
     public void Start()
     {
-        MaxHP = 100.0f;
+        MaxHP = 100;
         PlayerSpeed = GetComponent<PlayerMovement>().speed;
         CurrentHP = GetComponent<PlayerStats>().MaxHP;
         Debug.Log(PlayerSpeed);
+        playerStats = GetComponent<PlayerStats>();
+
+
+        TakeDamage(1);
     }
+
+
 
     public void TakeDamage(int damage)
     {
-        //test.CurrentHP = 1.0f;//testing taking damage and death
+        playerStats.CurrentHP = 1;//testing taking damage and death
 
-        test.CurrentHP -= (float)damage; // Uncomment to test 
+        playerStats.CurrentHP -= (int)damage; // Uncomment to test 
 
-        if (test.CurrentHP == 0.0f)
+
+
+        if (playerStats.CurrentHP <= 0)
         {
             GameOver();
         }
     }
     void GameOver()
     {
-        //AudioManager.instance.PlaySFX();
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[2]);
         Debug.Log("Game over");
     }
 }
