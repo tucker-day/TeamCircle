@@ -142,17 +142,17 @@ public class AudioManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             // Press 7 to play axe attack sound.
-            PlaySFX(soundEffects[6]);
+            PlaySFX(soundEffects[8]);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             // Press 8 to play spear attack sound.
-            PlaySFX(soundEffects[7]);
+            PlaySFX(soundEffects[9]);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             // Press 9 to play sword attack sound.
-            PlaySFX(soundEffects[8]);
+            PlaySFX(soundEffects[10]);
         }
     }
 
