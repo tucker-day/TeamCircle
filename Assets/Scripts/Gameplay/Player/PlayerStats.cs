@@ -13,16 +13,19 @@ public class PlayerStats : MonoBehaviour
     //public float PlayerLuck = 100.0f;
     private PlayerStats playerStats;
 
-    public void Start()
+    //[SerializeField]
+    //public HPBarManager hpBarManager;
+
+    public void Awake()
     {
         MaxHP = 100;
         PlayerSpeed = GetComponent<PlayerMovement>().speed;
-        CurrentHP = GetComponent<PlayerStats>().MaxHP;
+        CurrentHP = MaxHP;
         Debug.Log(PlayerSpeed);
-        playerStats = GetComponent<PlayerStats>();
+        //playerStats = GetComponent<PlayerStats>();
 
 
-        TakeDamage(1);
+        //TakeDamage(1);
     }
 
 
@@ -31,15 +34,17 @@ public class PlayerStats : MonoBehaviour
     {
         //playerStats.CurrentHP = 1;//testing taking damage and death
 
-        playerStats.CurrentHP -= (int)damage; // Uncomment to test 
+        CurrentHP -= (int)damage; // Uncomment to test 
         AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[6]);
 
+        //HPBarManager.UpdateHP();
 
-        if (playerStats.CurrentHP <= 0)
+        if (CurrentHP <= 0)
         {
             GameOver();
         }
     }
+
     void GameOver()
     {
         AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[7]);
