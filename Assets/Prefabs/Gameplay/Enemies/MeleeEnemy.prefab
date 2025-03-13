@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5625679391285233219}
   - component: {fileID: 3768287529265729499}
-  - component: {fileID: 5863280317338194323}
+  - component: {fileID: 7503956730989647954}
   - component: {fileID: 620514392355993056}
   - component: {fileID: 1094054972471462972}
   m_Layer: 0
@@ -56,7 +56,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5863280317338194323
+--- !u!114 &7503956730989647954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -69,14 +69,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 3768287529265729499}
+  spriteRenderer: {fileID: 0}
   playerObj: {fileID: 0}
   playerPos: {fileID: 0}
   playerStats: {fileID: 0}
   hp: 0
   damage: 0
-  speed: 0
+  speed: 2
   detectionRange: 0
   attackRange: 1
+  distance: 0
 --- !u!61 &620514392355993056
 BoxCollider2D:
   m_ObjectHideFlags: 0

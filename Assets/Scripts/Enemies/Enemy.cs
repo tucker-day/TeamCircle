@@ -10,13 +10,14 @@ public class Enemy : MonoBehaviour
     public IEnemyState currentState;
 
     public Animator anim;
+    public SpriteRenderer spriteRenderer;
     public GameObject playerObj;
     public Transform playerPos;
     public PlayerStats playerStats;
 
     public int hp;
     public int damage;
-    public float speed = 2f;
+    public float speed;
     public float detectionRange;
     public float attackRange;
     bool isDead = false;
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour
     protected void Start()
     {
         anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         playerObj = GameObject.FindGameObjectWithTag("Player");
         playerPos = playerObj.transform;
