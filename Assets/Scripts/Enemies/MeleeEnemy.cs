@@ -35,6 +35,10 @@ public class MeleeEnemy : Enemy
 
     public override void Attack()
     {
-        playerStats.TakeDamage(damage);
+        if (timer <= 0)
+        {
+            playerStats.TakeDamage(damage);
+            timer = cooldown;
+        }
     }
 }
