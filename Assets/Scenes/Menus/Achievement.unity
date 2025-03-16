@@ -136,7 +136,11 @@ GameObject:
   - component: {fileID: 63003785}
   - component: {fileID: 63003784}
   m_Layer: 5
+<<<<<<< HEAD
   m_Name: AchievementTitleTemplate
+=======
+  m_Name: TitleTemplate
+>>>>>>> origin/ScriptableObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,8 +181,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54e1ed63f10d734b9c9887819965309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   achievementTitle: {fileID: 0}
   achievementtitleText: {fileID: 0}
+=======
+  title: {fileID: 11400000, guid: ae107367bb81377408ad57ab31542cea, type: 2}
+  titleText: {fileID: 0}
+>>>>>>> origin/ScriptableObject
   descriptionText: {fileID: 0}
   scoreText: {fileID: 0}
 --- !u!114 &63003785
@@ -2513,7 +2522,11 @@ GameObject:
   - component: {fileID: 1923508776}
   - component: {fileID: 1923508775}
   m_Layer: 5
+<<<<<<< HEAD
   m_Name: AchievementTitel
+=======
+  m_Name: Title
+>>>>>>> origin/ScriptableObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2558,7 +2571,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_text: 'Achievement
+=======
+  m_text: 'Title
+>>>>>>> origin/ScriptableObject
 
 
 '
