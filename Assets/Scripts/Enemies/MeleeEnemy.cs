@@ -8,13 +8,14 @@ public class MeleeEnemy : Enemy
     public float distance;
     public MeleeEnemy()
     {
+        hp = 50;
         speed = 2.0f;
         attackRange = 1.0f;
+        damage = 5;
     }
 
     void Start()
     {
-        damage = 20;
         base.Start();
         ChangeState(new Chase());
     }

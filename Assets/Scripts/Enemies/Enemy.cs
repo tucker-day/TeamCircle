@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     public float detectionRange;
     public float attackRange;
-    bool isDead = false;
+    bool isDead;
 
     public float cooldown;
     protected float timer;
@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
         playerPos = playerObj.transform;
         playerStats = playerObj.GetComponent<PlayerStats>();
 
+        isDead = false;
         cooldown = 1.5f;
     }
 
