@@ -24,6 +24,6 @@ public class HPBarManager : MonoBehaviour
         //healthAmount = playerStats.CurrentHP;
 
         Square.fillAmount = (float)playerStats.CurrentHP / playerStats.MaxHP;
-        Debug.Log(Square.fillAmount);
+        //Debug.Log(Square.fillAmount);
     }
 }
