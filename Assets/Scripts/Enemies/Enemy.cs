@@ -20,7 +20,10 @@ public class Enemy : MonoBehaviour
     public float speed;
     public float detectionRange;
     public float attackRange;
-    bool isDead = false;
+    bool isDead;
+
+    public float cooldown;
+    protected float timer;
 
     protected void Start()
     {
@@ -30,11 +33,19 @@ public class Enemy : MonoBehaviour
         playerObj = GameObject.FindGameObjectWithTag("Player");
         playerPos = playerObj.transform;
         playerStats = playerObj.GetComponent<PlayerStats>();
+
+        isDead = false;
+        cooldown = 1.5f;
     }
 
     void Update()
     {
         currentState.UpdateState(this);
+
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
     }
 
     public void ChangeState(IEnemyState state)
@@ -74,6 +85,7 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Debug.Log("Enemy killed");
+        isDead = true;
         Destroy(gameObject);
     }
 }
