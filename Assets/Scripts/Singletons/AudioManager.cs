@@ -6,7 +6,6 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
-    public GameManager gameState;
 
     [SerializeField]
     AudioSource mus_calm, mus_combat, mus_miniboss, sfxAudio;
@@ -55,7 +54,7 @@ public class AudioManager : MonoBehaviour
         // Press Tab to switch to Combat music.
         // Press Left Shift to switch to Miniboss music.
 
-        if ((Input.GetKeyDown(KeyCode.Escape) && mus_calm.volume == 0f) || !gameState.enemiesPresent)
+        if ((Input.GetKeyDown(KeyCode.Escape) && mus_calm.volume == 0f) || !GameManager.instance.enemiesPresent)
         {
             combatToCalm = true;
             minibossToCalm = true;
@@ -65,11 +64,9 @@ public class AudioManager : MonoBehaviour
             calmToMiniboss = false;
             combatToMiniboss = false;
 
-            gameState.enemiesPresent = false;
-            gameState.minibossPresent = false;
             StartCoroutine("FadeMusic");
         }
-        if ((Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) || gameState.enemiesPresent && !gameState.minibossPresent)
+        if ((Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) || GameManager.instance.enemiesPresent && !GameManager.instance.minibossPresent)
         {
             calmToCombat = true;
             minibossToCombat = true;
@@ -79,11 +76,9 @@ public class AudioManager : MonoBehaviour
             calmToMiniboss = false;
             combatToMiniboss = false;
 
-            gameState.enemiesPresent = true;
-            gameState.minibossPresent = false;
             StartCoroutine("FadeMusic");
         }
-        if ((Input.GetKeyDown(KeyCode.LeftShift) && mus_miniboss.volume == 0f) || gameState.minibossPresent)
+        if ((Input.GetKeyDown(KeyCode.LeftShift) && mus_miniboss.volume == 0f) || GameManager.instance.minibossPresent)
         {
             calmToMiniboss = true;
             combatToMiniboss = true;
@@ -93,8 +88,6 @@ public class AudioManager : MonoBehaviour
             combatToCalm = false;
             minibossToCalm = false;
 
-            gameState.enemiesPresent = true;
-            gameState.minibossPresent = true;
             StartCoroutine("FadeMusic");
         }
     }

@@ -26,7 +26,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CheckForEnemies();
+    }
+
+    // Check the static enemy list to see if enemies are present.
+    void CheckForEnemies()
+    {
+        if (Enemy.s_enemyList.Count >= 1)
+        {
+            instance.enemiesPresent = true;
+            print("THERE BE ENEMIES HERE!");
+        }
+        else if (Enemy.s_enemyList.Count <= 0)
+        {
+            instance.enemiesPresent = false;
+            print("No enemies detected. All clear!");
+        }
     }
 
     public void SpawnEnemies()

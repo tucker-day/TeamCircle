@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
 {
     public IEnemyState currentState;
 
+    public static List<GameObject> s_enemyList;
+
     public Animator anim;
     public SpriteRenderer spriteRenderer;
     public GameObject playerObj;
@@ -33,6 +35,8 @@ public class Enemy : MonoBehaviour
         playerObj = GameObject.FindGameObjectWithTag("Player");
         playerPos = playerObj.transform;
         playerStats = playerObj.GetComponent<PlayerStats>();
+
+        s_enemyList = new List<GameObject>();
 
         isDead = false;
         cooldown = 1.5f;
@@ -87,5 +91,6 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy killed");
         isDead = true;
         Destroy(gameObject);
+        s_enemyList.Remove(gameObject);
     }
 }
