@@ -6,16 +6,13 @@ using UnityEngine;
 public class MeleeEnemy : Enemy
 {
     public float distance;
-    public MeleeEnemy()
+
+    void Start()
     {
         hp = 50;
         speed = 2.0f;
         attackRange = 1.0f;
         damage = 5;
-    }
-
-    void Start()
-    {
         base.Start();
         ChangeState(new Chase());
     }
