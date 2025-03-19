@@ -10,23 +10,6 @@ public enum SpawnRoomResult
     ImpossibleForcePlace
 }
 
-public class SpawnCommand
-{
-    public SpawnCommand(Vector2Int spawnPosition)
-    {
-        pos = spawnPosition;
-    }
-
-    public SpawnCommand(Vector2Int spawnPosition, GameObject force)
-    {
-        pos = spawnPosition;
-        forceObject = force;
-    }
-
-    public Vector2Int pos;
-    public GameObject forceObject = null;
-}
-
 public class DungeonManager : MonoBehaviour
 {
     public DungeonSettings settings;
@@ -34,7 +17,7 @@ public class DungeonManager : MonoBehaviour
     private int dungeonSize;
 
     private RoomData[,] dungeonGrid;
-    private Stack<SpawnCommand> spawnList;
+    private Stack<Vector2Int> spawnList;
 
     private void Update()
     {
@@ -58,14 +41,14 @@ public class DungeonManager : MonoBehaviour
         // create the dungeon grid
         dungeonSize = settings.maxLength * 2 + 1;
         dungeonGrid = new RoomData[dungeonSize, dungeonSize];
-        spawnList = new Stack<SpawnCommand>();
+        spawnList = new Stack<Vector2Int>();
         spawnOffset = new Vector2(dungeonSize - 1, dungeonSize - 1) * settings.tileset.tileSize / 2;
 
         SpawnRoom(new Vector2Int(settings.maxLength, settings.maxLength), settings.tileset.spawnRoom);
         while (spawnList.Count > 0)
         {
-            SpawnCommand spawnCommand = spawnList.Pop();
-            SpawnRoom(spawnCommand.pos, spawnCommand.forceObject);
+            Vector2Int spawnCoord = spawnList.Pop();
+            SpawnRoom(spawnCoord);
         }
     }
 
@@ -142,7 +125,7 @@ public class DungeonManager : MonoBehaviour
                         break;
                 }
 
-                spawnList.Push(new SpawnCommand(newRoomPos));
+                spawnList.Push(newRoomPos);
             }
         }
 

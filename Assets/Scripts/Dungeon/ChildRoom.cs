@@ -16,7 +16,6 @@ public class EdgeRules
     [field: SerializeField] public bool CanBeWall { get; private set; } = true;
     [field: SerializeField] public bool CanBeDoor { get; private set; } = true;
     [field: SerializeField] public bool CanBeOpen { get; private set; } = true;
-    [SerializeField] public GameObject ForcedSpawn = null;
 }
 
 [RequireComponent(typeof(BoxCollider2D))]
