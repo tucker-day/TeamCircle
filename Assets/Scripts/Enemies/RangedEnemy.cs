@@ -4,14 +4,28 @@ using UnityEngine;
 
 public class RangedEnemy : Enemy
 {
+    public float distance;
     void Start()
     {
-        
+        hp = 25;
+        speed = 1.0f;
+        attackRange = 10.0f;
+        damage = 10;
+        base.Start();
+        ChangeState(new Chase());
     }
 
-    void Update()
+    public override void Chase()
     {
-        
+
     }
 
+    public override void Attack()
+    {
+        if (timer <= 0)
+        {
+            playerStats.TakeDamage(damage);
+            timer = cooldown;
+        }
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MeleeEnemy : Enemy
 {
-    public float distance;
+    //public float distance;
 
     void Start()
     {
