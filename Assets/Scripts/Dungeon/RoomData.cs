@@ -93,4 +93,21 @@ public class RoomData
         Debug.Log("Invalid Input into GetByteConversion()!");
         return 0;
     }
+
+    private static Vector2Int GetEdgeVectorConversion(Edges edge)
+    {
+        switch (edge)
+        {
+            case Edges.Upper:
+                return Vector2Int.up;
+            case Edges.Lower:
+                return Vector2Int.down;
+            case Edges.Right:
+                return Vector2Int.right;
+            case Edges.Left:
+                return Vector2Int.left;
+            default:
+                return Vector2Int.zero;
+        }
+    }
 }
