@@ -16,6 +16,7 @@ public class QuitButton : MonoBehaviour
 
      public void OnQuitButtonPressed()
     {
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
         Debug.Log("Quit button is pressed. Bye !!!");
          Application.Quit();
     }

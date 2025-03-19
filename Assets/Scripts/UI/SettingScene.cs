@@ -17,7 +17,7 @@ public class SettingScene : MonoBehaviour
 
      public void OnSettingButtonPressed()
     {
-        
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
         SceneManager.LoadScene("Setting");
     }
 }

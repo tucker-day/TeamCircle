@@ -17,7 +17,9 @@ public class StartGame : MonoBehaviour
 
      public void OnStartButtonPressed()
     {
-        
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
+        AudioManager.instance.StopMusic();
+        Destroy(AudioManager.instance);
         SceneManager.LoadScene("Dungeon");
     }
 }

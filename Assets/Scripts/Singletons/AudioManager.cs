@@ -36,6 +36,7 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        DontDestroyOnLoad(this);
 
         combatToCalm = true;
     }
@@ -43,7 +44,11 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckMusicUpdate();
+        if (GameManager.instance)
+        {
+            CheckMusicUpdate();
+        }
+
         TestSoundEffects();
     }
 
@@ -96,6 +101,11 @@ public class AudioManager : MonoBehaviour
     {
         sfxAudio.pitch = Random.Range(0.9f, 1.1f);
         sfxAudio.PlayOneShot(clip);
+    }
+
+    public void StopMusic()
+    {
+        mus_calm.Stop(); mus_combat.Stop(); mus_miniboss.Stop();
     }
 
     // This function is for testing sound effects.

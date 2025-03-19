@@ -16,7 +16,7 @@ public class Achievement : MonoBehaviour
 
      public void OnAchievementButtonPressed()
     {
-        
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
         SceneManager.LoadScene("Achievement");
     }
 } 

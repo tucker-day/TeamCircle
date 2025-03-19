@@ -16,7 +16,7 @@ public class CreditScene : MonoBehaviour
 
      public void OnCreditButtonPressed()
     {
-        
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
         SceneManager.LoadScene("Credit");
     }
 }

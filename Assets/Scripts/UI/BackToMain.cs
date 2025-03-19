@@ -17,7 +17,7 @@ public class BackToMain : MonoBehaviour
 
      public void OnBackButtonPressed()
     {
-        
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[12]);
         SceneManager.LoadScene("Main");
     }
 }
