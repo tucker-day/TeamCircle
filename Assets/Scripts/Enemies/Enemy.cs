@@ -36,6 +36,8 @@ public class Enemy : MonoBehaviour
         playerPos = playerObj.transform;
         playerStats = playerObj.GetComponent<PlayerStats>();
 
+        s_enemyList.Add(this);
+
         isDead = false;
         cooldown = 1.5f;
     }
@@ -88,8 +90,8 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("Enemy killed");
         isDead = true;
+        s_enemyList.Remove(this);
         Destroy(gameObject);
-        s_enemyList.Remove(gameObject.GetComponent<Enemy>());
         GameManager.instance.CheckForEnemies();
     }
 }
