@@ -112,16 +112,16 @@ public class DungeonManager : MonoBehaviour
                 switch (edge)
                 {
                     case Edges.Upper:
-                        newRoomPos += new Vector2Int(0, 1);
+                        newRoomPos += Vector2Int.up;
                         break;
                     case Edges.Lower:
-                        newRoomPos += new Vector2Int(0, -1);
+                        newRoomPos += Vector2Int.down;
                         break;
                     case Edges.Left:
-                        newRoomPos += new Vector2Int(-1, 0);
+                        newRoomPos += Vector2Int.left;
                         break;
                     case Edges.Right:
-                        newRoomPos += new Vector2Int(1, 0);
+                        newRoomPos += Vector2Int.right;
                         break;
                 }
 
