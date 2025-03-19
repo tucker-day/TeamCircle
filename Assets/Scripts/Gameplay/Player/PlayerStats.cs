@@ -24,6 +24,7 @@ public class PlayerStats : MonoBehaviour
         MaxHP = 100;
         PlayerSpeed = GetComponent<PlayerMovement>().speed;
         CurrentHP = MaxHP;
+        isAlive = true;
         anim.SetBool("isAlive", true);
     }
 
@@ -44,7 +45,7 @@ public class PlayerStats : MonoBehaviour
     void GameOver()
     {
         isAlive = false;
-        
+        anim.SetBool("isAlive", false);
         AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[7]);
         Debug.Log("Game over");
     }
