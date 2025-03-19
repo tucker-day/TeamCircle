@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStats playerStats;
     public float speed = 5.0f;
     public Animator anim;
-
+    public SpriteRenderer spriteRenderer;
     public float walk;
 
 
@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<PlayerStats>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         anim.SetFloat("velocity", (horizontal * speed + vertical * speed) / 2.0f);
     }
 
@@ -31,7 +32,23 @@ public class PlayerMovement : MonoBehaviour
         {
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
+
+            if (horizontal != 0) {
+
+                if (horizontal >= 0)
+                {
+                    spriteRenderer.flipX = false;
+                }
+                else
+                {
+                    spriteRenderer.flipX = true;
+                }
+            }
+
+
             
+
+
         }
         else { 
             horizontal = 0;
