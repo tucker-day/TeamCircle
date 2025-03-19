@@ -10,13 +10,18 @@ public class PlayerMovement : MonoBehaviour
     float vertical;
     private PlayerStats playerStats;
     public float speed = 5.0f;
+    public Animator anim;
+
+    public float walk;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<PlayerStats>();
+        anim.SetFloat("velocity", (horizontal * speed + vertical * speed) / 2.0f);
     }
 
     // Update is called once per frame
@@ -26,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         {
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
+            
         }
         else { 
             horizontal = 0;
@@ -40,5 +46,6 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         body.velocity = new Vector2 (horizontal * speed, vertical * speed);
+        anim.SetFloat("velocity", (horizontal * speed + vertical * speed) / 2.0f);
     }
 }
