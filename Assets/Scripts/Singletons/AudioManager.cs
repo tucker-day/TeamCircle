@@ -54,7 +54,7 @@ public class AudioManager : MonoBehaviour
         // Press Tab to switch to Combat music.
         // Press Left Shift to switch to Miniboss music.
 
-        if ((Input.GetKeyDown(KeyCode.Escape) && mus_calm.volume == 0f) || !GameManager.instance.enemiesPresent)
+        if ((Input.GetKeyDown(KeyCode.Escape) && mus_calm.volume == 0f) || !GameManager.instance.CheckForEnemies())
         {
             combatToCalm = true;
             minibossToCalm = true;
@@ -66,7 +66,7 @@ public class AudioManager : MonoBehaviour
 
             StartCoroutine("FadeMusic");
         }
-        if ((Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) || GameManager.instance.enemiesPresent && !GameManager.instance.minibossPresent)
+        if ((Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) || GameManager.instance.CheckForEnemies() && !GameManager.instance.minibossPresent)
         {
             calmToCombat = true;
             minibossToCombat = true;
