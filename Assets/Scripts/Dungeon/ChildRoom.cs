@@ -23,4 +23,21 @@ public class ChildRoom : MonoBehaviour
 {
     [Header("Edge Rules")]
     public EdgeRulesGroup edgeRules = new();
+
+    public EdgeRules GetRulesByEnum(Edges edge)
+    {
+        switch (edge)
+        {
+            case Edges.Upper:
+                return edgeRules.upper;
+            case Edges.Lower:
+                return edgeRules.lower;
+            case Edges.Right:
+                return edgeRules.right;
+            case Edges.Left:
+                return edgeRules.left;
+            default:
+                return null;
+        }
+    }
 }
