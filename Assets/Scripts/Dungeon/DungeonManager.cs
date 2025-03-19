@@ -92,7 +92,7 @@ public class DungeonManager : MonoBehaviour
         dungeonGrid[pos.x, pos.y] = CreateRoomData(pos, child, cost);
 
         GameObject spawnedRoom = Instantiate(room, GetSpawnPos(pos), Quaternion.identity, gameObject.transform);
-        SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], spawnedRoom);
+        SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], child, spawnedRoom);
 
         if (dungeonGrid[pos.x, pos.y].distance < settings.maxLength)
         {
@@ -247,27 +247,27 @@ public class DungeonManager : MonoBehaviour
     {
         RoomData newData = new();
 
-        bool upSet = false;
-        bool rightSet = false;
-        bool downSet = false;
-        bool leftSet = false;
+        bool upSet = child.edgeRules.upper.BuildInEdge;
+        bool rightSet = child.edgeRules.right.BuildInEdge;
+        bool downSet = child.edgeRules.lower.BuildInEdge;
+        bool leftSet = child.edgeRules.left.BuildInEdge;
 
-        if (pos.y < dungeonSize - 1)
+        if (pos.y < dungeonSize - 1 && !upSet)
         {
             upSet = CopyEdgeFromNeighbor(pos, newData, Edges.Upper);
         }
 
-        if (pos.y > 0)
+        if (pos.y > 0 && !downSet)
         {
             downSet = CopyEdgeFromNeighbor(pos, newData, Edges.Lower);
         }
 
-        if (pos.x < dungeonSize - 1)
+        if (pos.x < dungeonSize - 1 && !rightSet)
         {
             rightSet = CopyEdgeFromNeighbor(pos, newData, Edges.Right);
         }
 
-        if (pos.x > 0)
+        if (pos.x > 0 && !leftSet)
         {
             leftSet = CopyEdgeFromNeighbor(pos, newData, Edges.Left);
         }
@@ -388,14 +388,18 @@ public class DungeonManager : MonoBehaviour
         return false;
     }
 
-    private void SpawnPerimeterObjects(Vector2Int pos, RoomData roomData, GameObject parent)
+    private void SpawnPerimeterObjects(Vector2Int pos, RoomData roomData, ChildRoom child, GameObject parent)
     {
         Vector2 spawnOrigin = GetSpawnPos(pos);
 
-        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Upper, parent);
-        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Lower, parent);
-        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Right, parent);
-        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Left, parent);
+        if (!child.edgeRules.upper.BuildInEdge) 
+            SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Upper, parent);
+        if (!child.edgeRules.lower.BuildInEdge)
+            SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Lower, parent);
+        if (!child.edgeRules.right.BuildInEdge)
+            SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Right, parent);
+        if (!child.edgeRules.left.BuildInEdge)
+            SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Left, parent);
     }
 
     private void SpawnObjectsOnEdge(Vector2 pos, RoomData data, Edges edge, GameObject parent)
