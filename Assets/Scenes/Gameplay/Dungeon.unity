@@ -1297,6 +1297,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5886312507426039612, guid: 38902b9d744d364429ec27536e2f35b5, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1357826450399776926}
+    - target: {fileID: 5886312507426039612, guid: 38902b9d744d364429ec27536e2f35b5, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 1357826450399776930}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1318,6 +1326,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03df01147ccecc49816558570ca3b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1357826450399776926 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5233698208856298084, guid: 38902b9d744d364429ec27536e2f35b5, type: 3}
+  m_PrefabInstance: {fileID: 1357826450399776922}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1357826450399776930 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2064258820366114470, guid: 38902b9d744d364429ec27536e2f35b5, type: 3}
+  m_PrefabInstance: {fileID: 1357826450399776922}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1518909054004240683
 GameObject:
   m_ObjectHideFlags: 0

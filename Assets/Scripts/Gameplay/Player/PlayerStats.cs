@@ -10,13 +10,22 @@ public class PlayerStats : MonoBehaviour
     public int MaxHP;
     public int CurrentHP;
     public float PlayerSpeed;
-    private PlayerStats playerStats;
+    //private PlayerStats playerStats;
+    public bool isAlive;
+
+    public Animator anim;
+    public SpriteRenderer spriteRenderer;
 
     public void Awake()
     {
+        anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         MaxHP = 100;
         PlayerSpeed = GetComponent<PlayerMovement>().speed;
         CurrentHP = MaxHP;
+        isAlive = true;
+        anim.SetBool("isAlive", true);
     }
 
 
@@ -28,12 +37,15 @@ public class PlayerStats : MonoBehaviour
 
         if (CurrentHP <= 0)
         {
+            anim.SetBool("isAlive", false);
             GameOver();
         }
     }
 
     void GameOver()
     {
+        isAlive = false;
+        anim.SetBool("isAlive", false);
         AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[7]);
         Debug.Log("Game over");
     }
