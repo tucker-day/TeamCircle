@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4868e23efa549744bbebed972f12678, type: 3}
   m_Name: DungeonTileset
   m_EditorClassIdentifier: 
-  spawnRoom: {fileID: 8205624513170101846, guid: 8c6b289f14767b84792a2c0b169962e8, type: 3}
+  spawnRoom: {fileID: 8205624513170101846, guid: a4a6d9c2cefa65d498a43737f2a27d4e, type: 3}
   rooms:
   - item: {fileID: 8205624513170101846, guid: 8c6b289f14767b84792a2c0b169962e8, type: 3}
     weight: 1
