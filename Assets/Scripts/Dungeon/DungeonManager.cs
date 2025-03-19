@@ -247,10 +247,34 @@ public class DungeonManager : MonoBehaviour
     {
         RoomData newData = new();
 
-        bool upSet = child.edgeRules.upper.BuildInEdge;
-        bool rightSet = child.edgeRules.right.BuildInEdge;
-        bool downSet = child.edgeRules.lower.BuildInEdge;
-        bool leftSet = child.edgeRules.left.BuildInEdge;
+        bool upSet = false;
+        bool rightSet = false;
+        bool downSet = false;
+        bool leftSet = false;
+
+        if (child.edgeRules.upper.BuildInEdge)
+        {
+            upSet = true;
+            newData.SetEdgeType(Edges.Upper, child.edgeRules.upper.BuiltInEdgeType);
+        }
+
+        if (child.edgeRules.lower.BuildInEdge)
+        {
+            downSet = true;
+            newData.SetEdgeType(Edges.Lower, child.edgeRules.lower.BuiltInEdgeType);
+        }
+
+        if (child.edgeRules.right.BuildInEdge)
+        {
+            rightSet = true;
+            newData.SetEdgeType(Edges.Right, child.edgeRules.right.BuiltInEdgeType);
+        }
+
+        if (child.edgeRules.left.BuildInEdge)
+        {
+            leftSet = true;
+            newData.SetEdgeType(Edges.Left, child.edgeRules.left.BuiltInEdgeType);
+        }
 
         if (pos.y < dungeonSize - 1 && !upSet)
         {
