@@ -231,17 +231,9 @@ public class DungeonManager : MonoBehaviour
         {
             EdgeType edgeType = other.GetEdgeType(edge);
 
-            switch (edgeType)
+            if (rules.BuildInEdge && rules.BuiltInEdgeType != edgeType)
             {
-                case EdgeType.Wall:
-                    if (!rules.CanBeWall) return false;
-                    break;
-                case EdgeType.Hall:
-                    if (!rules.CanBeDoor) return false;
-                    break;
-                case EdgeType.Open:
-                    if (!rules.CanBeOpen) return false;
-                    break;
+                return false;
             }
         }
 

@@ -13,9 +13,8 @@ public class EdgeRulesGroup
 [Serializable]
 public class EdgeRules
 {
-    [field: SerializeField] public bool CanBeWall { get; private set; } = true;
-    [field: SerializeField] public bool CanBeDoor { get; private set; } = true;
-    [field: SerializeField] public bool CanBeOpen { get; private set; } = true;
+    [field: SerializeField] public bool BuildInEdge { get; private set; } = false;
+    [field: SerializeField] public EdgeType BuiltInEdgeType { get; private set; } = EdgeType.Wall;
 }
 
 [RequireComponent(typeof(BoxCollider2D))]
