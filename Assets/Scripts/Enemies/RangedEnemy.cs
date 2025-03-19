@@ -17,7 +17,14 @@ public class RangedEnemy : Enemy
 
     public override void Chase()
     {
-
+        if (playerPos.position.x < transform.position.x)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (playerPos.position.x > transform.position.x)
+        {
+            spriteRenderer.flipX = false;
+        }
     }
 
     public override void Attack()
