@@ -13,10 +13,8 @@ public class EdgeRulesGroup
 [Serializable]
 public class EdgeRules
 {
-    [field: SerializeField] public bool CanBeWall { get; private set; } = true;
-    [field: SerializeField] public bool CanBeDoor { get; private set; } = true;
-    [field: SerializeField] public bool CanBeOpen { get; private set; } = true;
-    [SerializeField] public GameObject ForcedSpawn = null;
+    [field: SerializeField] public bool BuildInEdge { get; private set; } = false;
+    [field: SerializeField] public EdgeType BuiltInEdgeType { get; private set; } = EdgeType.Wall;
 }
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -25,4 +23,21 @@ public class ChildRoom : MonoBehaviour
 {
     [Header("Edge Rules")]
     public EdgeRulesGroup edgeRules = new();
+
+    public EdgeRules GetRulesByEnum(Edges edge)
+    {
+        switch (edge)
+        {
+            case Edges.Upper:
+                return edgeRules.upper;
+            case Edges.Lower:
+                return edgeRules.lower;
+            case Edges.Right:
+                return edgeRules.right;
+            case Edges.Left:
+                return edgeRules.left;
+            default:
+                return null;
+        }
+    }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542838af3f4fe804582fdc712433c35c, type: 3}
   m_Name: PrototypeDungeon
   m_EditorClassIdentifier: 
-  maxLength: 0
+  maxLength: 5
   tileset: {fileID: 11400000, guid: e9b49a67ebf7160478f002d32505c4a3, type: 2}
   spawnPools: []
   bossFloor: 0

@@ -10,23 +10,6 @@ public enum SpawnRoomResult
     ImpossibleForcePlace
 }
 
-public class SpawnCommand
-{
-    public SpawnCommand(Vector2Int spawnPosition)
-    {
-        pos = spawnPosition;
-    }
-
-    public SpawnCommand(Vector2Int spawnPosition, GameObject force)
-    {
-        pos = spawnPosition;
-        forceObject = force;
-    }
-
-    public Vector2Int pos;
-    public GameObject forceObject = null;
-}
-
 public class DungeonManager : MonoBehaviour
 {
     public DungeonSettings settings;
@@ -34,7 +17,7 @@ public class DungeonManager : MonoBehaviour
     private int dungeonSize;
 
     private RoomData[,] dungeonGrid;
-    private Stack<SpawnCommand> spawnList;
+    private Stack<Vector2Int> spawnList;
 
     private void Update()
     {
@@ -58,14 +41,14 @@ public class DungeonManager : MonoBehaviour
         // create the dungeon grid
         dungeonSize = settings.maxLength * 2 + 1;
         dungeonGrid = new RoomData[dungeonSize, dungeonSize];
-        spawnList = new Stack<SpawnCommand>();
+        spawnList = new Stack<Vector2Int>();
         spawnOffset = new Vector2(dungeonSize - 1, dungeonSize - 1) * settings.tileset.tileSize / 2;
 
         SpawnRoom(new Vector2Int(settings.maxLength, settings.maxLength), settings.tileset.spawnRoom);
         while (spawnList.Count > 0)
         {
-            SpawnCommand spawnCommand = spawnList.Pop();
-            SpawnRoom(spawnCommand.pos, spawnCommand.forceObject);
+            Vector2Int spawnCoord = spawnList.Pop();
+            SpawnRoom(spawnCoord);
         }
     }
 
@@ -109,7 +92,7 @@ public class DungeonManager : MonoBehaviour
         dungeonGrid[pos.x, pos.y] = CreateRoomData(pos, child, cost);
 
         GameObject spawnedRoom = Instantiate(room, GetSpawnPos(pos), Quaternion.identity, gameObject.transform);
-        SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], spawnedRoom);
+        SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], child, spawnedRoom);
 
         if (dungeonGrid[pos.x, pos.y].distance < settings.maxLength)
         {
@@ -129,20 +112,20 @@ public class DungeonManager : MonoBehaviour
                 switch (edge)
                 {
                     case Edges.Upper:
-                        newRoomPos += new Vector2Int(0, 1);
+                        newRoomPos += Vector2Int.up;
                         break;
                     case Edges.Lower:
-                        newRoomPos += new Vector2Int(0, -1);
+                        newRoomPos += Vector2Int.down;
                         break;
                     case Edges.Left:
-                        newRoomPos += new Vector2Int(-1, 0);
+                        newRoomPos += Vector2Int.left;
                         break;
                     case Edges.Right:
-                        newRoomPos += new Vector2Int(1, 0);
+                        newRoomPos += Vector2Int.right;
                         break;
                 }
 
-                spawnList.Push(new SpawnCommand(newRoomPos));
+                spawnList.Push(newRoomPos);
             }
         }
 
@@ -248,17 +231,9 @@ public class DungeonManager : MonoBehaviour
         {
             EdgeType edgeType = other.GetEdgeType(edge);
 
-            switch (edgeType)
+            if (rules.BuildInEdge && rules.BuiltInEdgeType != edgeType)
             {
-                case EdgeType.Wall:
-                    if (!rules.CanBeWall) return false;
-                    break;
-                case EdgeType.Hall:
-                    if (!rules.CanBeDoor) return false;
-                    break;
-                case EdgeType.Open:
-                    if (!rules.CanBeOpen) return false;
-                    break;
+                return false;
             }
         }
 
@@ -272,100 +247,43 @@ public class DungeonManager : MonoBehaviour
     {
         RoomData newData = new();
 
-        bool upSet = false;
-        bool rightSet = false;
-        bool downSet = false;
-        bool leftSet = false;
+        bool[] occupied = { false, false, false, false };
 
-        if (pos.y < dungeonSize - 1)
+        foreach (Edges edge in Enum.GetValues(typeof(Edges)))
         {
-            upSet = CopyEdgeFromNeighbor(pos, newData, Edges.Upper);
+            occupied[(int)edge] = TryInheritEdgeData(child, pos, edge, newData);
         }
 
-        if (pos.y > 0)
-        {
-            downSet = CopyEdgeFromNeighbor(pos, newData, Edges.Lower);
-        }
-
-        if (pos.x < dungeonSize - 1)
-        {
-            rightSet = CopyEdgeFromNeighbor(pos, newData, Edges.Right);
-        }
-
-        if (pos.x > 0)
-        {
-            leftSet = CopyEdgeFromNeighbor(pos, newData, Edges.Left);
-        }
-
+        // distance is received in the TryInheritEdgeData function, so this
+        // must stay below or else cost won't be added
         newData.distance += (byte)cost;
 
-        if (newData.distance < settings.maxLength)
+        int nonWallCount = newData.GetNonWallCount();
+        int occupiedCount = 0;
+
+        foreach (bool b in occupied)
         {
-            if (!upSet)
-            {
-                int type = UnityEngine.Random.Range(0, 3);
-                if (type == 0)
-                {
-                    newData.SetEdgeType(Edges.Upper, EdgeType.Hall);
-                }
-                else if (type == 1)
-                {
-                    newData.SetEdgeType(Edges.Upper, EdgeType.Wall);
-                }
-                else if (type == 2)
-                {
-                    newData.SetEdgeType(Edges.Upper, EdgeType.Open);
-                }
-            }
+            occupiedCount += b ? 1 : 0;
+        }
 
-            if (!downSet)
+        if (newData.distance < settings.maxLength && occupiedCount < 4)
+        {
+            while (nonWallCount < 3 && occupiedCount < 4)
             {
-                int type = UnityEngine.Random.Range(0, 3);
-                if (type == 0)
-                {
-                    newData.SetEdgeType(Edges.Lower, EdgeType.Hall);
-                }
-                else if (type == 1)
-                {
-                    newData.SetEdgeType(Edges.Lower, EdgeType.Wall);
-                }
-                else if (type == 2)
-                {
-                    newData.SetEdgeType(Edges.Lower, EdgeType.Open);
-                }
-            }
+                Edges target = (Edges)UnityEngine.Random.Range(0, 4);
 
-            if (!rightSet)
-            {
-                int type = UnityEngine.Random.Range(0, 3);
-                if (type == 0)
+                if (!occupied[(int)target])
                 {
-                    newData.SetEdgeType(Edges.Right, EdgeType.Hall);
-                }
-                else if (type == 1)
-                {
-                    newData.SetEdgeType(Edges.Right, EdgeType.Wall);
-                }
-                else if (type == 2)
-                {
-                    newData.SetEdgeType(Edges.Right, EdgeType.Open);
-                }
-            }
+                    EdgeType edgeType = UnityEngine.Random.Range(0, 2) == 0 ? EdgeType.Hall : EdgeType.Open;
+                    newData.SetEdgeType(target, edgeType);
+                    nonWallCount++;
 
-            if (!leftSet)
-            {
-                int type = UnityEngine.Random.Range(0, 3);
-                if (type == 0)
-                {
-                    newData.SetEdgeType(Edges.Left, EdgeType.Hall);
-                }
-                else if (type == 1)
-                {
-                    newData.SetEdgeType(Edges.Left, EdgeType.Wall);
-                }
-                else if (type == 2)
-                {
-                    newData.SetEdgeType(Edges.Left, EdgeType.Open);
+                    occupied[(int)target] = true;
+                    occupiedCount = 0;
+                    foreach (bool b in occupied)
+                    {
+                        occupiedCount += b ? 1 : 0;
+                    }
                 }
             }
         }
@@ -373,7 +291,26 @@ public class DungeonManager : MonoBehaviour
         return newData;
     }
 
-    private bool CopyEdgeFromNeighbor(Vector2Int pos, RoomData data, Edges edge)
+    private bool TryInheritEdgeData(ChildRoom child, Vector2Int pos, Edges edge, RoomData newData)
+    {
+        bool set = false;
+        Vector2Int target = pos + RoomData.GetEdgeVectorConversion(edge);
+
+        if (child.GetRulesByEnum(edge).BuildInEdge)
+        {
+            set = true;
+            newData.SetEdgeType(edge, child.GetRulesByEnum(edge).BuiltInEdgeType);
+        }
+        else if (target.x < dungeonSize && target.x >= 0  &&
+                 target.y < dungeonSize && target.y >= 0)
+        {
+            set = TryCopyEdgeFromNeighbor(pos, newData, edge);
+        }
+
+        return set;
+    }
+
+    private bool TryCopyEdgeFromNeighbor(Vector2Int pos, RoomData data, Edges edge)
     {
         Vector2Int comparePos = pos;
         Edges compareEdge = edge;
@@ -413,14 +350,18 @@ public class DungeonManager : MonoBehaviour
         return false;
     }
 
-    private void SpawnPerimeterObjects(Vector2Int pos, RoomData roomData, GameObject parent)
+    private void SpawnPerimeterObjects(Vector2Int pos, RoomData roomData, ChildRoom child, GameObject parent)
     {
         Vector2 spawnOrigin = GetSpawnPos(pos);
 
-        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Upper, parent);
-        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Lower, parent);
-        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Right, parent);
-        SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Left, parent);
+        if (!child.edgeRules.upper.BuildInEdge) 
+            SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Upper, parent);
+        if (!child.edgeRules.lower.BuildInEdge)
+            SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Lower, parent);
+        if (!child.edgeRules.right.BuildInEdge)
+            SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Right, parent);
+        if (!child.edgeRules.left.BuildInEdge)
+            SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Left, parent);
     }
 
     private void SpawnObjectsOnEdge(Vector2 pos, RoomData data, Edges edge, GameObject parent)
