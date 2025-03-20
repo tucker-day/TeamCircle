@@ -15,7 +15,7 @@ public class HPBarManager : MonoBehaviour
     void Start()
     {
         healthAmount = playerStats.CurrentHP;
-        Debug.Log(healthAmount);
+        //Debug.Log(healthAmount);
     }
 
     // Update is called once per frame
