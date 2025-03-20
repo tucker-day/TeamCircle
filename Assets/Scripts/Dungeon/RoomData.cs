@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum Edges
@@ -44,6 +45,15 @@ public class RoomData
         // remove the old data, and instert the new data
         _edgeData = (byte)(_edgeData & filter);
         _edgeData = (byte)(_edgeData | newType);
+    }
+
+    public int GetNonWallCount()
+    {
+        int nonWalls = 0;
+        foreach (Edges edge in Enum.GetValues(typeof(Edges))) {
+            if (GetEdgeType(edge) != EdgeType.Wall) nonWalls++;
+        }
+        return nonWalls;
     }
 
     // takes in a byte, and returrns the matching edge type enum
