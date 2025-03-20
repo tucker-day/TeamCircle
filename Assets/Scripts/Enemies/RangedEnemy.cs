@@ -17,6 +17,11 @@ public class RangedEnemy : Enemy
 
     public override void Chase()
     {
+        do
+        {
+            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
+        } while (Vector2.Distance(transform.position, playerPos.position) > attackRange);
+
         if (playerPos.position.x < transform.position.x)
         {
             spriteRenderer.flipX = true;
