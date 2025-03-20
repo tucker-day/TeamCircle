@@ -247,54 +247,10 @@ public class DungeonManager : MonoBehaviour
     {
         RoomData newData = new();
 
-        bool upSet = false;
-        bool rightSet = false;
-        bool downSet = false;
-        bool leftSet = false;
-
-        if (child.edgeRules.upper.BuildInEdge)
-        {
-            upSet = true;
-            newData.SetEdgeType(Edges.Upper, child.edgeRules.upper.BuiltInEdgeType);
-        }
-
-        if (child.edgeRules.lower.BuildInEdge)
-        {
-            downSet = true;
-            newData.SetEdgeType(Edges.Lower, child.edgeRules.lower.BuiltInEdgeType);
-        }
-
-        if (child.edgeRules.right.BuildInEdge)
-        {
-            rightSet = true;
-            newData.SetEdgeType(Edges.Right, child.edgeRules.right.BuiltInEdgeType);
-        }
-
-        if (child.edgeRules.left.BuildInEdge)
-        {
-            leftSet = true;
-            newData.SetEdgeType(Edges.Left, child.edgeRules.left.BuiltInEdgeType);
-        }
-
-        if (pos.y < dungeonSize - 1 && !upSet)
-        {
-            upSet = CopyEdgeFromNeighbor(pos, newData, Edges.Upper);
-        }
-
-        if (pos.y > 0 && !downSet)
-        {
-            downSet = CopyEdgeFromNeighbor(pos, newData, Edges.Lower);
-        }
-
-        if (pos.x < dungeonSize - 1 && !rightSet)
-        {
-            rightSet = CopyEdgeFromNeighbor(pos, newData, Edges.Right);
-        }
-
-        if (pos.x > 0 && !leftSet)
-        {
-            leftSet = CopyEdgeFromNeighbor(pos, newData, Edges.Left);
-        }
+        bool upSet = TryInheritEdgeData(child, pos, Edges.Upper, newData);
+        bool rightSet = TryInheritEdgeData(child, pos, Edges.Right, newData);
+        bool downSet = TryInheritEdgeData(child, pos, Edges.Lower, newData);
+        bool leftSet = TryInheritEdgeData(child, pos, Edges.Left, newData);
 
         newData.distance += (byte)cost;
 
@@ -316,7 +272,6 @@ public class DungeonManager : MonoBehaviour
                     newData.SetEdgeType(Edges.Upper, EdgeType.Open);
                 }
             }
-
             if (!downSet)
             {
                 int type = UnityEngine.Random.Range(0, 3);
@@ -372,7 +327,28 @@ public class DungeonManager : MonoBehaviour
         return newData;
     }
 
-    private bool CopyEdgeFromNeighbor(Vector2Int pos, RoomData data, Edges edge)
+    private bool TryInheritEdgeData(ChildRoom child, Vector2Int pos, Edges edge, RoomData newData)
+    {
+        bool set = false;
+        Vector2Int target = pos + RoomData.GetEdgeVectorConversion(edge);
+
+        if (child.GetRulesByEnum(edge).BuildInEdge)
+        {
+            Debug.Log("Test");
+            set = true;
+            newData.SetEdgeType(edge, child.GetRulesByEnum(edge).BuiltInEdgeType);
+        }
+        else if (target.x < dungeonSize && target.x >= 0  &&
+                 target.y < dungeonSize && target.y >= 0)
+        {
+            Debug.Log("Shit");
+            set = TryCopyEdgeFromNeighbor(pos, newData, edge);
+        }
+
+        return set;
+    }
+
+    private bool TryCopyEdgeFromNeighbor(Vector2Int pos, RoomData data, Edges edge)
     {
         Vector2Int comparePos = pos;
         Edges compareEdge = edge;
