@@ -9,7 +9,7 @@ public class RangedEnemy : Enemy
     {
         hp = 25;
         speed = 1.0f;
-        attackRange = 10.0f;
+        attackRange = 5.0f;
         damage = 10;
         base.Start();
         ChangeState(new Chase());
@@ -17,10 +17,10 @@ public class RangedEnemy : Enemy
 
     public override void Chase()
     {
-        do
+        if (Vector2.Distance(transform.position, playerPos.position) > attackRange)
         {
             transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
-        } while (Vector2.Distance(transform.position, playerPos.position) > attackRange);
+        }
 
         if (playerPos.position.x < transform.position.x)
         {
