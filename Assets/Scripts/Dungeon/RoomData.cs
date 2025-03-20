@@ -94,7 +94,7 @@ public class RoomData
         return 0;
     }
 
-    private static Vector2Int GetEdgeVectorConversion(Edges edge)
+    public static Vector2Int GetEdgeVectorConversion(Edges edge)
     {
         switch (edge)
         {
