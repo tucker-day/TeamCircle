@@ -6,7 +6,6 @@ using UnityEngine;
 public class MeleeEnemy : Enemy
 {
     public float distance;
-
     void Start()
     {
         hp = 50;
