@@ -247,79 +247,43 @@ public class DungeonManager : MonoBehaviour
     {
         RoomData newData = new();
 
-        bool upSet = TryInheritEdgeData(child, pos, Edges.Upper, newData);
-        bool rightSet = TryInheritEdgeData(child, pos, Edges.Right, newData);
-        bool downSet = TryInheritEdgeData(child, pos, Edges.Lower, newData);
-        bool leftSet = TryInheritEdgeData(child, pos, Edges.Left, newData);
+        bool[] occupied = { false, false, false, false };
 
+        foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+        {
+            occupied[(int)edge] = TryInheritEdgeData(child, pos, edge, newData);
+        }
+
+        // distance is received in the TryInheritEdgeData function, so this
+        // must stay below or else cost won't be added
         newData.distance += (byte)cost;
 
-        if (newData.distance < settings.maxLength)
+        int nonWallCount = newData.GetNonWallCount();
+        int occupiedCount = 0;
+
+        foreach (bool b in occupied)
         {
-            if (!upSet)
-            {
-                int type = UnityEngine.Random.Range(0, 3);
-                if (type == 0)
-                {
-                    newData.SetEdgeType(Edges.Upper, EdgeType.Hall);
-                }
-                else if (type == 1)
-                {
-                    newData.SetEdgeType(Edges.Upper, EdgeType.Wall);
-                }
-                else if (type == 2)
-                {
-                    newData.SetEdgeType(Edges.Upper, EdgeType.Open);
-                }
-            }
-            if (!downSet)
-            {
-                int type = UnityEngine.Random.Range(0, 3);
-                if (type == 0)
-                {
-                    newData.SetEdgeType(Edges.Lower, EdgeType.Hall);
-                }
-                else if (type == 1)
-                {
-                    newData.SetEdgeType(Edges.Lower, EdgeType.Wall);
-                }
-                else if (type == 2)
-                {
-                    newData.SetEdgeType(Edges.Lower, EdgeType.Open);
-                }
-            }
+            occupiedCount += b ? 1 : 0;
+        }
 
-            if (!rightSet)
+        if (newData.distance < settings.maxLength && occupiedCount < 4)
+        {
+            while (nonWallCount < 3 && occupiedCount < 4)
             {
-                int type = UnityEngine.Random.Range(0, 3);
-                if (type == 0)
-                {
-                    newData.SetEdgeType(Edges.Right, EdgeType.Hall);
-                }
-                else if (type == 1)
-                {
-                    newData.SetEdgeType(Edges.Right, EdgeType.Wall);
-                }
-                else if (type == 2)
-                {
-                    newData.SetEdgeType(Edges.Right, EdgeType.Open);
-                }
-            }
+                Edges target = (Edges)UnityEngine.Random.Range(0, 4);
 
-            if (!leftSet)
-            {
-                int type = UnityEngine.Random.Range(0, 3);
-                if (type == 0)
+                if (!occupied[(int)target])
                 {
-                    newData.SetEdgeType(Edges.Left, EdgeType.Hall);
-                }
-                else if (type == 1)
-                {
-                    newData.SetEdgeType(Edges.Left, EdgeType.Wall);
-                }
-                else if (type == 2)
-                {
-                    newData.SetEdgeType(Edges.Left, EdgeType.Open);
+                    EdgeType edgeType = UnityEngine.Random.Range(0, 2) == 0 ? EdgeType.Hall : EdgeType.Open;
+                    newData.SetEdgeType(target, edgeType);
+                    nonWallCount++;
+
+                    occupied[(int)target] = true;
+                    occupiedCount = 0;
+                    foreach (bool b in occupied)
+                    {
+                        occupiedCount += b ? 1 : 0;
+                    }
                 }
             }
         }
@@ -334,14 +298,12 @@ public class DungeonManager : MonoBehaviour
 
         if (child.GetRulesByEnum(edge).BuildInEdge)
         {
-            Debug.Log("Test");
             set = true;
             newData.SetEdgeType(edge, child.GetRulesByEnum(edge).BuiltInEdgeType);
         }
         else if (target.x < dungeonSize && target.x >= 0  &&
                  target.y < dungeonSize && target.y >= 0)
         {
-            Debug.Log("Shit");
             set = TryCopyEdgeFromNeighbor(pos, newData, edge);
         }
 
