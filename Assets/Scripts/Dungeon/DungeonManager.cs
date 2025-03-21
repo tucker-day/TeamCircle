@@ -302,7 +302,7 @@ public class DungeonManager : MonoBehaviour
 
                 if (!occupied[(int)target])
                 {
-                    EdgeType edgeType = UnityEngine.Random.Range(0, 2) == 0 ? EdgeType.Hall : EdgeType.Open;
+                    EdgeType edgeType = UnityEngine.Random.Range(0.0f, 1.0f) > settings.openChance ? EdgeType.Hall : EdgeType.Open;
                     newData.SetEdgeType(target, edgeType);
                     nonWallCount++;
 
