@@ -21,10 +21,15 @@ public class DungeonSettings : ScriptableObject
 
     public void OnValidate()
     {
-        // cap max length at 255
+        // cap max length at 255 to prevent unity explosion
         if (maxLength > 255)
         {
             maxLength = 255;
+        }
+
+        if (branchChance + allHallChance > 1.0f)
+        {
+            Debug.LogError("Branch Chance and All Hall Chance combined are over one on " + name + "!");
         }
     }
 }
