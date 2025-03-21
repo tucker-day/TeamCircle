@@ -15,6 +15,9 @@ public class DungeonSettings : ScriptableObject
     [Range(0, 1)] public float allHallChance;
     public int maxBranchDistance;
 
+    [Header("Pathway Settings")]
+    [Range(0, 1)] public float openChance;
+
     [Header("Boss Settings")]
     public bool bossFloor;
     public EnemySpawnPool bossSpawnPool;
