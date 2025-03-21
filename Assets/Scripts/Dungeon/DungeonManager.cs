@@ -19,6 +19,8 @@ public class DungeonManager : MonoBehaviour
     private RoomData[,] dungeonGrid;
     private Stack<Vector2Int> spawnList;
 
+    private int branchReduction;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
@@ -43,6 +45,7 @@ public class DungeonManager : MonoBehaviour
         dungeonGrid = new RoomData[dungeonSize, dungeonSize];
         spawnList = new Stack<Vector2Int>();
         spawnOffset = new Vector2(dungeonSize - 1, dungeonSize - 1) * settings.tileset.tileSize / 2;
+        branchReduction = 0;
 
         SpawnRoom(new Vector2Int(settings.maxLength, settings.maxLength), settings.tileset.spawnRoom);
         while (spawnList.Count > 0)
@@ -266,33 +269,26 @@ public class DungeonManager : MonoBehaviour
             occupiedCount += b ? 1 : 0;
         }
 
-        if (newData.distance < settings.maxLength && occupiedCount < 4)
+        if (newData.distance < settings.maxLength - branchReduction && occupiedCount < 4)
         {
             int nonWallCount = newData.GetNonWallCount();
             int nonWallTarget = 2;
 
-            Debug.Log("distance from branch " + newData.distanceSinceBranch);
-
             if (newData.distanceSinceBranch >= settings.maxBranchDistance)
             {
                 nonWallTarget = 3;
-                Debug.Log("spawning distance branch");
             }
             else
             {
                 float rngRoll = UnityEngine.Random.Range(0.0f, 1.0f);
-                Debug.Log("rngRoll " + rngRoll);
-
 
                 if (rngRoll < settings.branchChance)
                 {
                     nonWallTarget = 3;
-                    Debug.Log("spawning branch");
                 }
                 else if (rngRoll < settings.branchChance + settings.allHallChance)
                 {
                     nonWallTarget = 4;
-                    Debug.Log("spawning big branch");
                 }
             }
 
@@ -314,6 +310,11 @@ public class DungeonManager : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (newData.distance >= settings.maxLength - branchReduction)
+        {
+            branchReduction++;
         }
 
         if (newData.GetNonWallCount() > 2)
