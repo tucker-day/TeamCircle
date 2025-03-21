@@ -259,7 +259,6 @@ public class DungeonManager : MonoBehaviour
         newData.distance += (byte)cost;
         newData.distanceSinceBranch += 1;
 
-        int nonWallCount = newData.GetNonWallCount();
         int occupiedCount = 0;
 
         foreach (bool b in occupied)
@@ -267,35 +266,36 @@ public class DungeonManager : MonoBehaviour
             occupiedCount += b ? 1 : 0;
         }
 
-        int nonWallTarget = 2;
-
-        Debug.Log("distance from branch " + newData.distanceSinceBranch);
-
-        if (newData.distanceSinceBranch >= settings.maxBranchDistance)
-        {
-            nonWallTarget = 3;
-            Debug.Log("spawning distance branch");
-        }
-        else
-        {
-            float rngRoll = UnityEngine.Random.Range(0.0f, 1.0f);
-            Debug.Log("rngRoll " + rngRoll);
-
-
-            if (rngRoll < settings.branchChance)
-            {
-                nonWallTarget = 3;
-                Debug.Log("spawning branch");
-            }
-            else if (rngRoll < settings.branchChance + settings.allHallChance)
-            {
-                nonWallTarget = 4;
-                Debug.Log("spawning big branch");
-            }
-        }
-
         if (newData.distance < settings.maxLength && occupiedCount < 4)
         {
+            int nonWallCount = newData.GetNonWallCount();
+            int nonWallTarget = 2;
+
+            Debug.Log("distance from branch " + newData.distanceSinceBranch);
+
+            if (newData.distanceSinceBranch >= settings.maxBranchDistance)
+            {
+                nonWallTarget = 3;
+                Debug.Log("spawning distance branch");
+            }
+            else
+            {
+                float rngRoll = UnityEngine.Random.Range(0.0f, 1.0f);
+                Debug.Log("rngRoll " + rngRoll);
+
+
+                if (rngRoll < settings.branchChance)
+                {
+                    nonWallTarget = 3;
+                    Debug.Log("spawning branch");
+                }
+                else if (rngRoll < settings.branchChance + settings.allHallChance)
+                {
+                    nonWallTarget = 4;
+                    Debug.Log("spawning big branch");
+                }
+            }
+
             while (nonWallCount < nonWallTarget && occupiedCount < 4)
             {
                 Edges target = (Edges)UnityEngine.Random.Range(0, 4);
