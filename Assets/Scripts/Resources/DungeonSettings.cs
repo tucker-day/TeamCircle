@@ -6,7 +6,7 @@ using UnityEngine;
 public class DungeonSettings : ScriptableObject
 {
     [Header("Base Settings")]
-    public int maxLength;
+    [Range(1, 255)] public int maxLength;
     public DungeonTileset tileset;
     public List<EnemySpawnPool> spawnPools;
 
@@ -21,12 +21,6 @@ public class DungeonSettings : ScriptableObject
 
     public void OnValidate()
     {
-        // cap max length at 255 to prevent unity explosion
-        if (maxLength > 255)
-        {
-            maxLength = 255;
-        }
-
         if (branchChance + allHallChance > 1.0f)
         {
             Debug.LogError("Branch Chance and All Hall Chance combined are over one on " + name + "!");
