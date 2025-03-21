@@ -257,6 +257,7 @@ public class DungeonManager : MonoBehaviour
         // distance is received in the TryInheritEdgeData function, so this
         // must stay below or else cost won't be added
         newData.distance += (byte)cost;
+        newData.distanceSinceBranch += 1;
 
         int nonWallCount = newData.GetNonWallCount();
         int occupiedCount = 0;
@@ -342,6 +343,7 @@ public class DungeonManager : MonoBehaviour
             if ((data.distance > comparison.distance || data.distance == 0) && comparison.GetEdgeType(compareEdge) != EdgeType.Wall)
             {
                 data.distance = comparison.distance;
+                data.distanceSinceBranch = comparison.distanceSinceBranch;
             }
 
             data.SetEdgeType(edge, comparison.GetEdgeType(compareEdge));
