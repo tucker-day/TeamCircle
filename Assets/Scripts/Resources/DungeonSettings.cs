@@ -10,6 +10,11 @@ public class DungeonSettings : ScriptableObject
     public DungeonTileset tileset;
     public List<EnemySpawnPool> spawnPools;
 
+    [Header("Generation Settings")]
+    [Range(0, 1)] public float branchChance;
+    [Range(0, 1)] public float allHallChance;
+    public int maxBranchDistance;
+
     [Header("Boss Settings")]
     public bool bossFloor;
     public EnemySpawnPool bossSpawnPool;
