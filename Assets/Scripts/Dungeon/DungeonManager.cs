@@ -34,7 +34,7 @@ public class DungeonManager : MonoBehaviour
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
             GenerateDungeon();
             stopWatch.Stop();
-            Debug.Log(stopWatch.Elapsed);
+            Debug.Log("GENERATION TIME: " + stopWatch.Elapsed);
         }
     }
 
