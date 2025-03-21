@@ -267,9 +267,36 @@ public class DungeonManager : MonoBehaviour
             occupiedCount += b ? 1 : 0;
         }
 
+        int nonWallTarget = 2;
+
+        Debug.Log("distance from branch " + newData.distanceSinceBranch);
+
+        if (newData.distanceSinceBranch >= settings.maxBranchDistance)
+        {
+            nonWallTarget = 3;
+            Debug.Log("spawning distance branch");
+        }
+        else
+        {
+            float rngRoll = UnityEngine.Random.Range(0.0f, 1.0f);
+            Debug.Log("rngRoll " + rngRoll);
+
+
+            if (rngRoll < settings.branchChance)
+            {
+                nonWallTarget = 3;
+                Debug.Log("spawning branch");
+            }
+            else if (rngRoll < settings.branchChance + settings.allHallChance)
+            {
+                nonWallTarget = 4;
+                Debug.Log("spawning big branch");
+            }
+        }
+
         if (newData.distance < settings.maxLength && occupiedCount < 4)
         {
-            while (nonWallCount < 3 && occupiedCount < 4)
+            while (nonWallCount < nonWallTarget && occupiedCount < 4)
             {
                 Edges target = (Edges)UnityEngine.Random.Range(0, 4);
 
@@ -287,6 +314,11 @@ public class DungeonManager : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (newData.GetNonWallCount() > 2)
+        {
+            newData.distanceSinceBranch = 0;
         }
 
         return newData;

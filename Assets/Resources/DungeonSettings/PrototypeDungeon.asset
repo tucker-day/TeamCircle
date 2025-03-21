@@ -15,5 +15,8 @@ MonoBehaviour:
   maxLength: 5
   tileset: {fileID: 11400000, guid: e9b49a67ebf7160478f002d32505c4a3, type: 2}
   spawnPools: []
+  branchChance: 0.2
+  allHallChance: 0.1
+  maxBranchDistance: 4
   bossFloor: 0
   bossSpawnPool: {fileID: 0}
