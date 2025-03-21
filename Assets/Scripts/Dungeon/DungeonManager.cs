@@ -263,7 +263,6 @@ public class DungeonManager : MonoBehaviour
         newData.distanceSinceBranch += 1;
 
         int occupiedCount = 0;
-
         foreach (bool b in occupied)
         {
             occupiedCount += b ? 1 : 0;
@@ -277,6 +276,7 @@ public class DungeonManager : MonoBehaviour
             if (newData.distanceSinceBranch >= settings.maxBranchDistance)
             {
                 nonWallTarget = 3;
+                newData.distanceSinceBranch = 0;
             }
             else
             {
@@ -285,10 +285,12 @@ public class DungeonManager : MonoBehaviour
                 if (rngRoll < settings.branchChance)
                 {
                     nonWallTarget = 3;
+                    newData.distanceSinceBranch = 0;
                 }
                 else if (rngRoll < settings.branchChance + settings.allHallChance)
                 {
                     nonWallTarget = 4;
+                    newData.distanceSinceBranch = 0;
                 }
             }
 
@@ -303,6 +305,7 @@ public class DungeonManager : MonoBehaviour
                     nonWallCount++;
 
                     occupied[(int)target] = true;
+
                     occupiedCount = 0;
                     foreach (bool b in occupied)
                     {
@@ -315,11 +318,6 @@ public class DungeonManager : MonoBehaviour
         if (newData.distance >= settings.maxLength - branchReduction)
         {
             branchReduction++;
-        }
-
-        if (newData.GetNonWallCount() > 2)
-        {
-            newData.distanceSinceBranch = 0;
         }
 
         return newData;
