@@ -19,6 +19,8 @@ public class DungeonManager : MonoBehaviour
     private RoomData[,] dungeonGrid;
     private Stack<Vector2Int> spawnList;
 
+    private int branchReduction;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
@@ -32,7 +34,7 @@ public class DungeonManager : MonoBehaviour
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
             GenerateDungeon();
             stopWatch.Stop();
-            Debug.Log(stopWatch.Elapsed);
+            Debug.Log("GENERATION TIME: " + stopWatch.Elapsed);
         }
     }
 
@@ -43,6 +45,7 @@ public class DungeonManager : MonoBehaviour
         dungeonGrid = new RoomData[dungeonSize, dungeonSize];
         spawnList = new Stack<Vector2Int>();
         spawnOffset = new Vector2(dungeonSize - 1, dungeonSize - 1) * settings.tileset.tileSize / 2;
+        branchReduction = 0;
 
         SpawnRoom(new Vector2Int(settings.maxLength, settings.maxLength), settings.tileset.spawnRoom);
         while (spawnList.Count > 0)
@@ -257,28 +260,52 @@ public class DungeonManager : MonoBehaviour
         // distance is received in the TryInheritEdgeData function, so this
         // must stay below or else cost won't be added
         newData.distance += (byte)cost;
+        newData.distanceSinceBranch += 1;
 
-        int nonWallCount = newData.GetNonWallCount();
         int occupiedCount = 0;
-
         foreach (bool b in occupied)
         {
             occupiedCount += b ? 1 : 0;
         }
 
-        if (newData.distance < settings.maxLength && occupiedCount < 4)
+        if (newData.distance < settings.maxLength - branchReduction && occupiedCount < 4)
         {
-            while (nonWallCount < 3 && occupiedCount < 4)
+            int nonWallCount = newData.GetNonWallCount();
+            int nonWallTarget = 2;
+
+            if (newData.distanceSinceBranch >= settings.maxBranchDistance)
+            {
+                nonWallTarget = 3;
+                newData.distanceSinceBranch = 0;
+            }
+            else
+            {
+                float rngRoll = UnityEngine.Random.Range(0.0f, 1.0f);
+
+                if (rngRoll < settings.branchChance)
+                {
+                    nonWallTarget = 3;
+                    newData.distanceSinceBranch = 0;
+                }
+                else if (rngRoll < settings.branchChance + settings.allHallChance)
+                {
+                    nonWallTarget = 4;
+                    newData.distanceSinceBranch = 0;
+                }
+            }
+
+            while (nonWallCount < nonWallTarget && occupiedCount < 4)
             {
                 Edges target = (Edges)UnityEngine.Random.Range(0, 4);
 
                 if (!occupied[(int)target])
                 {
-                    EdgeType edgeType = UnityEngine.Random.Range(0, 2) == 0 ? EdgeType.Hall : EdgeType.Open;
+                    EdgeType edgeType = UnityEngine.Random.Range(0.0f, 1.0f) > settings.openChance ? EdgeType.Hall : EdgeType.Open;
                     newData.SetEdgeType(target, edgeType);
                     nonWallCount++;
 
                     occupied[(int)target] = true;
+
                     occupiedCount = 0;
                     foreach (bool b in occupied)
                     {
@@ -286,6 +313,11 @@ public class DungeonManager : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (newData.distance >= settings.maxLength - branchReduction)
+        {
+            branchReduction++;
         }
 
         return newData;
@@ -342,6 +374,7 @@ public class DungeonManager : MonoBehaviour
             if ((data.distance > comparison.distance || data.distance == 0) && comparison.GetEdgeType(compareEdge) != EdgeType.Wall)
             {
                 data.distance = comparison.distance;
+                data.distanceSinceBranch = comparison.distanceSinceBranch;
             }
 
             data.SetEdgeType(edge, comparison.GetEdgeType(compareEdge));
