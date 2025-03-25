@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown("h"))
         {
-            playerStats.CurrentHP = 0;
+            playerStats.TakeDamage(1020012);
         }
     }
 
