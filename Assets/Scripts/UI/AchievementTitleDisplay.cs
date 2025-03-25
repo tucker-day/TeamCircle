@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class AchievementTitleDisplay : MonoBehaviour
 {
-    public Title achievementTitle;
+    public AchievementTitle achievementTitle;
     public TMP_Text achievementtitleText;
     public TMP_Text descriptionText;
     public TMP_Text scoreText;
@@ -13,7 +13,7 @@ public class AchievementTitleDisplay : MonoBehaviour
     
     void Start()
     {
-       achievementtitleText.text=achievementTitle.AchievementTitle;
+       achievementtitleText.text=achievementTitle.Title;
        descriptionText.text=achievementTitle.description;
        scoreText.text= achievementTitle.score.ToString();
     }
