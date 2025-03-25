@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OpenDiscordLink : MonoBehaviour
+public class OpenLinkeldnLink : MonoBehaviour
 {
     [SerializeField] public string url;
 
