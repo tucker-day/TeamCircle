@@ -388,7 +388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 38.899994, y: 0.000030517578}
+  m_AnchoredPosition: {x: 38.900024, y: 0}
   m_SizeDelta: {x: -493.0632, y: -0.00012207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &377174538
@@ -1675,7 +1675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c036d93e8adc047a609e0e57b8c2d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: 
+  url: https://www.linkedin.com/in/valentina-cossio-londo%C3%B1o-3baaa1236?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app
 --- !u!1 &1193703226
 GameObject:
   m_ObjectHideFlags: 0
