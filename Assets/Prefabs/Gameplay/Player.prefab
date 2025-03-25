@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  anim: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  walk: 0
 --- !u!212 &2064258820366114470
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -138,7 +141,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -791873796, guid: f7446b951508ee644aabf35101e9d227, type: 3}
+  m_Sprite: {fileID: -342461172, guid: 3946cd9f502b39545944c1bd7a6b5b79, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -218,6 +221,11 @@ MonoBehaviour:
   MaxHP: 0
   CurrentHP: 0
   PlayerSpeed: 0
+  isAlive: 0
+  anim: {fileID: 5233698208856298084}
+  spriteRenderer: {fileID: 2064258820366114470}
+  GameOverScreen: {fileID: 0}
+  HUD: {fileID: 0}
 --- !u!95 &5233698208856298084
 Animator:
   serializedVersion: 5
