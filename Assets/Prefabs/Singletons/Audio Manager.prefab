@@ -52,6 +52,7 @@ MonoBehaviour:
   mus_combat: {fileID: 3201447964340420225}
   mus_miniboss: {fileID: 3104506434022634817}
   sfxAudio: {fileID: 931666888531575596}
+  masterMixer: {fileID: 24100000, guid: 8736ff9969c117c46a1caf76e77431bb, type: 2}
   soundEffects:
   - {fileID: 8300000, guid: 15dd6dcd5eb8d29418f620b746fbd2d8, type: 3}
   - {fileID: 8300000, guid: 64b296e437463bb469ab00884c6e048b, type: 3}
