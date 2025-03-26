@@ -13,7 +13,10 @@ public class BossEnemySpawner : MonoBehaviour
     private GameObject RangedEnemy;
     [SerializeField]
     private GameObject MeleeEnemy;
-
+    [SerializeField]
+    private GameObject TankMeleeEnemy;
+    [SerializeField]
+    private GameObject BossGo;
 
 
     public void SpawnEnemies()
@@ -22,16 +25,17 @@ public class BossEnemySpawner : MonoBehaviour
         if (RandomEnemySpawn == 0)
         {
             Debug.Log("melee enemy");
-            Instantiate(MeleeEnemy);
+            Instantiate(MeleeEnemy, BossGo.transform);
         }
         if(RandomEnemySpawn == 1)
         {
             Debug.Log("ranged enemy");
-            Instantiate(RangedEnemy);
+            Instantiate(RangedEnemy, BossGo.transform);
         }
         if (RandomEnemySpawn == 2)
         {
             Debug.Log("tank enemy");
+            Instantiate(TankMeleeEnemy, BossGo.transform);
         }
     }
 

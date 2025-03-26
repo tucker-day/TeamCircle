@@ -224,7 +224,7 @@ MonoBehaviour:
   isAlive: 0
   anim: {fileID: 5233698208856298084}
   spriteRenderer: {fileID: 2064258820366114470}
-  GameOverScreen: {fileID: 0}
+  GameOverScreen: {fileID: 8268810269997713178, guid: 0a519a1353894ab4080e9b00e3c1f197, type: 3}
   HUD: {fileID: 0}
 --- !u!95 &5233698208856298084
 Animator:

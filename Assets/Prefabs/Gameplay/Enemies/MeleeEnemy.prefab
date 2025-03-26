@@ -78,6 +78,7 @@ MonoBehaviour:
   speed: 2
   detectionRange: 0
   attackRange: 1
+  cooldown: 0
   distance: 0
 --- !u!61 &620514392355993056
 BoxCollider2D:
