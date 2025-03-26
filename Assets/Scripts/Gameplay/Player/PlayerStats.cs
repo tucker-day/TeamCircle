@@ -20,7 +20,6 @@ public class PlayerStats : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
         MaxHP = 100;
         PlayerSpeed = GetComponent<PlayerMovement>().speed;
         CurrentHP = MaxHP;

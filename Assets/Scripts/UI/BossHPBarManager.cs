@@ -21,10 +21,9 @@ public class BossHPBarManager : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        //healthAmount = playerStats.CurrentHP;
         if (Input.GetKeyDown("i"))
         {
-            BossStats.HP -= 100;
+            BossStats.TakeDamage(10000);
         }
 
         Square.fillAmount = (float)BossStats.HP / BossStats.MaxHP;

@@ -44,11 +44,6 @@ public class PlayerMovement : MonoBehaviour
                     spriteRenderer.flipX = true;
                 }
             }
-
-
-            
-
-
         }
         else { 
             horizontal = 0;
@@ -63,6 +58,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         body.velocity = new Vector2 (horizontal * speed, vertical * speed);
-        anim.SetFloat("velocity", (horizontal * speed + vertical * speed) / 2.0f);
+
+        float velocity = (horizontal * speed + vertical * speed) / 2.0f;
+        if (velocity < 0)
+        {
+            velocity = -velocity;
+        }
+        anim.SetFloat("velocity", velocity);
     }
 }
