@@ -1859,8 +1859,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: FREE STONE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 47e14e2607dae7a40848b9cf38d9ca07, type: 2}
+  m_sharedMaterial: {fileID: -2630552049510628218, guid: 47e14e2607dae7a40848b9cf38d9ca07, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
