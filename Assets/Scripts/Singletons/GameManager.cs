@@ -35,12 +35,12 @@ public class GameManager : MonoBehaviour
     {
         if (Enemy.s_enemyList.Count >= 1)
         {
-            print("THERE BE ENEMIES HERE!");
+            // print("THERE BE ENEMIES HERE!");
             return true;
         }
         else
         {
-            print("No enemies detected. All clear!");
+            // print("No enemies detected. All clear!");
             return false;
         }
     }

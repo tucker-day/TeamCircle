@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupHealth : MonoBehaviour
+public class PickupHealth : Pickup
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        
+        Debug.Log("THERE IS A PICKUP HERE!");
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Heal();
+            Destroy(this.gameObject);
+        }
     }
 }
