@@ -347,10 +347,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1835389885}
     m_Modifications:
-    - target: {fileID: -2019718755987601699, guid: 9a776b25405cb2349ba3761277adedd5, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 38b29ea181897ee4f83230fdad10d299, type: 2}
     - target: {fileID: 1655011610768198165, guid: 9a776b25405cb2349ba3761277adedd5, type: 3}
       propertyPath: m_Name
       value: TankMeleeEnemy
