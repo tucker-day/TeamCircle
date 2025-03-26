@@ -57,7 +57,7 @@ MonoBehaviour:
       horizontal: {fileID: 0}
       vertical: {fileID: 0}
       bothOpen: {fileID: 0}
-  tileSize: {x: 30, y: 30}
+  tileSize: {x: 24, y: 24}
   maxWeightRooms: 1
   maxWeightBossRooms: 0
   maxWeightEndRooms: 0
