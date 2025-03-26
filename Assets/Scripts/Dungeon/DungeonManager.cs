@@ -395,6 +395,8 @@ public class DungeonManager : MonoBehaviour
             SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Right, parent);
         if (!child.edgeRules.left.BuildInEdge)
             SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Left, parent);
+
+        SpawnObjectsOnAllCorners(spawnOrigin, roomData, parent);
     }
 
     private void SpawnObjectsOnEdge(Vector2 pos, RoomData data, Edges edge, GameObject parent)
@@ -445,5 +447,52 @@ public class DungeonManager : MonoBehaviour
         }
 
         Instantiate(prefab, spawnPoint, Quaternion.identity, parent.transform);
+    }
+
+    private void SpawnObjectsOnAllCorners(Vector2 pos, RoomData data, GameObject parent)
+    {
+        EdgeType upperEdge = data.GetEdgeType(Edges.Upper);
+        EdgeType lowerEdge = data.GetEdgeType(Edges.Lower);
+        EdgeType leftEdge = data.GetEdgeType(Edges.Left);
+        EdgeType rightEdge = data.GetEdgeType(Edges.Right);
+
+        Vector2 upperLeftPos = (RoomData.GetEdgeVectorConversion(Edges.Upper) + RoomData.GetEdgeVectorConversion(Edges.Left)) * settings.tileset.tileSize / 2;
+        Instantiate(GetCornerPrefab(upperEdge, leftEdge, settings.tileset.corners.upperLeft), upperLeftPos + pos, Quaternion.identity, parent.transform);
+
+        Vector2 upperRightPos = (RoomData.GetEdgeVectorConversion(Edges.Upper) + RoomData.GetEdgeVectorConversion(Edges.Right)) * settings.tileset.tileSize / 2;
+        Instantiate(GetCornerPrefab(upperEdge, rightEdge, settings.tileset.corners.upperRight), upperRightPos + pos, Quaternion.identity, parent.transform);
+
+        Vector2 lowerRightPos = (RoomData.GetEdgeVectorConversion(Edges.Lower) + RoomData.GetEdgeVectorConversion(Edges.Right)) * settings.tileset.tileSize / 2;
+        Instantiate(GetCornerPrefab(lowerEdge, rightEdge, settings.tileset.corners.lowerRight), lowerRightPos + pos, Quaternion.identity, parent.transform);
+
+        Vector2 lowerLeftPos = (RoomData.GetEdgeVectorConversion(Edges.Lower) + RoomData.GetEdgeVectorConversion(Edges.Left)) * settings.tileset.tileSize / 2;
+        Instantiate(GetCornerPrefab(lowerEdge, leftEdge, settings.tileset.corners.lowerLeft), lowerLeftPos + pos, Quaternion.identity, parent.transform);
+    }
+
+    private GameObject GetCornerPrefab(EdgeType horiWall, EdgeType vertWall, CornerGroup corner)
+    {
+        if ((horiWall == EdgeType.Wall || horiWall == EdgeType.Hall) &&
+            (vertWall == EdgeType.Wall || vertWall == EdgeType.Hall))
+        {
+            return corner.bothWall;
+        }
+        else if (horiWall == EdgeType.Open &&
+                vertWall == EdgeType.Open)
+        {
+            return corner.bothOpen;
+        }
+        else if ((horiWall == EdgeType.Wall || horiWall == EdgeType.Hall) &&
+                vertWall == EdgeType.Open)
+        {
+            return corner.horizontal;
+        }
+        else if (horiWall == EdgeType.Open &&
+                (vertWall == EdgeType.Wall || vertWall == EdgeType.Hall))
+        {
+            return corner.vertical;
+        }
+
+        Debug.Log("GetCornerPrefab didn't find a corner!");
+        return null;
     }
 }
