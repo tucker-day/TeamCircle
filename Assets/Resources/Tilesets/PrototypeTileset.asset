@@ -13,27 +13,57 @@ MonoBehaviour:
   m_Name: PrototypeTileset
   m_EditorClassIdentifier: 
   spawnRoom: {fileID: 8205624513170101846, guid: 230c59e849e7bd441a353b972bfee32a, type: 3}
-  tiles:
-  - {fileID: 8205624513170101846, guid: af986bfd8369f55428f86bbb0e20826c, type: 3}
-  - {fileID: 8205624513170101846, guid: 1ebfb09c6fb20974ba7135de82a390a5, type: 3}
-  - {fileID: 8205624513170101846, guid: 27963e3268c1777438a6472e96158f72, type: 3}
-  - {fileID: 8205624513170101846, guid: 4e3ec95d0d9cbc641bdf21908a571958, type: 3}
-  - {fileID: 8205624513170101846, guid: 848e57a7e39912841b953503f327df41, type: 3}
-  - {fileID: 8205624513170101846, guid: 9c03e45ee394add428370ea14720058e, type: 3}
-  - {fileID: 8205624513170101846, guid: 32e29a2693470b24b8df90cba7d7dfbf, type: 3}
-  - {fileID: 8205624513170101846, guid: c85ade544f1df6c47be7b99129d39fb4, type: 3}
-  - {fileID: 8205624513170101846, guid: 6e5cffcd59cf8594bb754e6bfe6dbd60, type: 3}
-  - {fileID: 8205624513170101846, guid: f8e508d8ad6e15f4a9f086732f268caf, type: 3}
-  - {fileID: 8205624513170101846, guid: e6d9394aa725f1d48b4ca7678a92b3dd, type: 3}
-  capTiles:
-  - {fileID: 8205624513170101846, guid: a7261e1d60046f6498710efd21fa5eb7, type: 3}
-  - {fileID: 8205624513170101846, guid: 526e966ed884b914d9092df6ef515348, type: 3}
-  - {fileID: 8205624513170101846, guid: f25e4ca476143a541885014c98513055, type: 3}
-  - {fileID: 8205624513170101846, guid: 9f1954a1ccef3914fb42ff634b95bebd, type: 3}
+  rooms:
+  - item: {fileID: 8205624513170101846, guid: 1ebfb09c6fb20974ba7135de82a390a5, type: 3}
+    weight: 9
+    cost: 1
+  - item: {fileID: 8205624513170101846, guid: 2d0380bfe6e201c45a7b21004e552af1, type: 3}
+    weight: 1
+    cost: 1
   bossRooms:
-  - {fileID: 8205624513170101846, guid: 1195e0010a7c76644b13c638121facdc, type: 3}
-  - {fileID: 8205624513170101846, guid: fde14f88c25753b43ae8474d293da293, type: 3}
-  - {fileID: 8205624513170101846, guid: b00c349c55dc369499fdaca1a2867481, type: 3}
-  - {fileID: 8205624513170101846, guid: ab8ceef467563e742b079a3c794fac8d, type: 3}
+  - item: {fileID: 8205624513170101846, guid: 1195e0010a7c76644b13c638121facdc, type: 3}
+    weight: 1
+    cost: 1
   endRooms: []
+  edges:
+    upper:
+      hall: {fileID: 1534938104928593270, guid: 99e059ae70aee8141b78bbd1892fac1e, type: 3}
+      wall: {fileID: 8919108880552426637, guid: 84a6358bcd97055419083008c4c424e8, type: 3}
+      open: {fileID: 91000256877388287, guid: bf7909762ddd8f2418b56d8a8e7bad15, type: 3}
+    lower:
+      hall: {fileID: 2416631695340807976, guid: 0519c8272c6912449858e51942e6fd83, type: 3}
+      wall: {fileID: 7617236520172128549, guid: 9217bd54c27ec4e4a96c901936bae301, type: 3}
+      open: {fileID: 6916408318828758920, guid: af9e72aaeeb8ca848a483af9aee7441c, type: 3}
+    left:
+      hall: {fileID: 4545500088779003197, guid: 07ad9409de9caa44c90ca23468c3d762, type: 3}
+      wall: {fileID: 1172427265754954242, guid: 0cded716f5399fd4e8971bea02f3b1fa, type: 3}
+      open: {fileID: 830519464202071315, guid: 79981a01570678a4cb77c0b1a4651784, type: 3}
+    right:
+      hall: {fileID: 7904676624330061319, guid: 63650a21dd6f5f545bc7efaf2d75d6cf, type: 3}
+      wall: {fileID: 6713100221082150687, guid: 2661730ff519cf0458573756889c6330, type: 3}
+      open: {fileID: 4124040876574136570, guid: cccb8a3811090d8448330d42f071b846, type: 3}
+  corners:
+    upperLeft:
+      bothWall: {fileID: 0}
+      horizontal: {fileID: 0}
+      vertical: {fileID: 0}
+      bothOpen: {fileID: 0}
+    upperRight:
+      bothWall: {fileID: 0}
+      horizontal: {fileID: 0}
+      vertical: {fileID: 0}
+      bothOpen: {fileID: 0}
+    lowerLeft:
+      bothWall: {fileID: 0}
+      horizontal: {fileID: 0}
+      vertical: {fileID: 0}
+      bothOpen: {fileID: 0}
+    lowerRight:
+      bothWall: {fileID: 0}
+      horizontal: {fileID: 0}
+      vertical: {fileID: 0}
+      bothOpen: {fileID: 0}
   tileSize: {x: 20, y: 20}
+  maxWeightRooms: 10
+  maxWeightBossRooms: 1
+  maxWeightEndRooms: 0

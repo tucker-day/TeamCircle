@@ -6,11 +6,27 @@ using UnityEngine;
 public class DungeonSettings : ScriptableObject
 {
     [Header("Base Settings")]
-    public int maxLength;
+    [Range(1, 255)] public int maxLength;
     public DungeonTileset tileset;
     public List<EnemySpawnPool> spawnPools;
+
+    [Header("Generation Settings")]
+    [Range(0, 1)] public float branchChance;
+    [Range(0, 1)] public float allHallChance;
+    public int maxBranchDistance;
+
+    [Header("Pathway Settings")]
+    [Range(0, 1)] public float openChance;
 
     [Header("Boss Settings")]
     public bool bossFloor;
     public EnemySpawnPool bossSpawnPool;
+
+    public void OnValidate()
+    {
+        if (branchChance + allHallChance > 1.0f)
+        {
+            Debug.LogError("Branch Chance and All Hall Chance combined are over one on " + name + "!");
+        }
+    }
 }

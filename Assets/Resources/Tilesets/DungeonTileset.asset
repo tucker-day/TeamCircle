@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4868e23efa549744bbebed972f12678, type: 3}
+  m_Name: DungeonTileset
+  m_EditorClassIdentifier: 
+  spawnRoom: {fileID: 8205624513170101846, guid: a4a6d9c2cefa65d498a43737f2a27d4e, type: 3}
+  rooms:
+  - item: {fileID: 8205624513170101846, guid: 8c6b289f14767b84792a2c0b169962e8, type: 3}
+    weight: 1
+    cost: 1
+  bossRooms: []
+  endRooms: []
+  edges:
+    upper:
+      hall: {fileID: 8919108880552426637, guid: 8202446a5b279b0458380cc7de5eaeaf, type: 3}
+      wall: {fileID: 8919108880552426637, guid: c9c5e8b738969084ca52082bbae64bb0, type: 3}
+      open: {fileID: 91000256877388287, guid: 30f9df3a1bdaf274f8c1ba1e0ad0cd89, type: 3}
+    lower:
+      hall: {fileID: 7617236520172128549, guid: ccd11ee92a1efbc43b0ce802c55a9e40, type: 3}
+      wall: {fileID: 7617236520172128549, guid: 33d508f456671144fae0aa2fe373efc1, type: 3}
+      open: {fileID: 6916408318828758920, guid: a73da1c8e5c8ca740a8d66392c38088e, type: 3}
+    left:
+      hall: {fileID: 1172427265754954242, guid: 0ba319aa181db4a41bf599134c54d2af, type: 3}
+      wall: {fileID: 1172427265754954242, guid: 31ad838ded08de847a12b763b39e6686, type: 3}
+      open: {fileID: 830519464202071315, guid: 99c1b79e451df49479a704ec88c841b8, type: 3}
+    right:
+      hall: {fileID: 6713100221082150687, guid: 5e952deee340c6d449e9a4f1d476c801, type: 3}
+      wall: {fileID: 6713100221082150687, guid: f160c287263728c4bb25c30f34b8af44, type: 3}
+      open: {fileID: 4124040876574136570, guid: b2e5683a57cf72645894847c556ea886, type: 3}
+  corners:
+    upperLeft:
+      bothWall: {fileID: 0}
+      horizontal: {fileID: 0}
+      vertical: {fileID: 0}
+      bothOpen: {fileID: 0}
+    upperRight:
+      bothWall: {fileID: 0}
+      horizontal: {fileID: 0}
+      vertical: {fileID: 0}
+      bothOpen: {fileID: 0}
+    lowerLeft:
+      bothWall: {fileID: 0}
+      horizontal: {fileID: 0}
+      vertical: {fileID: 0}
+      bothOpen: {fileID: 0}
+    lowerRight:
+      bothWall: {fileID: 0}
+      horizontal: {fileID: 0}
+      vertical: {fileID: 0}
+      bothOpen: {fileID: 0}
+  tileSize: {x: 30, y: 30}
+  maxWeightRooms: 1
+  maxWeightBossRooms: 0
+  maxWeightEndRooms: 0

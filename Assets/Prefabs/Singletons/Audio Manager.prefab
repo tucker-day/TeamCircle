@@ -48,7 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b2beda915ceb254386db4a6ffb436fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: {fileID: 117523268409199176, guid: d8ee5709ee1856e4aa1ce236d0eddb14, type: 3}
   mus_calm: {fileID: 7512336318142599494}
   mus_combat: {fileID: 3201447964340420225}
   mus_miniboss: {fileID: 3104506434022634817}
@@ -60,6 +59,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6cab5223b3f39b943b6a68695bdbb29b, type: 3}
   - {fileID: 8300000, guid: 31a995901afc0be4abe74a2f565a5278, type: 3}
   - {fileID: 8300000, guid: 0dc40004a3edfaf4c9314361c056184a, type: 3}
+  - {fileID: 8300000, guid: 9846d98f6e470a14f85904f838eeb44d, type: 3}
+  - {fileID: 8300000, guid: f8982fcbec2c72042b9c7939a0a89f57, type: 3}
+  - {fileID: 8300000, guid: 8eb1351ff3b6fc94da4c72a21c807f13, type: 3}
+  - {fileID: 8300000, guid: e35a89d7143e4894285e26ab6c4cf5e6, type: 3}
+  - {fileID: 8300000, guid: c108ddbd19d2e4643ad8691b9400139a, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   musVolume: 100
   sfxVolume: 100
 --- !u!82 &7512336318142599494

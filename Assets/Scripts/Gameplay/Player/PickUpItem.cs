@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PickUpItem : MonoBehaviour//, IDroppable
 {
+    private PlayerStats playerStats;
+
     private void Start()
     {
         //once its a singleton then call register on start with this .gameobject
@@ -16,9 +18,14 @@ public class PickUpItem : MonoBehaviour//, IDroppable
     {
         if (other.gameObject.CompareTag("Item"))
         {
-            //change it to not destroy later when the inventory works
+            playerStats.CurrentHP = playerStats.MaxHP / 2;
+            Debug.Log("Healing");
+            if(playerStats.MaxHP < playerStats.CurrentHP)
+            {
+                playerStats.CurrentHP = playerStats.MaxHP;
+            }
             Debug.Log("Item Picked Up");
-            Destroy(other.gameObject);//move this later
+            Destroy(other.gameObject);
         }
     }
 }

@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 6639172018306152481}
   - component: {fileID: 5025226041700407278}
   - component: {fileID: 1144424996717672789}
-  - component: {fileID: 2537270332399433981}
+  - component: {fileID: 7910068412372828904}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -147,7 +147,6 @@ RectTransform:
   m_Children:
   - {fileID: 191197396758350640}
   - {fileID: 3358316255490431836}
-  - {fileID: 5934766259375351650}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -218,7 +217,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1818360610 &2537270332399433981
+--- !u!1818360610 &7910068412372828904
 ScaleConstraint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

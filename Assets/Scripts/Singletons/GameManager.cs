@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public bool enemiesPresent = false;
     public bool minibossPresent = false;
 
     // Start is called before the first frame update
@@ -21,12 +20,29 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        CheckForEnemies();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    // Check the static enemy list to see if enemies are present.
+    public bool CheckForEnemies()
+    {
+        if (Enemy.s_enemyList.Count >= 1)
+        {
+            //print("THERE BE ENEMIES HERE!");
+            return true;
+        }
+        else
+        {
+            //print("No enemies detected. All clear!");
+            return false;
+        }
     }
 
     public void SpawnEnemies()

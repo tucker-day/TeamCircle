@@ -1,31 +1,41 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeEnemy : Enemy
 {
-    public MeleeEnemy()
-    {
-        attackRange = 1.0f;
-    }
-
+    public float distance;
     void Start()
     {
-        damage = 20;
+        hp = 50;
+        speed = 2.0f;
+        attackRange = 1.0f;
+        damage = 5;
         base.Start();
         ChangeState(new Chase());
     }
 
     public override void Chase()
     {
-        Debug.Log("Melee is chasing the player");
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
+        
+        if (playerPos.position.x < transform.position.x)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (playerPos.position.x > transform.position.x)
+        {
+            spriteRenderer.flipX = false;
+        }
     }
 
     public override void Attack()
     {
-        playerHP -= damage; // Placeholder
-        // playerStats.TakeDamage(damage);
-        Debug.Log("Melee is attacking the player");
+        if (timer <= 0)
+        {
+            playerStats.TakeDamage(damage);
+            timer = cooldown;
+        }
     }
 }

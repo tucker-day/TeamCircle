@@ -10,10 +10,9 @@ public class Chase : IEnemyState
     }
     public void UpdateState(Enemy enemy)
     {
-        Debug.Log("Executing chase state");
         enemy.Chase();
-        float distance = Vector3.Distance(enemy.player.transform.position, enemy.transform.position);
-       
+        float distance = Vector3.Distance(enemy.playerPos.position, enemy.transform.position);
+
         if (distance <= enemy.attackRange)
         {
             enemy.anim.SetBool("isColliding", true);
