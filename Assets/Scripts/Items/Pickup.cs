@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+    public GameObject playerObj;
+    public Transform playerPos;
+    public PlayerStats playerStats;
+
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerPos = playerObj.transform;
+        playerStats = playerObj.GetComponent<PlayerStats>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Heal()
     {
-        
+        playerStats.CurrentHP += playerStats.MaxHP / 2;
+        Debug.Log("Picked up a Healing Item!");
+        if (playerStats.CurrentHP > playerStats.MaxHP)
+        {
+            playerStats.CurrentHP = playerStats.MaxHP;
+        }
+    }
+
+    public void LevelUpWeapon()
+    {
+        // TO BE ADDED
     }
 }

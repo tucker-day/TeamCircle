@@ -10,6 +10,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     AudioSource mus_calm, mus_combat, mus_miniboss, sfxAudio;
 
+    [SerializeField]
+    AudioMixer masterMixer;
+
     public AudioClip[] soundEffects;
 
     bool combatToCalm;
@@ -38,13 +41,32 @@ public class AudioManager : MonoBehaviour
         }
 
         combatToCalm = true;
+
+        CheckMusicVolume();
     }
 
     // Update is called once per frame
     void Update()
     {
+        CheckMusicVolume();
         CheckMusicUpdate();
         TestSoundEffects();
+    }
+
+    void CheckMusicVolume()
+    {
+        if (musVolume != PlayerPrefs.GetFloat("musicVol"))
+        {
+            musVolume = PlayerPrefs.GetFloat("musicVol");
+            masterMixer.SetFloat("musVol", musVolume);
+            Debug.Log("Music volume: " + musVolume);
+        }
+        if (sfxVolume != PlayerPrefs.GetFloat("soundVol"))
+        {
+            sfxVolume = PlayerPrefs.GetFloat("soundVol");
+            masterMixer.SetFloat("sfxVol", sfxVolume);
+            Debug.Log("Sound volume: " + sfxVolume);
+        }
     }
 
     void CheckMusicUpdate()
