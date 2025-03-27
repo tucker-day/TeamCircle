@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0911170c204449e4d9314f6f4bbc05b9, type: 3}
   m_Name: EnemySpawnPool
   m_EditorClassIdentifier: 
-  weights:
+  enemies:
   - item: {fileID: 2896196276352168039, guid: ecb6290038edd8240aae5e0257028661, type: 3}
     weight: 20
     cost: 5
@@ -22,3 +22,4 @@ MonoBehaviour:
   - item: {fileID: 1655011610768198165, guid: 9a776b25405cb2349ba3761277adedd5, type: 3}
     weight: 5
     cost: 10
+  maxWeight: 35
