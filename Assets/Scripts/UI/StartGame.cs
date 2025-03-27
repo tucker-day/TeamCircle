@@ -11,20 +11,23 @@ public class StartGame : MonoBehaviour
 
     void Start()
     {
-         fade=FindObjectOfType<FadeInOutSceneAnim>();
+        fade=FindObjectOfType<FadeInOutSceneAnim>();
         startButton.onClick.AddListener(OnStartButtonPressed);
     }
-     public IEnumerator ChangeScene(){
+
+    public IEnumerator ChangeScene()
+    {
         fade.FadeIn();
         yield return new WaitForSeconds(1);
-         SceneManager.LoadScene("Dungeon");
+        Destroy(AudioManager.instance);
+        SceneManager.LoadScene("Dungeon");
     }
 
-
-     public void OnStartButtonPressed()
+    public void OnStartButtonPressed()
     {
-        
-       StartCoroutine(ChangeScene());
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
+        AudioManager.instance.StopMusic();
+        StartCoroutine(ChangeScene());
     }
 }
 

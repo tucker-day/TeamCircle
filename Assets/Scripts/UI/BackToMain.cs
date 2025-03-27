@@ -10,14 +10,19 @@ public class BackToMain : MonoBehaviour
 
     void Start()
     {
-        
         BackButton.onClick.AddListener(OnBackButtonPressed);
     }
 
 
-     public void OnBackButtonPressed()
+    public void OnBackButtonPressed()
     {
-        
+        if (GameManager.instance)
+        {
+            AudioManager.instance.StopMusic();
+            Destroy(AudioManager.instance);
+        }
+
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[12]);
         SceneManager.LoadScene("Main");
     }
 }
