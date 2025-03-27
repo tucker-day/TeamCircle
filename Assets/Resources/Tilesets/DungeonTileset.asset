@@ -26,6 +26,9 @@ MonoBehaviour:
   - item: {fileID: 8205624513170101846, guid: 8c6b289f14767b84792a2c0b169962e8, type: 3}
     weight: 3
     cost: 1
+  - item: {fileID: 8205624513170101846, guid: ec66512a2d067704e8debb2a7c9bcca1, type: 3}
+    weight: 4
+    cost: 1
   bossRooms: []
   endRooms: []
   edges:
@@ -67,6 +70,6 @@ MonoBehaviour:
       vertical: {fileID: 3524777065730281380, guid: 7bab9a695e7a24c46b2f05bc0ddf421e, type: 3}
       bothOpen: {fileID: 3524777065730281380, guid: f38f31eb65fb40243bff29fb231ef8bc, type: 3}
   tileSize: {x: 24, y: 24}
-  maxWeightRooms: 25
+  maxWeightRooms: 29
   maxWeightBossRooms: 0
   maxWeightEndRooms: 0
