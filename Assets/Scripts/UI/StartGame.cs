@@ -17,7 +17,8 @@ public class StartGame : MonoBehaviour
 
     public IEnumerator ChangeScene()
     {
-        fade.FadeIn();
+        if (!GameManager.instance)
+        { fade.FadeIn(); }
         yield return new WaitForSeconds(1);
         Destroy(AudioManager.instance);
         SceneManager.LoadScene("Dungeon");
