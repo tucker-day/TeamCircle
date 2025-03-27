@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLength: 10
   tileset: {fileID: 11400000, guid: e9b49a67ebf7160478f002d32505c4a3, type: 2}
-  spawnPool: {fileID: 0}
+  spawnPool: {fileID: 11400000, guid: 8ad7a2ad295b9b240a9ac2ec1cd36f90, type: 2}
   branchChance: 0.2
   allHallChance: 0.1
   maxBranchDistance: 4
   openChance: 0.3
-  initialBudget: 0
-  budgetIncreasePerDistance: 0
+  initialBudget: 20
+  budgetIncreasePerDistance: 5
   bossFloor: 0
   bossSpawnPool: {fileID: 0}
