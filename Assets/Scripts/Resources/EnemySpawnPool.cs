@@ -4,5 +4,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemySpawnPool", menuName = "Procedural Generation/Enemy Spawn Pool")]
 public class EnemySpawnPool : ScriptableObject
 {
-    public List<WeightedItem<Enemy>> weights;
+    public List<WeightedItem<GameObject>> weights;
 }
