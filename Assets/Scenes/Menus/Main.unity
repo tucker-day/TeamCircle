@@ -714,7 +714,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 621042208}
-  - {fileID: 352625860}
   - {fileID: 1856647964}
   - {fileID: 1492486570}
   - {fileID: 1119282986}
@@ -722,6 +721,7 @@ RectTransform:
   - {fileID: 296715030}
   - {fileID: 288973367}
   - {fileID: 701630522}
+  - {fileID: 352625860}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2075,7 +2075,7 @@ MonoBehaviour:
   canvasgroup: {fileID: 352625857}
   fadein: 0
   fadeout: 0
-  TimeToFade: 0.5
+  TimeToFade: 1
 --- !u!224 &1263013823
 RectTransform:
   m_ObjectHideFlags: 0
