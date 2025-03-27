@@ -36,14 +36,14 @@ public class AudioSettings : MonoBehaviour
 
     public void SaveMusicChanges()
     {
-        PlayerPrefs.SetFloat("musicVol", Mathf.Log10(Mathf.Clamp(musicSlider.value, 0.0001f, 1f)) * 80 / 4f);
+        PlayerPrefs.SetFloat("musicVol", musicSlider.value);
         PlayerPrefs.Save();
 
         Debug.Log("Music volume set to: " + musicSlider.value);
     }
     public void SaveSoundChanges()
     {
-        PlayerPrefs.SetFloat("soundVol", Mathf.Log10(Mathf.Clamp(soundSlider.value, 0.0001f, 1f)) * 80 / 4f);
+        PlayerPrefs.SetFloat("soundVol", soundSlider.value);
         PlayerPrefs.Save();
 
         Debug.Log("Sound volume set to: " + soundSlider.value);
