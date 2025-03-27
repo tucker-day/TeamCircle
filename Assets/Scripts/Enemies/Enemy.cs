@@ -52,6 +52,18 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void Flip()
+    {
+        if (playerPos.position.x < transform.position.x)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (playerPos.position.x > transform.position.x)
+        {
+            spriteRenderer.flipX = false;
+        }
+    }
+
     public void ChangeState(IEnemyState state)
     {
         if(currentState != null)
