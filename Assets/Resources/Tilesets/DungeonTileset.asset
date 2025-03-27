@@ -14,8 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRoom: {fileID: 8205624513170101846, guid: a4a6d9c2cefa65d498a43737f2a27d4e, type: 3}
   rooms:
+  - item: {fileID: 8205624513170101846, guid: 9e76c33d90271c4499c5944d2aa33c79, type: 3}
+    weight: 10
+    cost: 1
+  - item: {fileID: 8205624513170101846, guid: a3d5773f4a3ccdf4e8b17d22c406d59a, type: 3}
+    weight: 7
+    cost: 1
   - item: {fileID: 8205624513170101846, guid: 8c6b289f14767b84792a2c0b169962e8, type: 3}
-    weight: 1
+    weight: 5
+    cost: 1
+  - item: {fileID: 8205624513170101846, guid: 8c6b289f14767b84792a2c0b169962e8, type: 3}
+    weight: 3
     cost: 1
   bossRooms: []
   endRooms: []
@@ -58,6 +67,6 @@ MonoBehaviour:
       vertical: {fileID: 3524777065730281380, guid: 7bab9a695e7a24c46b2f05bc0ddf421e, type: 3}
       bothOpen: {fileID: 3524777065730281380, guid: f38f31eb65fb40243bff29fb231ef8bc, type: 3}
   tileSize: {x: 24, y: 24}
-  maxWeightRooms: 1
+  maxWeightRooms: 25
   maxWeightBossRooms: 0
   maxWeightEndRooms: 0
