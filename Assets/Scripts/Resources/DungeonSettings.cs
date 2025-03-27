@@ -8,7 +8,7 @@ public class DungeonSettings : ScriptableObject
     [Header("Base Settings")]
     [Range(1, 255)] public int maxLength;
     public DungeonTileset tileset;
-    public List<EnemySpawnPool> spawnPools;
+    public EnemySpawnPool spawnPool;
 
     [Header("Generation Settings")]
     [Range(0, 1)] public float branchChance;
@@ -17,6 +17,10 @@ public class DungeonSettings : ScriptableObject
 
     [Header("Pathway Settings")]
     [Range(0, 1)] public float openChance;
+
+    [Header("Enemy Settings")]
+    public int initialBudget;
+    public int budgetIncreasePerDistance;
 
     [Header("Boss Settings")]
     public bool bossFloor;
