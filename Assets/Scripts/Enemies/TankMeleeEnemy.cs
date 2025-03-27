@@ -8,7 +8,7 @@ public class TankMeleeEnemy : MeleeEnemy
     {
         hp = 60;
         speed = 0.8f;
-        attackRange = 0.5f;
+        attackRange = 1.0f;
         damage = 10;
         base.Start();
         ChangeState(new Chase());
