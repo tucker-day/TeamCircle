@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07e282441a5f58468d63e9d02ca68bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnEnemies: 0
   edgeRules:
     upper:
       <BuildInEdge>k__BackingField: 1
@@ -64,6 +65,7 @@ MonoBehaviour:
     left:
       <BuildInEdge>k__BackingField: 1
       <BuiltInEdgeType>k__BackingField: 0
+  enemySpawns: []
 --- !u!50 &7374316391898477783
 Rigidbody2D:
   serializedVersion: 4
