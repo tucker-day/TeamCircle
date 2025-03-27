@@ -96,7 +96,7 @@ public class DungeonManager : MonoBehaviour
 
         GameObject spawnedRoom = Instantiate(room, GetSpawnPos(pos), Quaternion.identity, gameObject.transform);
         SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], child, spawnedRoom);
-        CreateEnemySpawnList(child, dungeonGrid[pos.x, pos.y]);
+        CreateEnemySpawnList(spawnedRoom, dungeonGrid[pos.x, pos.y]);
 
         if (dungeonGrid[pos.x, pos.y].distance < settings.maxLength)
         {
@@ -497,9 +497,9 @@ public class DungeonManager : MonoBehaviour
         return null;
     }
 
-    private void CreateEnemySpawnList(ChildRoom child, RoomData data)
+    private void CreateEnemySpawnList(GameObject spawnedRoom, RoomData data)
     {
-        // early return if room won't have enemies
+        if (!spawnedRoom.TryGetComponent(out ChildRoom child)) return;
         if (!child.spawnEnemies) return;
 
         int budget = settings.initialBudget + settings.budgetIncreasePerDistance * data.distance;
