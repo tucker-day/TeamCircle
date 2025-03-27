@@ -8,7 +8,7 @@ public class DungeonSettings : ScriptableObject
     [Header("Base Settings")]
     [Range(1, 255)] public int maxLength;
     public DungeonTileset tileset;
-    public List<EnemySpawnPool> spawnPools;
+    public EnemySpawnPool spawnPool;
 
     [Header("Generation Settings")]
     [Range(0, 1)] public float branchChance;
