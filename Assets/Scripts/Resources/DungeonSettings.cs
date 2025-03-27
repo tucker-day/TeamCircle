@@ -18,6 +18,10 @@ public class DungeonSettings : ScriptableObject
     [Header("Pathway Settings")]
     [Range(0, 1)] public float openChance;
 
+    [Header("Enemy Settings")]
+    public int initialBudget;
+    public int budgetIncreasePerDistance;
+
     [Header("Boss Settings")]
     public bool bossFloor;
     public EnemySpawnPool bossSpawnPool;
