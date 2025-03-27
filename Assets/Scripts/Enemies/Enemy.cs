@@ -50,6 +50,12 @@ public class Enemy : MonoBehaviour
         {
             timer -= Time.deltaTime;
         }
+
+        //prototype button
+        if (Input.GetKeyDown("p"))
+        {
+            TakeDamage(10000);
+        }
     }
 
     public void Flip()
