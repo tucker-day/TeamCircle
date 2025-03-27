@@ -96,6 +96,7 @@ public class DungeonManager : MonoBehaviour
 
         GameObject spawnedRoom = Instantiate(room, GetSpawnPos(pos), Quaternion.identity, gameObject.transform);
         SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], child, spawnedRoom);
+        CreateEnemySpawnList(child);
 
         if (dungeonGrid[pos.x, pos.y].distance < settings.maxLength)
         {
@@ -494,5 +495,10 @@ public class DungeonManager : MonoBehaviour
 
         Debug.Log("GetCornerPrefab didn't find a corner!");
         return null;
+    }
+
+    private void CreateEnemySpawnList(ChildRoom child)
+    {
+
     }
 }
