@@ -4,8 +4,9 @@ using UnityEngine;
 [Serializable]
 public abstract class Equipment : MonoBehaviour
 {
-    private int level = 0;
     const int MAX_LEVEL = 25;
+    protected int level = 0;
+    protected float cooldown = 1.0f;
 
     public abstract void Trigger();
 
@@ -15,5 +16,15 @@ public abstract class Equipment : MonoBehaviour
         {
             level++;
         }
+    }
+
+    public bool IsMaxLevel()
+    {
+        return level == MAX_LEVEL;
+    }
+
+    public float GetCooldown()
+    {
+        return cooldown;
     }
 }
