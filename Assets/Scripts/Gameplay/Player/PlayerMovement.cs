@@ -46,8 +46,8 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            Vector2 temp = new(horizontal, vertical);
-            if (temp.sqrMagnitude > 1)
+            Vector2 temp = new Vector2(horizontal, vertical);
+            if (temp.sqrMagnitude > 0)
             {
                 lastMovementDirection = temp.normalized;
             }
