@@ -8,7 +8,7 @@ public abstract class Equipment : MonoBehaviour
     protected int level = 0;
     protected float cooldown = 1.0f;
 
-    public abstract void Trigger();
+    public abstract void Trigger(Vector2 playerMovementDir);
 
     public void LevelUp()
     {
