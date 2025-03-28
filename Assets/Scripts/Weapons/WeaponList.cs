@@ -28,6 +28,10 @@ public class WeaponList : Editor
                 var weapon = weaponList.GetArrayElementAtIndex(i);
                 EditorGUILayout.PropertyField(weapon, new GUIContent(((WeaponType)i).ToString()));
             }
+
+            EditorGUI.indentLevel--;
         }
+
+        serializedObject.ApplyModifiedProperties();
     }
 }
