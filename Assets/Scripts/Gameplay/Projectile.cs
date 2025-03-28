@@ -14,10 +14,10 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
+        speed = 1.0f;
         projectileRb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player");
         direction = (target.transform.position - transform.position) * speed;
-
     }
 
     // Prototype function
@@ -29,6 +29,6 @@ public class Projectile : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Projectile hit " + collision.gameObject.name);
-        Destroy(gameObject);
+        Destroy(gameObject, lifespan);
     }
 }
