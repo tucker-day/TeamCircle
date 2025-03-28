@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator anim;
     public SpriteRenderer spriteRenderer;
     public float walk;
+    public Vector2 lastMovementDirection { get; private set; }
 
 
     // Start is called before the first frame update
@@ -44,6 +45,9 @@ public class PlayerMovement : MonoBehaviour
                     spriteRenderer.flipX = true;
                 }
             }
+
+            lastMovementDirection = new Vector2(horizontal, vertical);
+            lastMovementDirection.Normalize();
         }
         else { 
             horizontal = 0;
