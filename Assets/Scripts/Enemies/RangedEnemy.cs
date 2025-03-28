@@ -33,7 +33,6 @@ public class RangedEnemy : Enemy
         if (timer <= 0)
         {
             Instantiate(projectile, launchPoint.transform.position, Quaternion.identity);
-            //playerStats.TakeDamage(damage);
             timer = cooldown;
         }
     }

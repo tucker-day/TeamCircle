@@ -10,27 +10,21 @@ public class Projectile : MonoBehaviour
     public Rigidbody2D projectileRb;
 
     private Vector2 direction;
+    private float lifespan = 2f;
     public float speed;
-    public float lifespan = 2f;
 
     void Start()
     {
-        speed = 3.0f;
+        speed = 4.0f;
         projectileRb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player");
         direction = (target.transform.position - transform.position).normalized * speed;
 
         playerStats = target.GetComponent<PlayerStats>();
         projectileRb.velocity = new Vector2(direction.x, direction.y);
-      
+
+        Destroy(gameObject, lifespan);
     }
-
-    // Prototype function
-    /*void FixedUpdate()
-    {
-        projectileRb.velocity = direction * speed;
-    }*/
-
     public void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Projectile hit " + other.gameObject.name);
