@@ -27,6 +27,8 @@ public class PlayerStats : MonoBehaviour
         isAlive = true;
         anim.SetBool("isAlive", true);
         weaponInventory = GetComponent<WeaponInventory>();
+
+        weaponInventory.LevelUpWeapon(WeaponType.Sword);
     }
 
 
