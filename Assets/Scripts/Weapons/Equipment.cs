@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Equipment : MonoBehaviour
 {
     const int MAX_LEVEL = 25;
-    protected int level = 0;
+    public int level { get; protected set; } = 0;
     protected float cooldown = 1.0f;
 
     public abstract void Trigger(Vector2 playerMovementDir);

@@ -29,12 +29,15 @@ public class WeaponInventory : MonoBehaviour
         {
             for (int i = 0; i < weapons.Length; i++)
             {
-                cooldowns[i] += Time.deltaTime;
-
-                if (cooldowns[i] > weapons[i].GetCooldown())
+                if (weapons[i].level > 0)
                 {
-                    weapons[i].Trigger(movement.lastMovementDirection);
-                    cooldowns[i] -= weapons[i].GetCooldown();
+                    cooldowns[i] += Time.deltaTime;
+
+                    if (cooldowns[i] > weapons[i].GetCooldown())
+                    {
+                        weapons[i].Trigger(movement.lastMovementDirection);
+                        cooldowns[i] -= weapons[i].GetCooldown();
+                    }
                 }
             }
         }
