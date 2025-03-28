@@ -17,6 +17,11 @@ public class WeaponInventory : MonoBehaviour
     private PlayerStats player;
     private PlayerMovement movement;
 
+    public void LevelUpWeapon(WeaponType weapon)
+    {
+        weapons[(int)weapon].LevelUp();
+    }
+
     private void Start()
     {
         player = GetComponent<PlayerStats>();
