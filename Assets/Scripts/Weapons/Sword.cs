@@ -6,6 +6,6 @@ public class Sword : Equipment
 {
     public override void Trigger(Vector2 playerMovementDir)
     {
-        Debug.Log("Boop :3 " + playerMovementDir);
+        Debug.Log("Sword Attack In Direction: " + playerMovementDir);
     }
 }
