@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -15,5 +12,7 @@ public enum WeaponType
 
 public class WeaponInventory : MonoBehaviour
 {
-    public Weapon[] weapons = new Weapon[(int)WeaponType.NUM_WEAPONS];
+    [SerializeField]
+    private Equipment[] weapons = new Equipment[(int)WeaponType.NUM_WEAPONS];
+    private float[] cooldowns = new float[(int)WeaponType.NUM_WEAPONS];
 }
