@@ -15,10 +15,12 @@ public class WeaponInventory : MonoBehaviour
     private Equipment[] weapons = new Equipment[(int)WeaponType.NUM_WEAPONS];
     private float[] cooldowns = new float[(int)WeaponType.NUM_WEAPONS];
     private PlayerStats player;
+    private PlayerMovement movement;
 
     private void Start()
     {
         player = GetComponent<PlayerStats>();
+        movement = GetComponent<PlayerMovement>();
     }
 
     private void Update()
