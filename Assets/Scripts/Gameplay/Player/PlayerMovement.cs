@@ -46,8 +46,11 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            lastMovementDirection = new Vector2(horizontal, vertical);
-            lastMovementDirection.Normalize();
+            Vector2 temp = new(horizontal, vertical);
+            if (temp.sqrMagnitude > 1)
+            {
+                lastMovementDirection = temp.normalized;
+            }
         }
         else { 
             horizontal = 0;
