@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RangedEnemy : Enemy
 {
+    public GameObject projectile;
+
     public float distance;
     void Start()
     {
@@ -29,6 +31,7 @@ public class RangedEnemy : Enemy
     {
         if (timer <= 0)
         {
+            Instantiate(projectile);
             playerStats.TakeDamage(damage);
             timer = cooldown;
         }
