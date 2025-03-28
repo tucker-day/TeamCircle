@@ -14,6 +14,12 @@ public class WeaponInventory : MonoBehaviour
     [SerializeField]
     private Equipment[] weapons = new Equipment[(int)WeaponType.NUM_WEAPONS];
     private float[] cooldowns = new float[(int)WeaponType.NUM_WEAPONS];
+    private PlayerStats player;
+
+    private void Start()
+    {
+        player = GetComponent<PlayerStats>();
+    }
 
     private void Update()
     {
