@@ -15,6 +15,20 @@ public class WeaponInventory : MonoBehaviour
     private Equipment[] weapons = new Equipment[(int)WeaponType.NUM_WEAPONS];
     private float[] cooldowns = new float[(int)WeaponType.NUM_WEAPONS];
 
+    private void Update()
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            cooldowns[i] += Time.deltaTime;
+
+            if (cooldowns[i] > weapons[i].GetCooldown())
+            {
+                weapons[i].Trigger();
+                cooldowns[i] -= weapons[i].GetCooldown();
+            }
+        }
+    }
+
     private void OnValidate()
     {
         if (weapons.Length != (int)WeaponType.NUM_WEAPONS)
