@@ -23,14 +23,17 @@ public class WeaponInventory : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < weapons.Length; i++)
+        if (player.isAlive && Enemy.s_enemyList.Count > 0)
         {
-            cooldowns[i] += Time.deltaTime;
-
-            if (cooldowns[i] > weapons[i].GetCooldown())
+            for (int i = 0; i < weapons.Length; i++)
             {
-                weapons[i].Trigger();
-                cooldowns[i] -= weapons[i].GetCooldown();
+                cooldowns[i] += Time.deltaTime;
+
+                if (cooldowns[i] > weapons[i].GetCooldown())
+                {
+                    weapons[i].Trigger();
+                    cooldowns[i] -= weapons[i].GetCooldown();
+                }
             }
         }
     }
