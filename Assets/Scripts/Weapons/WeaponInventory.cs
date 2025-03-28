@@ -4,8 +4,7 @@ using UnityEngine;
 [Serializable]
 public enum WeaponType
 {
-    Sword, 
-    Bow,
+    Sword,
 
     NUM_WEAPONS
 }
