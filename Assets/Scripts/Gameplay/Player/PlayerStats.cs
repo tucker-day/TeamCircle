@@ -15,6 +15,7 @@ public class PlayerStats : MonoBehaviour
     public GameObject GameOverScreen;
     [SerializeField]
     private GameObject HUD;
+    public WeaponInventory weaponInventory { get; private set; }
 
     public void Awake()
     {
@@ -25,6 +26,9 @@ public class PlayerStats : MonoBehaviour
         CurrentHP = MaxHP;
         isAlive = true;
         anim.SetBool("isAlive", true);
+        weaponInventory = GetComponent<WeaponInventory>();
+
+        weaponInventory.LevelUpWeapon(WeaponType.Sword);
     }
 
 

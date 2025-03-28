@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator anim;
     public SpriteRenderer spriteRenderer;
     public float walk;
+    public Vector2 lastMovementDirection { get; private set; }
 
 
     // Start is called before the first frame update
@@ -43,6 +44,12 @@ public class PlayerMovement : MonoBehaviour
                 {
                     spriteRenderer.flipX = true;
                 }
+            }
+
+            Vector2 temp = new Vector2(horizontal, vertical);
+            if (temp.sqrMagnitude > 0)
+            {
+                lastMovementDirection = temp.normalized;
             }
         }
         else { 
