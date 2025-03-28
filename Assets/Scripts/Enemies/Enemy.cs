@@ -81,13 +81,13 @@ public class Enemy : MonoBehaviour
         currentState.EnterState(this);
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    /*public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Projectile")
         {
             TakeDamage(damage);
         }
-    }
+    }*/
     public virtual void Move() { }
 
     public virtual void Chase() { }

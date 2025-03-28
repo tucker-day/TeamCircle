@@ -5,31 +5,34 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public Rigidbody2D projectileRb;
-    public Transform launchPoint;
-    private Vector2 direction;
-    public float speed;
-    public float lifespan = 2f;
-
     public GameObject target;
+    public PlayerStats playerStats;
+    public Rigidbody2D projectileRb;
+
+    private Vector2 direction;
+    private float lifespan = 2f;
+    public float speed;
+
     void Start()
     {
+        speed = 4.0f;
         projectileRb = GetComponent<Rigidbody2D>();
-    }
-    void Update()
-    {
-        
-    }
+        target = GameObject.FindGameObjectWithTag("Player");
+        direction = (target.transform.position - transform.position).normalized * speed;
 
-    // Prototype function
-    void FixedUpdate()
-    {
-        projectileRb.velocity = direction * speed;
-    }
+        playerStats = target.GetComponent<PlayerStats>();
+        projectileRb.velocity = new Vector2(direction.x, direction.y);
 
-    public void OnCollisionEnter2D(Collision2D collision)
+        Destroy(gameObject, lifespan);
+    }
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Projectile hit " + collision.gameObject.name);
-        Destroy(gameObject);
+        Debug.Log("Projectile hit " + other.gameObject.name);
+
+        if (other.CompareTag("Player"))
+        {
+            playerStats.TakeDamage(5);
+            Destroy(gameObject);
+        }
     }
 }
