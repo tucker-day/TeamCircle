@@ -732,6 +732,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossHealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 6744686730821440101, guid: 36b99a73c3a0d024ea9173fe962f79ed, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -832,6 +836,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5134154550751506161, guid: b3372856d98dab146b4cb0ff33ef2b94, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165179063189600136, guid: b3372856d98dab146b4cb0ff33ef2b94, type: 3}
+      propertyPath: m_Name
+      value: GUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165179063189600136, guid: b3372856d98dab146b4cb0ff33ef2b94, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

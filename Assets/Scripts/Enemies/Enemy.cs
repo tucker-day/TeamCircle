@@ -50,6 +50,24 @@ public class Enemy : MonoBehaviour
         {
             timer -= Time.deltaTime;
         }
+
+        //prototype button
+        if (Input.GetKeyDown("p"))
+        {
+            TakeDamage(10000);
+        }
+    }
+
+    public void Flip()
+    {
+        if (playerPos.position.x < transform.position.x)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (playerPos.position.x > transform.position.x)
+        {
+            spriteRenderer.flipX = false;
+        }
     }
 
     public void ChangeState(IEnemyState state)
@@ -63,13 +81,13 @@ public class Enemy : MonoBehaviour
         currentState.EnterState(this);
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    /*public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Projectile")
         {
             TakeDamage(damage);
         }
-    }
+    }*/
     public virtual void Move() { }
 
     public virtual void Chase() { }

@@ -14,8 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRoom: {fileID: 8205624513170101846, guid: a4a6d9c2cefa65d498a43737f2a27d4e, type: 3}
   rooms:
+  - item: {fileID: 8205624513170101846, guid: 9e76c33d90271c4499c5944d2aa33c79, type: 3}
+    weight: 10
+    cost: 1
+  - item: {fileID: 8205624513170101846, guid: a3d5773f4a3ccdf4e8b17d22c406d59a, type: 3}
+    weight: 7
+    cost: 1
   - item: {fileID: 8205624513170101846, guid: 8c6b289f14767b84792a2c0b169962e8, type: 3}
-    weight: 1
+    weight: 5
+    cost: 1
+  - item: {fileID: 8205624513170101846, guid: 8c6b289f14767b84792a2c0b169962e8, type: 3}
+    weight: 3
+    cost: 1
+  - item: {fileID: 8205624513170101846, guid: ec66512a2d067704e8debb2a7c9bcca1, type: 3}
+    weight: 4
     cost: 1
   bossRooms: []
   endRooms: []
@@ -38,26 +50,26 @@ MonoBehaviour:
       open: {fileID: 4124040876574136570, guid: b2e5683a57cf72645894847c556ea886, type: 3}
   corners:
     upperLeft:
-      bothWall: {fileID: 0}
-      horizontal: {fileID: 0}
-      vertical: {fileID: 0}
-      bothOpen: {fileID: 0}
+      bothWall: {fileID: 515436614430783529, guid: a8a84f451e666c54d9fb7975d1ca26b7, type: 3}
+      horizontal: {fileID: 515436614430783529, guid: 3908c7c5ae5869849a6c37ad004e7de4, type: 3}
+      vertical: {fileID: 515436614430783529, guid: 43cf0650073152d4390b9189b3bd3632, type: 3}
+      bothOpen: {fileID: 515436614430783529, guid: cb7ecbf415ceca94db32be74d38ef30d, type: 3}
     upperRight:
-      bothWall: {fileID: 0}
-      horizontal: {fileID: 0}
-      vertical: {fileID: 0}
-      bothOpen: {fileID: 0}
+      bothWall: {fileID: 5402675828125434064, guid: 5b0bf6ba4f8a4204d91d319b4f5df814, type: 3}
+      horizontal: {fileID: 5402675828125434064, guid: 38b9c7bfebe070744af368d6160666df, type: 3}
+      vertical: {fileID: 5402675828125434064, guid: 95f469358786ec147847146fbe161a78, type: 3}
+      bothOpen: {fileID: 5402675828125434064, guid: 6779b4daeb3b06c4d978e51610ed0e93, type: 3}
     lowerLeft:
-      bothWall: {fileID: 0}
-      horizontal: {fileID: 0}
-      vertical: {fileID: 0}
-      bothOpen: {fileID: 0}
+      bothWall: {fileID: 2180275284799819178, guid: eba359ed620ab6544b4a24cd575fd30b, type: 3}
+      horizontal: {fileID: 2180275284799819178, guid: 5e2c0099b1446244ab73499c36c64bb9, type: 3}
+      vertical: {fileID: 2180275284799819178, guid: 5460af1d329c7ad44805899c5b87b6b7, type: 3}
+      bothOpen: {fileID: 2180275284799819178, guid: e4d72fdfa3b2c03408544d8cfe9db69c, type: 3}
     lowerRight:
-      bothWall: {fileID: 0}
-      horizontal: {fileID: 0}
-      vertical: {fileID: 0}
-      bothOpen: {fileID: 0}
-  tileSize: {x: 30, y: 30}
-  maxWeightRooms: 1
+      bothWall: {fileID: 3524777065730281380, guid: c2c23c770fe61aa49bc05ee1e1817c9d, type: 3}
+      horizontal: {fileID: 3524777065730281380, guid: 16d99990817564b42b8665032d2394ef, type: 3}
+      vertical: {fileID: 3524777065730281380, guid: 7bab9a695e7a24c46b2f05bc0ddf421e, type: 3}
+      bothOpen: {fileID: 3524777065730281380, guid: f38f31eb65fb40243bff29fb231ef8bc, type: 3}
+  tileSize: {x: 24, y: 24}
+  maxWeightRooms: 29
   maxWeightBossRooms: 0
   maxWeightEndRooms: 0

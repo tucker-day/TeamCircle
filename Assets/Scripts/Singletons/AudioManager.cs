@@ -10,6 +10,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     AudioSource mus_calm, mus_combat, mus_miniboss, sfxAudio;
 
+    [SerializeField]
+    AudioMixer masterMixer;
+
     public AudioClip[] soundEffects;
 
     bool combatToCalm;
@@ -36,15 +39,40 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        DontDestroyOnLoad(this.gameObject);
 
         combatToCalm = true;
+
+        CheckMusicVolume();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckMusicUpdate();
+        if (GameManager.instance)
+        {
+            CheckMusicUpdate();
+        }
+
+        CheckMusicVolume();
         TestSoundEffects();
+    }
+
+    // This function checks for any volume changes and adjusts volume based on said changes.
+    void CheckMusicVolume()
+    {
+        if (musVolume != PlayerPrefs.GetFloat("musicVol"))
+        {
+            musVolume = PlayerPrefs.GetFloat("musicVol");
+            masterMixer.SetFloat("musVol", Mathf.Log10(Mathf.Clamp(musVolume, 0.0001f, 1f)) * 80 / 4f);
+            Debug.Log("Music volume: " + musVolume);
+        }
+        if (sfxVolume != PlayerPrefs.GetFloat("soundVol"))
+        {
+            sfxVolume = PlayerPrefs.GetFloat("soundVol");
+            masterMixer.SetFloat("sfxVol", Mathf.Log10(Mathf.Clamp(sfxVolume, 0.0001f, 1f)) * 80 / 4f);
+            Debug.Log("Sound volume: " + sfxVolume);
+        }
     }
 
     void CheckMusicUpdate()
@@ -92,10 +120,17 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // This function will play a sound effect with a slight random pitch variation.
     public void PlaySFX(AudioClip clip)
     {
         sfxAudio.pitch = Random.Range(0.9f, 1.1f);
         sfxAudio.PlayOneShot(clip);
+    }
+
+    // This function will stop all music from playing.
+    public void StopMusic()
+    {
+        mus_calm.Stop(); mus_combat.Stop(); mus_miniboss.Stop();
     }
 
     // This function is for testing sound effects.
@@ -149,6 +184,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // Coroutine for fading music.
     IEnumerator FadeMusic()
     {
         if (mus_calm.volume < 0)

@@ -6,18 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class Achievement : MonoBehaviour
 {
-      public Button AchievementButton;
+    FadeInOutSceneAnim fade;
+    public Button AchievementButton;
+
     void Start()
     {
-        
+        fade=FindObjectOfType<FadeInOutSceneAnim>();
         AchievementButton.onClick.AddListener(OnAchievementButtonPressed);
     }
 
-
-     public void OnAchievementButtonPressed()
+    public IEnumerator ChangeScene()
     {
-        
+        fade.FadeIn();
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene("Achievement");
+    }
+
+    public void OnAchievementButtonPressed()
+    {
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
+        StartCoroutine(ChangeScene());  
     }
 } 
 
