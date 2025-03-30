@@ -13,7 +13,6 @@ public class BackToMain : MonoBehaviour
         BackButton.onClick.AddListener(OnBackButtonPressed);
     }
 
-
     public void OnBackButtonPressed()
     {
         if (GameManager.instance)
