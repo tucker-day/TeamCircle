@@ -9,6 +9,8 @@ public enum WeaponType
     NUM_WEAPONS
 }
 
+[RequireComponent(typeof(PlayerStats))]
+[RequireComponent(typeof(PlayerMovement))]
 public class WeaponInventory : MonoBehaviour
 {
     [SerializeField]
