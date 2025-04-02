@@ -519,26 +519,41 @@ public class DungeonManager : MonoBehaviour
 
     private void LinkTogetherAllOpenRooms()
     {
-        List<ChildRoom> links = new();
-
         for (int x = 0; x < dungeonSize; x++) 
         {
             for (int y = 0; y < dungeonSize; y++)
             {
-                LinkOpensOnRoom(x, y, links);
+                LinkOpensOnRoom(x, y);
             }
         }
     }
 
-    private void LinkOpensOnRoom(int x, int y, List<ChildRoom> addList)
+    private void LinkOpensOnRoom(int x, int y, List<ChildRoom> links = null)
     {
-        if (dungeonGrid[x, y] != null)
+        if (dungeonGrid[x, y] != null) return;
+        if (dungeonGrid[x, y].childRoom.chainedRooms == null) return;
+
+        if (links == null)
         {
-            foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+            links = new();
+        }
+
+        dungeonGrid[x, y].childRoom.chainedRooms = links;
+        links.Add(dungeonGrid[x, y].childRoom);
+
+        foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+        {
+            if (dungeonGrid[x, y].GetEdgeType(edge) == EdgeType.Open)
             {
-                if (dungeonGrid[x, y].GetEdgeType(edge) == EdgeType.Open)
+                Vector2Int dif = RoomData.GetEdgeVectorConversion(edge);
+                RoomData neighbor = dungeonGrid[x + dif.x, y + dif.y];
+
+                if (neighbor != null)
                 {
-                    
+                    if (!links.Contains(neighbor.childRoom))
+                    {
+                        LinkOpensOnRoom(x + dif.x, y + dif.y, links);
+                    }
                 }
             }
         }
