@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
 
     public Animator anim;
     public SpriteRenderer spriteRenderer;
+    public Rigidbody2D rigidBody;
     public GameObject playerObj;
     public Transform playerPos;
     public PlayerStats playerStats;
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rigidBody = GetComponent<Rigidbody2D>();
 
         playerObj = GameObject.FindGameObjectWithTag("Player");
         playerPos = playerObj.transform;
@@ -57,6 +59,12 @@ public class Enemy : MonoBehaviour
         if (Input.GetKeyDown("p"))
         {
             TakeDamage(10000);
+        }
+
+        // prototype function
+        if (Input.GetKeyDown("f"))
+        {
+            
         }
     }
 
@@ -98,7 +106,7 @@ public class Enemy : MonoBehaviour
 
     public void FreezeMovement()
     {
-
+        
     }
 
     public void TakeDamage(int damage)
