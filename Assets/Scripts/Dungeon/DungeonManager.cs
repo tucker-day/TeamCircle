@@ -515,11 +515,27 @@ public class DungeonManager : MonoBehaviour
 
     private void LinkTogetherAllOpenRooms()
     {
-        for (int x = 0; x < dungeonSize; x++)
+        List<ChildRoom> links = new();
+
+        for (int x = 0; x < dungeonSize; x++) 
         {
             for (int y = 0; y < dungeonSize; y++)
             {
+                LinkOpensOnRoom(x, y, links);
+            }
+        }
+    }
 
+    private void LinkOpensOnRoom(int x, int y, List<ChildRoom> addList)
+    {
+        if (dungeonGrid[x, y] != null)
+        {
+            foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+            {
+                if (dungeonGrid[x, y].GetEdgeType(edge) == EdgeType.Open)
+                {
+                    
+                }
             }
         }
     }
