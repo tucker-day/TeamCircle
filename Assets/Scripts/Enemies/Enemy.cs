@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     public float detectionRange;
     public float attackRange;
     bool isDead;
+    bool canMove;
 
     public float cooldown;
     protected float timer;
@@ -39,6 +40,7 @@ public class Enemy : MonoBehaviour
         s_enemyList.Add(this);
 
         isDead = false;
+        canMove = true;
         cooldown = 1.5f;
     }
 
@@ -93,6 +95,11 @@ public class Enemy : MonoBehaviour
     public virtual void Chase() { }
 
     public virtual void Attack() { }
+
+    public void FreezeMovement()
+    {
+
+    }
 
     public void TakeDamage(int damage)
     {
