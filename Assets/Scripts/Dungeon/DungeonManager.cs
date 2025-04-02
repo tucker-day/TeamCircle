@@ -53,6 +53,7 @@ public class DungeonManager : MonoBehaviour
             Vector2Int spawnCoord = spawnList.Pop();
             SpawnRoom(spawnCoord);
         }
+        LinkTogetherAllOpenRooms();
     }
 
     // spawn a random room in a specific position. if a forceRoom is passed in, it will try to spawn
@@ -509,6 +510,17 @@ public class DungeonManager : MonoBehaviour
             settings.spawnPool.GetRandomEnemy(out GameObject enemy, out int cost);
             child.enemySpawns.Add(enemy);
             budget -= cost;
+        }
+    }
+
+    private void LinkTogetherAllOpenRooms()
+    {
+        for (int x = 0; x < dungeonSize; x++)
+        {
+            for (int y = 0; y < dungeonSize; y++)
+            {
+
+            }
         }
     }
 }
