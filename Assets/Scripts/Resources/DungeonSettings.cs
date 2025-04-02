@@ -21,6 +21,7 @@ public class DungeonSettings : ScriptableObject
     [Header("Enemy Settings")]
     public int initialBudget;
     public int budgetIncreasePerDistance;
+    public float enemyHealthMult;
 
     [Header("Boss Settings")]
     public bool bossFloor;
