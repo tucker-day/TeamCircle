@@ -24,7 +24,7 @@ public abstract class Equipment : MonoBehaviour
         return level == MAX_LEVEL;
     }
 
-    public float GetCooldown()
+    public virtual float GetCooldown()
     {
         return cooldown;
     }
