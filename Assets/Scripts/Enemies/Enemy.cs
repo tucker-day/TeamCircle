@@ -61,10 +61,10 @@ public class Enemy : MonoBehaviour
             TakeDamage(10000);
         }
 
-        // prototype function
+        // prototype functionality
         if (Input.GetKeyDown("f"))
         {
-            
+            FreezeMovement();
         }
     }
 
@@ -106,7 +106,8 @@ public class Enemy : MonoBehaviour
 
     public void FreezeMovement()
     {
-        
+        speed = 0;
+        anim.speed = 0;
     }
 
     public void TakeDamage(int damage)
