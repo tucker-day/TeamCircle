@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Sword : Equipment
 {
+    const float SPAWN_DELAY = 0.15f;
+    const float Y_OFFSET = 1.5f;
+
     [SerializeField] 
     private SwordProjectile swordProjectilePrefab;
 
@@ -11,6 +14,9 @@ public class Sword : Equipment
     private int initialDamage;
     [SerializeField]
     private int damagePerLevel;
+
+    [SerializeField]
+    private List<int> projectileIncreaseThresholds;
 
     private bool flipSword = false;
     
@@ -21,11 +27,30 @@ public class Sword : Equipment
             flipSword = playerMovementDir.x < 0;
         }
 
-        SpawnProjectile(flipSword, Vector3.zero);
+        int projectiles = 1;
+        foreach (int i in projectileIncreaseThresholds)
+        {
+            if (level >= i) projectiles++;
+        }
+
+        for (int i = 0; i < projectiles; i++)
+        {
+            bool flip = flipSword;
+            Vector3 offset = new();
+
+            if (i % 2 != 0) flip = !flip;
+
+            int raise = Mathf.FloorToInt((float)i / 2.0f);
+            offset.y += raise * Y_OFFSET;
+
+            StartCoroutine(SpawnProjectile(flip, offset, i * SPAWN_DELAY));
+        }
     }
 
-    private void SpawnProjectile(bool flip, Vector3 offset)
+    private IEnumerator SpawnProjectile(bool flip, Vector3 offset, float delay)
     {
+        yield return new WaitForSeconds(delay);
+
         swordProjectilePrefab.damage = GetDamage();
         GameObject instance = Instantiate(swordProjectilePrefab.gameObject, transform.position + offset, Quaternion.identity, gameObject.transform);
 
