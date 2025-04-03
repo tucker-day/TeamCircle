@@ -125,6 +125,7 @@ void Update()
         yield return new WaitForSeconds(3);
         speed = resSpeed;
         anim.speed = 1;
+        canMove = true;
     }
 
     public void TakeDamage(int damage)
