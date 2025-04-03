@@ -70,6 +70,8 @@ MonoBehaviour:
       vertical: {fileID: 3524777065730281380, guid: 7bab9a695e7a24c46b2f05bc0ddf421e, type: 3}
       bothOpen: {fileID: 3524777065730281380, guid: f38f31eb65fb40243bff29fb231ef8bc, type: 3}
   tileSize: {x: 24, y: 24}
+  upperLowerHallBlocker: {fileID: 3291713178222489084, guid: f983e66954feb934593415c08913896c, type: 3}
+  rightLeftHallBlocker: {fileID: 1529050977518983425, guid: daacf136b3cad084e99f5f3d1bbc62bc, type: 3}
   maxWeightRooms: 29
   maxWeightBossRooms: 0
   maxWeightEndRooms: 0
