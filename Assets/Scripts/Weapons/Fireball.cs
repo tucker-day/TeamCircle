@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Fireball : Equipment
@@ -16,6 +17,13 @@ public class Fireball : Equipment
         }
     }
 
+    public void OnTriggerEnter2D(Collider2D Enemy)
+    {
+        if(Enemy.TryGetComponent<Enemy>(out Enemy enemy) == true)
+        {
+            enemy.TakeDamage(20);
+        }
+    }
     public override void Trigger(Vector2 playerMovementDir)
     {
         Debug.Log("Sword Attack In Direction: " + playerMovementDir);
