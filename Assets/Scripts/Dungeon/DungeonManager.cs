@@ -50,6 +50,8 @@ public class DungeonManager : MonoBehaviour
             Vector2Int spawnCoord = spawnList.Pop();
             SpawnRoom(spawnCoord);
         }
+        CreateAllHallBlockers();
+        LinkTogetherAllOpenRooms();
     }
 
     // spawn a random room in a specific position. if a forceRoom is passed in, it will try to spawn
@@ -93,6 +95,10 @@ public class DungeonManager : MonoBehaviour
 
         GameObject spawnedRoom = Instantiate(room, GetSpawnPos(pos), Quaternion.identity, gameObject.transform);
         SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], child, spawnedRoom);
+
+        // due to spaghetti, i need to give the room data a reference to the spawned child room
+        // this is safe, as older code checks if the prefab has a child room class attached
+        dungeonGrid[pos.x, pos.y].childRoom = spawnedRoom.GetComponent<ChildRoom>();
 
         if (dungeonGrid[pos.x, pos.y].distance < settings.maxLength)
         {
@@ -412,5 +418,153 @@ public class DungeonManager : MonoBehaviour
         }
 
         Instantiate(prefab, spawnPoint, Quaternion.identity, parent.transform);
+    }
+
+    private void SpawnObjectsOnAllCorners(Vector2 pos, RoomData data, GameObject parent)
+    {
+        EdgeType upperEdge = data.GetEdgeType(Edges.Upper);
+        EdgeType lowerEdge = data.GetEdgeType(Edges.Lower);
+        EdgeType leftEdge = data.GetEdgeType(Edges.Left);
+        EdgeType rightEdge = data.GetEdgeType(Edges.Right);
+
+        Vector2 upperLeftPos = (RoomData.GetEdgeVectorConversion(Edges.Upper) + RoomData.GetEdgeVectorConversion(Edges.Left)) * settings.tileset.tileSize / 2;
+        Instantiate(GetCornerPrefab(upperEdge, leftEdge, settings.tileset.corners.upperLeft), upperLeftPos + pos, Quaternion.identity, parent.transform);
+
+        Vector2 upperRightPos = (RoomData.GetEdgeVectorConversion(Edges.Upper) + RoomData.GetEdgeVectorConversion(Edges.Right)) * settings.tileset.tileSize / 2;
+        Instantiate(GetCornerPrefab(upperEdge, rightEdge, settings.tileset.corners.upperRight), upperRightPos + pos, Quaternion.identity, parent.transform);
+
+        Vector2 lowerRightPos = (RoomData.GetEdgeVectorConversion(Edges.Lower) + RoomData.GetEdgeVectorConversion(Edges.Right)) * settings.tileset.tileSize / 2;
+        Instantiate(GetCornerPrefab(lowerEdge, rightEdge, settings.tileset.corners.lowerRight), lowerRightPos + pos, Quaternion.identity, parent.transform);
+
+        Vector2 lowerLeftPos = (RoomData.GetEdgeVectorConversion(Edges.Lower) + RoomData.GetEdgeVectorConversion(Edges.Left)) * settings.tileset.tileSize / 2;
+        Instantiate(GetCornerPrefab(lowerEdge, leftEdge, settings.tileset.corners.lowerLeft), lowerLeftPos + pos, Quaternion.identity, parent.transform);
+    }
+
+    private GameObject GetCornerPrefab(EdgeType horiWall, EdgeType vertWall, CornerGroup corner)
+    {
+        if ((horiWall == EdgeType.Wall || horiWall == EdgeType.Hall) &&
+            (vertWall == EdgeType.Wall || vertWall == EdgeType.Hall))
+        {
+            return corner.bothWall;
+        }
+        else if (horiWall == EdgeType.Open &&
+                vertWall == EdgeType.Open)
+        {
+            return corner.bothOpen;
+        }
+        else if ((horiWall == EdgeType.Wall || horiWall == EdgeType.Hall) &&
+                vertWall == EdgeType.Open)
+        {
+            return corner.horizontal;
+        }
+        else if (horiWall == EdgeType.Open &&
+                (vertWall == EdgeType.Wall || vertWall == EdgeType.Hall))
+        {
+            return corner.vertical;
+        }
+
+        Debug.Log("GetCornerPrefab didn't find a corner!");
+        return null;
+    }
+
+    private void CreateEnemySpawnList(GameObject spawnedRoom, RoomData data)
+    {
+        if (!spawnedRoom.TryGetComponent(out ChildRoom child)) return;
+        if (!child.spawnEnemies) return;
+
+        int budget = settings.initialBudget + settings.budgetIncreasePerDistance * data.distance;
+
+        while (budget > 0)
+        {
+            settings.spawnPool.GetRandomEnemy(out GameObject enemy, out int cost);
+            child.enemySpawns.Add(enemy);
+            budget -= cost;
+        }
+    }
+
+    private void LinkTogetherAllOpenRooms()
+    {
+        for (int x = 0; x < dungeonSize; x++) 
+        {
+            for (int y = 0; y < dungeonSize; y++)
+            {
+                LinkOpensOnRoom(x, y);
+            }
+        }
+    }
+
+    private void LinkOpensOnRoom(int x, int y, List<ChildRoom> links = null)
+    {
+        if (dungeonGrid[x, y] != null) return;
+        if (dungeonGrid[x, y].childRoom.chainedRooms == null) return;
+
+        if (links == null)
+        {
+            links = new();
+        }
+
+        dungeonGrid[x, y].childRoom.chainedRooms = links;
+        links.Add(dungeonGrid[x, y].childRoom);
+
+        foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+        {
+            if (dungeonGrid[x, y].GetEdgeType(edge) == EdgeType.Open)
+            {
+                Vector2Int dif = RoomData.GetEdgeVectorConversion(edge);
+                RoomData neighbor = dungeonGrid[x + dif.x, y + dif.y];
+
+                if (neighbor != null)
+                {
+                    if (!links.Contains(neighbor.childRoom))
+                    {
+                        LinkOpensOnRoom(x + dif.x, y + dif.y, links);
+                    }
+                }
+            }
+        }
+    }
+
+    private void CreateAllHallBlockers()
+    {
+        for (int x = 0; x < dungeonSize; x++)
+        {
+            for (int y = 0; y < dungeonSize; y++)
+            {
+                CreateHallBlockersOnRoom(x, y);
+            }
+        }
+    }
+
+    private void CreateHallBlockersOnRoom(int x, int y)
+    {
+        if (dungeonGrid[x, y] == null) return;
+
+        foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+        {
+            if (dungeonGrid[x, y].GetEdgeType(edge) == EdgeType.Hall)
+            {
+                Vector2 spawnPos = GetSpawnPos(new Vector2Int(x, y));
+                Vector2 edgeDirection = RoomData.GetEdgeVectorConversion(edge);
+                
+                spawnPos += edgeDirection * (settings.tileset.tileSize / 2.0f);
+
+                GameObject blocker;
+
+                if (edgeDirection.x == 0)
+                {
+                    blocker = settings.tileset.upperLowerHallBlocker;
+                }
+                else
+                {
+                    blocker = settings.tileset.rightLeftHallBlocker;
+                }
+
+                ChildRoom parent = dungeonGrid[x, y].childRoom;
+
+                blocker = Instantiate(blocker, spawnPos, Quaternion.identity, parent.gameObject.transform);
+                dungeonGrid[x, y].childRoom.hallBlockers.Add(blocker);
+                blocker.SetActive(false);
+            }
+        }
     }
 }

@@ -24,6 +24,15 @@ public class ChildRoom : MonoBehaviour
     [Header("Edge Rules")]
     public EdgeRulesGroup edgeRules = new();
 
+    [HideInInspector]
+    public List<GameObject> enemySpawns = new();
+    [HideInInspector]
+    public List<ChildRoom> chainedRooms;
+    [HideInInspector]
+    public List<GameObject> hallBlockers = new();
+    [HideInInspector]
+    public bool enemiesSpawned;
+
     public EdgeRules GetRulesByEnum(Edges edge)
     {
         switch (edge)
