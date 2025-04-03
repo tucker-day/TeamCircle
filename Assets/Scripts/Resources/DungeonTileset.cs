@@ -54,6 +54,10 @@ public class DungeonTileset : ScriptableObject
 
     public Vector2 tileSize;
 
+    [Header("Hall Blockers")]
+    public GameObject upperLowerHallBlocker;
+    public GameObject rightLeftHallBlocker;
+
     [Header("Max Weights")]
     [SerializeField] int maxWeightRooms;
     [SerializeField] int maxWeightBossRooms;
