@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
     public int hp;
     public int damage;
     public float speed;
+    protected float frozenSpeed;
+    protected float resSpeed; 
     public float detectionRange;
     public float attackRange;
     bool isDead;
@@ -28,7 +30,6 @@ public class Enemy : MonoBehaviour
 
     public float cooldown;
     protected float timer;
-
     protected void Start()
     {
         anim = GetComponent<Animator>();
@@ -44,9 +45,12 @@ public class Enemy : MonoBehaviour
         isDead = false;
         canMove = true;
         cooldown = 1.5f;
-    }
 
-    void Update()
+        resSpeed = speed;
+        frozenSpeed = 0.0f;
+}
+
+void Update()
     {
         currentState.UpdateState(this);
 
@@ -64,7 +68,10 @@ public class Enemy : MonoBehaviour
         // prototype functionality
         if (Input.GetKeyDown("f"))
         {
-            FreezeMovement();
+            if (canMove)
+            {
+                Freeze();
+            }
         }
     }
 
@@ -104,10 +111,20 @@ public class Enemy : MonoBehaviour
 
     public virtual void Attack() { }
 
-    public void FreezeMovement()
+    public void Freeze()
     {
-        speed = 0;
+        speed = frozenSpeed;
         anim.speed = 0;
+        canMove = false;
+
+        StartCoroutine("Unfreeze");
+    }
+
+    IEnumerator Unfreeze()
+    {
+        yield return new WaitForSeconds(3);
+        speed = resSpeed;
+        anim.speed = 1;
     }
 
     public void TakeDamage(int damage)
