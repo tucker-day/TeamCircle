@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <icon>k__BackingField: {fileID: 0}
   swordProjectilePrefab: {fileID: 5358998964798317007, guid: 03015a91d3da6d644975d2b4ed568df8, type: 3}
+  initialDamage: 25
+  damagePerLevel: 5
