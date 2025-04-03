@@ -53,6 +53,7 @@ public class DungeonManager : MonoBehaviour
             Vector2Int spawnCoord = spawnList.Pop();
             SpawnRoom(spawnCoord);
         }
+        CreateAllHallBlockers();
         LinkTogetherAllOpenRooms();
     }
 
@@ -555,6 +556,50 @@ public class DungeonManager : MonoBehaviour
                         LinkOpensOnRoom(x + dif.x, y + dif.y, links);
                     }
                 }
+            }
+        }
+    }
+
+    private void CreateAllHallBlockers()
+    {
+        for (int x = 0; x < dungeonSize; x++)
+        {
+            for (int y = 0; y < dungeonSize; y++)
+            {
+                CreateHallBlockersOnRoom(x, y);
+            }
+        }
+    }
+
+    private void CreateHallBlockersOnRoom(int x, int y)
+    {
+        if (dungeonGrid[x, y] == null) return;
+
+        foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+        {
+            if (dungeonGrid[x, y].GetEdgeType(edge) == EdgeType.Hall)
+            {
+                Vector2 spawnPos = GetSpawnPos(new Vector2Int(x, y));
+                Vector2 edgeDirection = RoomData.GetEdgeVectorConversion(edge);
+                
+                spawnPos += edgeDirection * (settings.tileset.tileSize / 2.0f);
+
+                GameObject blocker;
+
+                if (edgeDirection.x == 0)
+                {
+                    blocker = settings.tileset.upperLowerHallBlocker;
+                }
+                else
+                {
+                    blocker = settings.tileset.rightLeftHallBlocker;
+                }
+
+                ChildRoom parent = dungeonGrid[x, y].childRoom;
+
+                blocker = Instantiate(blocker, spawnPos, Quaternion.identity, parent.gameObject.transform);
+                dungeonGrid[x, y].childRoom.hallBlockers.Add(blocker);
+                blocker.SetActive(false);
             }
         }
     }
