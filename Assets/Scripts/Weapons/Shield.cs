@@ -6,7 +6,7 @@ public class Shield : Equipment
 {
     public GameObject ShieldPrefab;
     public GameObject ShieldInstance;
-
+    public int rotationSpeed = 360;
     [SerializeField]
     int damage;
     [SerializeField]
@@ -23,7 +23,7 @@ public class Shield : Equipment
     // Update is called once per frame
     void Update()
     {
-        
+        transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z + (rotationSpeed * Time.deltaTime));
     }
 
     public override void Trigger(Vector2 playerMovementDir)
