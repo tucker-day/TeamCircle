@@ -10,8 +10,16 @@ public class SwordProjectile : MonoBehaviour
     [HideInInspector]
     public int damage;
 
+    private void Start()
+    {
+        Destroy(gameObject, LIFETIME);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        {
+            enemy.TakeDamage(damage);
+        }
     }
 }
