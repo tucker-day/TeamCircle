@@ -29,6 +29,10 @@ public class ChildRoom : MonoBehaviour
 
     [HideInInspector]
     public List<GameObject> enemySpawns = new();
+    [HideInInspector]
+    public List<ChildRoom> chainedRooms;
+    [HideInInspector]
+    public bool enemiesSpawned;
 
     public EdgeRules GetRulesByEnum(Edges edge)
     {

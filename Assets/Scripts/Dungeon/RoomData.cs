@@ -21,6 +21,7 @@ public class RoomData
     public byte distance = 0;
     public byte distanceSinceBranch = 0;
     private byte _edgeData = 0;
+    public ChildRoom childRoom;
 
     public EdgeType GetEdgeType(Edges edge)
     {

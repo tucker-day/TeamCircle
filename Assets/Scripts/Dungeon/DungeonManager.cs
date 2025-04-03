@@ -53,6 +53,7 @@ public class DungeonManager : MonoBehaviour
             Vector2Int spawnCoord = spawnList.Pop();
             SpawnRoom(spawnCoord);
         }
+        LinkTogetherAllOpenRooms();
     }
 
     // spawn a random room in a specific position. if a forceRoom is passed in, it will try to spawn
@@ -97,6 +98,10 @@ public class DungeonManager : MonoBehaviour
         GameObject spawnedRoom = Instantiate(room, GetSpawnPos(pos), Quaternion.identity, gameObject.transform);
         SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], child, spawnedRoom);
         CreateEnemySpawnList(spawnedRoom, dungeonGrid[pos.x, pos.y]);
+
+        // due to spaghetti, i need to give the room data a reference to the spawned child room
+        // this is safe, as older code checks if the prefab has a child room class attached
+        dungeonGrid[pos.x, pos.y].childRoom = spawnedRoom.GetComponent<ChildRoom>();
 
         if (dungeonGrid[pos.x, pos.y].distance < settings.maxLength)
         {
@@ -509,6 +514,48 @@ public class DungeonManager : MonoBehaviour
             settings.spawnPool.GetRandomEnemy(out GameObject enemy, out int cost);
             child.enemySpawns.Add(enemy);
             budget -= cost;
+        }
+    }
+
+    private void LinkTogetherAllOpenRooms()
+    {
+        for (int x = 0; x < dungeonSize; x++) 
+        {
+            for (int y = 0; y < dungeonSize; y++)
+            {
+                LinkOpensOnRoom(x, y);
+            }
+        }
+    }
+
+    private void LinkOpensOnRoom(int x, int y, List<ChildRoom> links = null)
+    {
+        if (dungeonGrid[x, y] != null) return;
+        if (dungeonGrid[x, y].childRoom.chainedRooms == null) return;
+
+        if (links == null)
+        {
+            links = new();
+        }
+
+        dungeonGrid[x, y].childRoom.chainedRooms = links;
+        links.Add(dungeonGrid[x, y].childRoom);
+
+        foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+        {
+            if (dungeonGrid[x, y].GetEdgeType(edge) == EdgeType.Open)
+            {
+                Vector2Int dif = RoomData.GetEdgeVectorConversion(edge);
+                RoomData neighbor = dungeonGrid[x + dif.x, y + dif.y];
+
+                if (neighbor != null)
+                {
+                    if (!links.Contains(neighbor.childRoom))
+                    {
+                        LinkOpensOnRoom(x + dif.x, y + dif.y, links);
+                    }
+                }
+            }
         }
     }
 }
