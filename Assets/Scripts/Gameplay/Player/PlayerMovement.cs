@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     public Animator anim;
     public SpriteRenderer spriteRenderer;
     public float walk;
-    public Vector2 lastMovementDirection { get; private set; }
 
 
     // Start is called before the first frame update
@@ -46,11 +45,10 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            Vector2 temp = new Vector2(horizontal, vertical);
-            if (temp.sqrMagnitude > 0)
-            {
-                lastMovementDirection = temp.normalized;
-            }
+
+            
+
+
         }
         else { 
             horizontal = 0;
@@ -58,19 +56,13 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown("h"))
         {
-            playerStats.TakeDamage(1020012);
+            playerStats.CurrentHP = 0;
         }
     }
 
     private void FixedUpdate()
     {
         body.velocity = new Vector2 (horizontal * speed, vertical * speed);
-
-        float velocity = (horizontal * speed + vertical * speed) / 2.0f;
-        if (velocity < 0)
-        {
-            velocity = -velocity;
-        }
-        anim.SetFloat("velocity", velocity);
+        anim.SetFloat("velocity", (horizontal * speed + vertical * speed) / 2.0f);
     }
 }

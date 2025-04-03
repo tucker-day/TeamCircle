@@ -12,14 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542838af3f4fe804582fdc712433c35c, type: 3}
   m_Name: PrototypeDungeon
   m_EditorClassIdentifier: 
-  maxLength: 10
+  maxLength: 5
   tileset: {fileID: 11400000, guid: e9b49a67ebf7160478f002d32505c4a3, type: 2}
-  spawnPool: {fileID: 11400000, guid: 8ad7a2ad295b9b240a9ac2ec1cd36f90, type: 2}
-  branchChance: 0.2
-  allHallChance: 0.1
-  maxBranchDistance: 4
-  openChance: 0.3
-  initialBudget: 20
-  budgetIncreasePerDistance: 5
+  spawnPools: []
   bossFloor: 0
   bossSpawnPool: {fileID: 0}

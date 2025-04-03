@@ -7,24 +7,16 @@ using UnityEngine.SceneManagement;
 public class CreditScene : MonoBehaviour
 {
     public Button CreditButton;
-    FadeInOutSceneAnim fade;
-
     void Start()
     {
-        fade=FindObjectOfType<FadeInOutSceneAnim>();
+        
         CreditButton.onClick.AddListener(OnCreditButtonPressed);
     }
 
-    public IEnumerator ChangeScene()
-    {
-        fade.FadeIn();
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("Credit");
-    }
 
-    public void OnCreditButtonPressed()
+     public void OnCreditButtonPressed()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
-        StartCoroutine(ChangeScene());
+        
+        SceneManager.LoadScene("Credit");
     }
 }

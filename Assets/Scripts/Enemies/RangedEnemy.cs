@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class RangedEnemy : Enemy
 {
-    public GameObject projectile;
-    public GameObject launchPoint;
-
     public float distance;
     void Start()
     {
@@ -25,14 +22,21 @@ public class RangedEnemy : Enemy
             transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
         }
 
-        Flip();
+        if (playerPos.position.x < transform.position.x)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (playerPos.position.x > transform.position.x)
+        {
+            spriteRenderer.flipX = false;
+        }
     }
 
     public override void Attack()
     {
         if (timer <= 0)
         {
-            Instantiate(projectile, launchPoint.transform.position, Quaternion.identity);
+            playerStats.TakeDamage(damage);
             timer = cooldown;
         }
     }

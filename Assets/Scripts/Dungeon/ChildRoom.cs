@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -22,13 +21,8 @@ public class EdgeRules
 [RequireComponent(typeof(Rigidbody2D))]
 public class ChildRoom : MonoBehaviour
 {
-    [Header("Room Settings")]
-    public bool spawnEnemies = true;
     [Header("Edge Rules")]
     public EdgeRulesGroup edgeRules = new();
-
-    [HideInInspector]
-    public List<GameObject> enemySpawns = new();
 
     public EdgeRules GetRulesByEnum(Edges edge)
     {

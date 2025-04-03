@@ -19,8 +19,6 @@ public class DungeonManager : MonoBehaviour
     private RoomData[,] dungeonGrid;
     private Stack<Vector2Int> spawnList;
 
-    private int branchReduction;
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
@@ -34,7 +32,7 @@ public class DungeonManager : MonoBehaviour
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
             GenerateDungeon();
             stopWatch.Stop();
-            Debug.Log("GENERATION TIME: " + stopWatch.Elapsed);
+            Debug.Log(stopWatch.Elapsed);
         }
     }
 
@@ -45,7 +43,6 @@ public class DungeonManager : MonoBehaviour
         dungeonGrid = new RoomData[dungeonSize, dungeonSize];
         spawnList = new Stack<Vector2Int>();
         spawnOffset = new Vector2(dungeonSize - 1, dungeonSize - 1) * settings.tileset.tileSize / 2;
-        branchReduction = 0;
 
         SpawnRoom(new Vector2Int(settings.maxLength, settings.maxLength), settings.tileset.spawnRoom);
         while (spawnList.Count > 0)
@@ -96,7 +93,6 @@ public class DungeonManager : MonoBehaviour
 
         GameObject spawnedRoom = Instantiate(room, GetSpawnPos(pos), Quaternion.identity, gameObject.transform);
         SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], child, spawnedRoom);
-        CreateEnemySpawnList(spawnedRoom, dungeonGrid[pos.x, pos.y]);
 
         if (dungeonGrid[pos.x, pos.y].distance < settings.maxLength)
         {
@@ -261,52 +257,28 @@ public class DungeonManager : MonoBehaviour
         // distance is received in the TryInheritEdgeData function, so this
         // must stay below or else cost won't be added
         newData.distance += (byte)cost;
-        newData.distanceSinceBranch += 1;
 
+        int nonWallCount = newData.GetNonWallCount();
         int occupiedCount = 0;
+
         foreach (bool b in occupied)
         {
             occupiedCount += b ? 1 : 0;
         }
 
-        if (newData.distance < settings.maxLength - branchReduction && occupiedCount < 4)
+        if (newData.distance < settings.maxLength && occupiedCount < 4)
         {
-            int nonWallCount = newData.GetNonWallCount();
-            int nonWallTarget = 2;
-
-            if (newData.distanceSinceBranch >= settings.maxBranchDistance)
-            {
-                nonWallTarget = 3;
-                newData.distanceSinceBranch = 0;
-            }
-            else
-            {
-                float rngRoll = UnityEngine.Random.Range(0.0f, 1.0f);
-
-                if (rngRoll < settings.branchChance)
-                {
-                    nonWallTarget = 3;
-                    newData.distanceSinceBranch = 0;
-                }
-                else if (rngRoll < settings.branchChance + settings.allHallChance)
-                {
-                    nonWallTarget = 4;
-                    newData.distanceSinceBranch = 0;
-                }
-            }
-
-            while (nonWallCount < nonWallTarget && occupiedCount < 4)
+            while (nonWallCount < 3 && occupiedCount < 4)
             {
                 Edges target = (Edges)UnityEngine.Random.Range(0, 4);
 
                 if (!occupied[(int)target])
                 {
-                    EdgeType edgeType = UnityEngine.Random.Range(0.0f, 1.0f) > settings.openChance ? EdgeType.Hall : EdgeType.Open;
+                    EdgeType edgeType = UnityEngine.Random.Range(0, 2) == 0 ? EdgeType.Hall : EdgeType.Open;
                     newData.SetEdgeType(target, edgeType);
                     nonWallCount++;
 
                     occupied[(int)target] = true;
-
                     occupiedCount = 0;
                     foreach (bool b in occupied)
                     {
@@ -314,11 +286,6 @@ public class DungeonManager : MonoBehaviour
                     }
                 }
             }
-        }
-
-        if (newData.distance >= settings.maxLength - branchReduction)
-        {
-            branchReduction++;
         }
 
         return newData;
@@ -375,7 +342,6 @@ public class DungeonManager : MonoBehaviour
             if ((data.distance > comparison.distance || data.distance == 0) && comparison.GetEdgeType(compareEdge) != EdgeType.Wall)
             {
                 data.distance = comparison.distance;
-                data.distanceSinceBranch = comparison.distanceSinceBranch;
             }
 
             data.SetEdgeType(edge, comparison.GetEdgeType(compareEdge));
@@ -396,8 +362,6 @@ public class DungeonManager : MonoBehaviour
             SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Right, parent);
         if (!child.edgeRules.left.BuildInEdge)
             SpawnObjectsOnEdge(spawnOrigin, roomData, Edges.Left, parent);
-
-        SpawnObjectsOnAllCorners(spawnOrigin, roomData, parent);
     }
 
     private void SpawnObjectsOnEdge(Vector2 pos, RoomData data, Edges edge, GameObject parent)
@@ -448,67 +412,5 @@ public class DungeonManager : MonoBehaviour
         }
 
         Instantiate(prefab, spawnPoint, Quaternion.identity, parent.transform);
-    }
-
-    private void SpawnObjectsOnAllCorners(Vector2 pos, RoomData data, GameObject parent)
-    {
-        EdgeType upperEdge = data.GetEdgeType(Edges.Upper);
-        EdgeType lowerEdge = data.GetEdgeType(Edges.Lower);
-        EdgeType leftEdge = data.GetEdgeType(Edges.Left);
-        EdgeType rightEdge = data.GetEdgeType(Edges.Right);
-
-        Vector2 upperLeftPos = (RoomData.GetEdgeVectorConversion(Edges.Upper) + RoomData.GetEdgeVectorConversion(Edges.Left)) * settings.tileset.tileSize / 2;
-        Instantiate(GetCornerPrefab(upperEdge, leftEdge, settings.tileset.corners.upperLeft), upperLeftPos + pos, Quaternion.identity, parent.transform);
-
-        Vector2 upperRightPos = (RoomData.GetEdgeVectorConversion(Edges.Upper) + RoomData.GetEdgeVectorConversion(Edges.Right)) * settings.tileset.tileSize / 2;
-        Instantiate(GetCornerPrefab(upperEdge, rightEdge, settings.tileset.corners.upperRight), upperRightPos + pos, Quaternion.identity, parent.transform);
-
-        Vector2 lowerRightPos = (RoomData.GetEdgeVectorConversion(Edges.Lower) + RoomData.GetEdgeVectorConversion(Edges.Right)) * settings.tileset.tileSize / 2;
-        Instantiate(GetCornerPrefab(lowerEdge, rightEdge, settings.tileset.corners.lowerRight), lowerRightPos + pos, Quaternion.identity, parent.transform);
-
-        Vector2 lowerLeftPos = (RoomData.GetEdgeVectorConversion(Edges.Lower) + RoomData.GetEdgeVectorConversion(Edges.Left)) * settings.tileset.tileSize / 2;
-        Instantiate(GetCornerPrefab(lowerEdge, leftEdge, settings.tileset.corners.lowerLeft), lowerLeftPos + pos, Quaternion.identity, parent.transform);
-    }
-
-    private GameObject GetCornerPrefab(EdgeType horiWall, EdgeType vertWall, CornerGroup corner)
-    {
-        if ((horiWall == EdgeType.Wall || horiWall == EdgeType.Hall) &&
-            (vertWall == EdgeType.Wall || vertWall == EdgeType.Hall))
-        {
-            return corner.bothWall;
-        }
-        else if (horiWall == EdgeType.Open &&
-                vertWall == EdgeType.Open)
-        {
-            return corner.bothOpen;
-        }
-        else if ((horiWall == EdgeType.Wall || horiWall == EdgeType.Hall) &&
-                vertWall == EdgeType.Open)
-        {
-            return corner.horizontal;
-        }
-        else if (horiWall == EdgeType.Open &&
-                (vertWall == EdgeType.Wall || vertWall == EdgeType.Hall))
-        {
-            return corner.vertical;
-        }
-
-        Debug.Log("GetCornerPrefab didn't find a corner!");
-        return null;
-    }
-
-    private void CreateEnemySpawnList(GameObject spawnedRoom, RoomData data)
-    {
-        if (!spawnedRoom.TryGetComponent(out ChildRoom child)) return;
-        if (!child.spawnEnemies) return;
-
-        int budget = settings.initialBudget + settings.budgetIncreasePerDistance * data.distance;
-
-        while (budget > 0)
-        {
-            settings.spawnPool.GetRandomEnemy(out GameObject enemy, out int cost);
-            child.enemySpawns.Add(enemy);
-            budget -= cost;
-        }
     }
 }
