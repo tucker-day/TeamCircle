@@ -543,18 +543,14 @@ public class DungeonManager : MonoBehaviour
 
         foreach (Edges edge in Enum.GetValues(typeof(Edges)))
         {
-            if (dungeonGrid[x, y].GetEdgeType(edge) == EdgeType.Open)
-            {
-                Vector2Int dif = RoomData.GetEdgeVectorConversion(edge);
-                RoomData neighbor = dungeonGrid[x + dif.x, y + dif.y];
+            if (dungeonGrid[x, y].GetEdgeType(edge) != EdgeType.Open) continue;
 
-                if (neighbor != null)
-                {
-                    if (!links.Contains(neighbor.childRoom))
-                    {
-                        LinkOpensOnRoom(x + dif.x, y + dif.y, links);
-                    }
-                }
+            Vector2Int dif = RoomData.GetEdgeVectorConversion(edge);
+            RoomData neighbor = dungeonGrid[x + dif.x, y + dif.y];
+
+            if (neighbor != null && !links.Contains(neighbor.childRoom))
+            {
+                LinkOpensOnRoom(x + dif.x, y + dif.y, links);
             }
         }
     }
