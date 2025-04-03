@@ -11,7 +11,7 @@ public abstract class Equipment : MonoBehaviour
 
     public abstract void Trigger(Vector2 playerMovementDir);
 
-    public void LevelUp()
+    public virtual void LevelUp()
     {
         if (level < MAX_LEVEL)
         {
