@@ -100,8 +100,10 @@ public class DungeonManager : MonoBehaviour
         CreateEnemySpawnList(spawnedRoom, dungeonGrid[pos.x, pos.y]);
 
         // due to spaghetti, i need to give the room data a reference to the spawned child room
+        // and the spawned child room a reference to the room data. Don't ask lol.
         // this is safe, as older code checks if the prefab has a child room class attached
         dungeonGrid[pos.x, pos.y].childRoom = spawnedRoom.GetComponent<ChildRoom>();
+        dungeonGrid[pos.x, pos.y].childRoom.roomData = dungeonGrid[pos.x, pos.y];
 
         if (dungeonGrid[pos.x, pos.y].distance < settings.maxLength)
         {
