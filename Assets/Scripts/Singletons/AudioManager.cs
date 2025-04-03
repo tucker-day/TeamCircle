@@ -133,6 +133,14 @@ public class AudioManager : MonoBehaviour
         sfxAudio.PlayOneShot(clip);
     }
 
+    // This function will play a sound effect with a fixed pitch.
+    public void PlayFixedPitchSFX(AudioClip clip)
+    {
+        sfxAudio.pitch = 1f;
+        sfxAudio.PlayOneShot(clip);
+        Debug.Log("Playing SFX");
+    }
+
     // This function will stop all music from playing.
     public void StopMusic()
     {

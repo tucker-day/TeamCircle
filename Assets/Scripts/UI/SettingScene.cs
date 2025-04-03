@@ -24,7 +24,7 @@ public class SettingScene : MonoBehaviour
 
     public void OnSettingButtonPressed()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
+        AudioManager.instance.PlayFixedPitchSFX(AudioManager.instance.soundEffects[11]);
         StartCoroutine(ChangeScene());
     }
 }

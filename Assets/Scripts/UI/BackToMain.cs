@@ -10,7 +10,13 @@ public class BackToMain : MonoBehaviour
 
     void Start()
     {
-        BackButton.onClick.AddListener(OnBackButtonPressed);
+
+    }
+
+    public IEnumerator ChangeScene()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("Main");
     }
 
     public void OnBackButtonPressed()
@@ -21,7 +27,7 @@ public class BackToMain : MonoBehaviour
             Destroy(AudioManager.instance);
         }
 
-        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[12]);
-        SceneManager.LoadScene("Main");
+        AudioManager.instance.PlayFixedPitchSFX(AudioManager.instance.soundEffects[12]);
+        StartCoroutine(ChangeScene());
     }
 }

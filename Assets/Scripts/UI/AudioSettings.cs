@@ -57,6 +57,7 @@ public class AudioSettings : MonoBehaviour
     {
         PlayerPrefs.SetFloat("soundVol", soundSlider.value);
         PlayerPrefs.Save();
+        AudioManager.instance.PlayFixedPitchSFX(AudioManager.instance.soundEffects[11]);
 
 #if UNITY_EDITOR
         Debug.Log("Sound volume set to: " + soundSlider.value);
