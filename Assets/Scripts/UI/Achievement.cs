@@ -24,7 +24,7 @@ public class Achievement : MonoBehaviour
 
     public void OnAchievementButtonPressed()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
+        AudioManager.instance.PlayFixedPitchSFX(AudioManager.instance.soundEffects[11]);
         StartCoroutine(ChangeScene());  
     }
 } 

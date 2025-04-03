@@ -26,7 +26,7 @@ public class StartGame : MonoBehaviour
 
     public void OnStartButtonPressed()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[11]);
+        AudioManager.instance.PlayFixedPitchSFX(AudioManager.instance.soundEffects[13]);
         AudioManager.instance.StopMusic();
         StartCoroutine(ChangeScene());
     }

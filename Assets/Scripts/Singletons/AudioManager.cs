@@ -55,7 +55,9 @@ public class AudioManager : MonoBehaviour
         }
 
         CheckMusicVolume();
+#if UNITY_EDITOR
         TestSoundEffects();
+#endif
     }
 
     // This function checks for any volume changes and adjusts volume based on said changes.
@@ -65,13 +67,17 @@ public class AudioManager : MonoBehaviour
         {
             musVolume = PlayerPrefs.GetFloat("musicVol");
             masterMixer.SetFloat("musVol", Mathf.Log10(Mathf.Clamp(musVolume, 0.0001f, 1f)) * 80 / 4f);
+#if UNITY_EDITOR
             Debug.Log("Music volume: " + musVolume);
+#endif
         }
         if (sfxVolume != PlayerPrefs.GetFloat("soundVol"))
         {
             sfxVolume = PlayerPrefs.GetFloat("soundVol");
             masterMixer.SetFloat("sfxVol", Mathf.Log10(Mathf.Clamp(sfxVolume, 0.0001f, 1f)) * 80 / 4f);
+#if UNITY_EDITOR
             Debug.Log("Sound volume: " + sfxVolume);
+#endif
         }
     }
 
@@ -82,7 +88,7 @@ public class AudioManager : MonoBehaviour
         // Press Tab to switch to Combat music.
         // Press Left Shift to switch to Miniboss music.
 
-        if ((Input.GetKeyDown(KeyCode.Escape) && mus_calm.volume == 0f) || !GameManager.instance.CheckForEnemies())
+        if (/*(Input.GetKeyDown(KeyCode.Escape) && mus_calm.volume == 0f) ||*/ !GameManager.instance.CheckForEnemies())
         {
             combatToCalm = true;
             minibossToCalm = true;
@@ -94,7 +100,7 @@ public class AudioManager : MonoBehaviour
 
             StartCoroutine("FadeMusic");
         }
-        if ((Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) || GameManager.instance.CheckForEnemies() && !GameManager.instance.minibossPresent)
+        if (/*(Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) ||*/ GameManager.instance.CheckForEnemies() && !GameManager.instance.minibossPresent)
         {
             calmToCombat = true;
             minibossToCombat = true;
@@ -106,7 +112,7 @@ public class AudioManager : MonoBehaviour
 
             StartCoroutine("FadeMusic");
         }
-        if ((Input.GetKeyDown(KeyCode.LeftShift) && mus_miniboss.volume == 0f) || GameManager.instance.minibossPresent)
+        if (/*(Input.GetKeyDown(KeyCode.LeftShift) && mus_miniboss.volume == 0f) ||*/ GameManager.instance.minibossPresent)
         {
             calmToMiniboss = true;
             combatToMiniboss = true;
@@ -127,12 +133,21 @@ public class AudioManager : MonoBehaviour
         sfxAudio.PlayOneShot(clip);
     }
 
+    // This function will play a sound effect with a fixed pitch.
+    public void PlayFixedPitchSFX(AudioClip clip)
+    {
+        sfxAudio.pitch = 1f;
+        sfxAudio.PlayOneShot(clip);
+        Debug.Log("Playing SFX");
+    }
+
     // This function will stop all music from playing.
     public void StopMusic()
     {
         mus_calm.Stop(); mus_combat.Stop(); mus_miniboss.Stop();
     }
 
+#if UNITY_EDITOR
     // This function is for testing sound effects.
     // Press any of the keys below to play a sound.
     void TestSoundEffects()
@@ -183,6 +198,7 @@ public class AudioManager : MonoBehaviour
             PlaySFX(soundEffects[10]);
         }
     }
+#endif
 
     // Coroutine for fading music.
     IEnumerator FadeMusic()

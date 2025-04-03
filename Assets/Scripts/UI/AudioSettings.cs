@@ -22,9 +22,18 @@ public class AudioSettings : MonoBehaviour
         {
             musicSlider.value = PlayerPrefs.GetFloat("musicVol");
         }
+        else
+        {
+            musicSlider.value = 1f;
+        }
+
         if (PlayerPrefs.HasKey("soundVol"))
         {
             soundSlider.value = PlayerPrefs.GetFloat("soundVol");
+        }
+        else
+        {
+            soundSlider.value = 1f;
         }
     }
 
@@ -39,13 +48,19 @@ public class AudioSettings : MonoBehaviour
         PlayerPrefs.SetFloat("musicVol", musicSlider.value);
         PlayerPrefs.Save();
 
+#if UNITY_EDITOR
         Debug.Log("Music volume set to: " + musicSlider.value);
+#endif
     }
+
     public void SaveSoundChanges()
     {
         PlayerPrefs.SetFloat("soundVol", soundSlider.value);
         PlayerPrefs.Save();
+        AudioManager.instance.PlayFixedPitchSFX(AudioManager.instance.soundEffects[11]);
 
+#if UNITY_EDITOR
         Debug.Log("Sound volume set to: " + soundSlider.value);
+#endif
     }
 }
