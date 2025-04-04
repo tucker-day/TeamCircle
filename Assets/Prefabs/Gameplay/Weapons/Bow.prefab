@@ -44,3 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 209683c6257f083409926cf35ff1271c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 1
+  <icon>k__BackingField: {fileID: 0}
+  bowProjectile: {fileID: 0}
+  initialDamage: 10
+  damagePerLevel: 4
+  initialSpeed: 1.5
+  speedPerLevel: 0.1
+  cooldownPerLevel: 0.02
+  projectileIncreaseThresholds: 03000000050000000a00000019000000
