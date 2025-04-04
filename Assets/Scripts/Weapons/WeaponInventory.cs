@@ -5,6 +5,7 @@ using UnityEngine;
 public enum WeaponType
 {
     Sword,
+    Bow,
 
     NUM_WEAPONS
 }
