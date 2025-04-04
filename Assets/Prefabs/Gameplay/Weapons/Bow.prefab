@@ -49,7 +49,7 @@ MonoBehaviour:
   bowProjectilePrefab: {fileID: -8267774004241057290, guid: f82fae085fc677c418fe4f5952bf110f, type: 3}
   initialDamage: 10
   damagePerLevel: 4
-  initialSpeed: 1.5
-  speedPerLevel: 0.1
-  cooldownPerLevel: 0.02
+  initialSpeed: 10
+  speedPerLevel: 0.5
+  cooldownPerLevel: -0.01
   projectileIncreaseThresholds: 03000000050000000a00000019000000
