@@ -48,9 +48,12 @@ public class Bow : Equipment
         
         GameObject instance = Instantiate(bowProjectilePrefab.gameObject, transform.position, Quaternion.identity);
 
-        Vector3 lookAt = instance.transform.position + new Vector3(direction.x, direction.y, 0);
-
-        instance.transform.LookAt(lookAt);
+        float angle = Vector2.Angle(Vector2.right, direction);
+        if (direction.y < 0)
+        {
+            angle *= -1;
+        }
+        instance.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     private int GetDamage()
