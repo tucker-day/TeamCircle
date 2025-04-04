@@ -1,16 +1,28 @@
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class BowProjectile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [HideInInspector]
+    public int damage;
+    [HideInInspector]
+    public float speed;
+
+    private void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        {
+            enemy.TakeDamage(damage);
+        }
     }
 }
