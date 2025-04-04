@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bow : Equipment
 {
-    const float SPAWN_DELAY = 0.1f;
+    const float SPAWN_DELAY = 0.25f;
 
     [SerializeField]
     private BowProjectile bowProjectilePrefab;
@@ -25,24 +25,28 @@ public class Bow : Equipment
     [SerializeField]
     private List<int> projectileIncreaseThresholds;
 
+    private int burstCount;
+
     public override void Trigger(Vector2 playerMovementDir)
     {
-        int projectiles = 1;
-        foreach (int i in projectileIncreaseThresholds)
+        if (burstCount <= 0)
         {
-            if (level >= i) projectiles++;
+            Debug.Log("Burst Init");
+            foreach (int i in projectileIncreaseThresholds)
+            {
+                if (level >= i) burstCount++;
+            }
+        }
+        else
+        {
+            burstCount--;
         }
 
-        for (int i = 0; i < projectiles; i++)
-        {
-            StartCoroutine(SpawnProjectile(playerMovementDir, i * SPAWN_DELAY));
-        }
+        SpawnProjectile(playerMovementDir);
     }
 
-    private IEnumerator SpawnProjectile(Vector2 direction, float delay)
+    private void SpawnProjectile(Vector2 direction)
     {
-        yield return new WaitForSeconds(delay);
-
         bowProjectilePrefab.damage = GetDamage();
         bowProjectilePrefab.speed = GetSpeed();
         
@@ -68,6 +72,13 @@ public class Bow : Equipment
 
     public override float GetCooldown()
     {
-        return cooldown + cooldownPerLevel * level;
+        if (burstCount > 0)
+        {
+            return SPAWN_DELAY;
+        }
+        else
+        {
+            return cooldown + cooldownPerLevel * level;
+        }
     }
 }
