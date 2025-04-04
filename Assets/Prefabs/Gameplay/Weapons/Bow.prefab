@@ -51,5 +51,5 @@ MonoBehaviour:
   damagePerLevel: 4
   initialSpeed: 10
   speedPerLevel: 0.5
-  cooldownPerLevel: -0.01
+  cooldownPerLevel: -0.03
   projectileIncreaseThresholds: 03000000050000000a00000019000000

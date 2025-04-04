@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bow : Equipment
 {
-    const float SPAWN_DELAY = 0.25f;
+    const float SPAWN_DELAY = 0.1f;
 
     [SerializeField]
     private BowProjectile bowProjectilePrefab;
