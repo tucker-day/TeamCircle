@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class BowProjectile : MonoBehaviour
 {
-    const float LIFETIME = 10.0f;
+    const float LIFETIME = 5.0f;
 
     [HideInInspector]
     public int damage;
