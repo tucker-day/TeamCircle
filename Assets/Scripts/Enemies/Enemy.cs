@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
 
     public Animator anim;
     public SpriteRenderer spriteRenderer;
+    public Rigidbody2D rigidBody;
     public GameObject playerObj;
     public Transform playerPos;
     public PlayerStats playerStats;
@@ -20,17 +21,20 @@ public class Enemy : MonoBehaviour
     public int hp;
     public int damage;
     public float speed;
+    protected float frozenSpeed;
+    protected float resSpeed; 
     public float detectionRange;
     public float attackRange;
     bool isDead;
+    bool canMove;
 
     public float cooldown;
     protected float timer;
-
     protected void Start()
     {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rigidBody = GetComponent<Rigidbody2D>();
 
         playerObj = GameObject.FindGameObjectWithTag("Player");
         playerPos = playerObj.transform;
@@ -39,10 +43,14 @@ public class Enemy : MonoBehaviour
         s_enemyList.Add(this);
 
         isDead = false;
+        canMove = true;
         cooldown = 1.5f;
-    }
 
-    void Update()
+        resSpeed = speed;
+        frozenSpeed = 0.0f;
+}
+
+void Update()
     {
         currentState.UpdateState(this);
 
@@ -55,6 +63,15 @@ public class Enemy : MonoBehaviour
         if (Input.GetKeyDown("p"))
         {
             TakeDamage(10000);
+        }
+
+        // prototype functionality
+        if (Input.GetKeyDown("f"))
+        {
+            if (canMove)
+            {
+                Freeze();
+            }
         }
     }
 
@@ -93,6 +110,23 @@ public class Enemy : MonoBehaviour
     public virtual void Chase() { }
 
     public virtual void Attack() { }
+
+    public void Freeze()
+    {
+        speed = frozenSpeed;
+        anim.speed = 0;
+        canMove = false;
+
+        StartCoroutine("Unfreeze");
+    }
+
+    IEnumerator Unfreeze()
+    {
+        yield return new WaitForSeconds(3);
+        speed = resSpeed;
+        anim.speed = 1;
+        canMove = true;
+    }
 
     public void TakeDamage(int damage)
     {
