@@ -7,7 +7,7 @@ public class Bow : Equipment
     const float SPAWN_DELAY = 0.1f;
 
     [SerializeField]
-    private BowProjectile bowProjectile;
+    private BowProjectile bowProjectilePrefab;
 
     [SerializeField]
     private int initialDamage;
@@ -42,11 +42,25 @@ public class Bow : Equipment
     private IEnumerator SpawnProjectile(Vector2 direction, float delay)
     {
         yield return new WaitForSeconds(delay);
+
+        bowProjectilePrefab.damage = GetDamage();
+        bowProjectilePrefab.speed = GetSpeed();
+        
+        GameObject instance = Instantiate(bowProjectilePrefab.gameObject, transform.position, Quaternion.identity);
+
+        Vector3 lookAt = instance.transform.position + new Vector3(direction.x, direction.y, 0);
+
+        instance.transform.LookAt(lookAt);
     }
 
     private int GetDamage()
     {
         return initialDamage + damagePerLevel * level;
+    }
+
+    private float GetSpeed()
+    {
+        return initialSpeed + speedPerLevel * level;
     }
 
     public override float GetCooldown()
