@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1
   <icon>k__BackingField: {fileID: 0}
-  bowProjectile: {fileID: 0}
+  bowProjectilePrefab: {fileID: -8267774004241057290, guid: f82fae085fc677c418fe4f5952bf110f, type: 3}
   initialDamage: 10
   damagePerLevel: 4
   initialSpeed: 1.5
