@@ -43,8 +43,7 @@ public class DungeonTileset : ScriptableObject
     [Header("Rooms")]
     public GameObject spawnRoom;
     public List<WeightedItem<GameObject>> rooms;
-    public List<WeightedItem<GameObject>> bossRooms;
-    public List<WeightedItem<GameObject>> endRooms;
+    public GameObject bossRooms;
 
     [Header("Edges")]
     public EdgeData edges;
@@ -60,8 +59,6 @@ public class DungeonTileset : ScriptableObject
 
     [Header("Max Weights")]
     [SerializeField] int maxWeightRooms;
-    [SerializeField] int maxWeightBossRooms;
-    [SerializeField] int maxWeightEndRooms;
 
     // runs when values are changed in the inspector
     public void OnValidate()
@@ -69,8 +66,6 @@ public class DungeonTileset : ScriptableObject
         // instead of calculating the max costs for everything at runtime, calculate
         // them right when rooms are added
         maxWeightRooms = GetMaxWeight(rooms);
-        maxWeightBossRooms = GetMaxWeight(bossRooms);
-        maxWeightEndRooms = GetMaxWeight(endRooms);
     }
 
     public void GetRandomRoom(out GameObject room, out int cost)
