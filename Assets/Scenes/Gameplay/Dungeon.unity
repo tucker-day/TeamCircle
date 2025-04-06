@@ -807,6 +807,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5632209069160737444, guid: 38902b9d744d364429ec27536e2f35b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5886312507426039612, guid: 38902b9d744d364429ec27536e2f35b5, type: 3}
       propertyPath: HUD
       value: 

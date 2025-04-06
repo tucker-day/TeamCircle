@@ -37,10 +37,11 @@ public class Projectile : MonoBehaviour
         {
             playerStats.TakeDamage(5);
             
-            if (isBossProjectile == true)
+            if (isBossProjectile)
             {
                 playerMovement.Freeze();
             }
+
             Destroy(gameObject);
         }
     }

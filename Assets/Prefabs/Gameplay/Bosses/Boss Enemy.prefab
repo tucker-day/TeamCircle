@@ -114,7 +114,8 @@ MonoBehaviour:
   attackRange: 0
   isAlive: 0
   cooldown: 0
-  projectile: {fileID: 3045264751135808310, guid: f30c6d765af7abc4dae41f479f44675a, type: 3}
+  projectile: {fileID: 381813992771785860, guid: aa917b5177626f14fb45b7f50cb94b4c, type: 3}
+  projScript: {fileID: 0}
   launchPoint: {fileID: 9104094003341873410}
   distance: 0
   MaxHP: 0

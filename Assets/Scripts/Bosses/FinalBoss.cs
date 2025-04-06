@@ -37,6 +37,7 @@ public class FinalBoss : Enemy
             Instantiate(projectile, launchPoint.transform.position, Quaternion.identity);
             projScript = projectile.GetComponent<Projectile>();
             projScript.isBossProjectile = true;
+
             timer = cooldown;
         }
     }

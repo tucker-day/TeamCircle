@@ -50,8 +50,9 @@ MonoBehaviour:
   target: {fileID: 0}
   playerStats: {fileID: 0}
   projectileRb: {fileID: 0}
+  playerMovement: {fileID: 0}
   speed: 0
-  lifespan: 2
+  isBossProjectile: 0
 --- !u!212 &7830468045742617667
 SpriteRenderer:
   m_ObjectHideFlags: 0
