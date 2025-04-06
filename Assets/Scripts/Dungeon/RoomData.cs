@@ -115,4 +115,21 @@ public class RoomData
                 return Vector2Int.zero;
         }
     }
+
+    public static Edges GetOppositeEdge(Edges edge)
+    {
+        switch(edge)
+        {
+            case Edges.Upper:
+                return Edges.Lower;
+            case Edges.Lower:
+                return Edges.Upper;
+            case Edges.Right:
+                return Edges.Left;
+            case Edges.Left:
+                return Edges.Right;
+            default:
+                return Edges.Upper;
+        }
+    }
 }
