@@ -114,18 +114,6 @@ public class DungeonManager : MonoBehaviour
 
         dungeonGrid[pos.x, pos.y] = CreateRoomData(pos, child, cost);
 
-        // if boss room, make all opens halls
-        if (spawningBossRoom)
-        {
-            foreach (Edges edge in Enum.GetValues(typeof(Edges)))
-            {
-                if (dungeonGrid[pos.x, pos.y].GetEdgeType(edge).Equals(EdgeType.Open))
-                {
-                    dungeonGrid[pos.x, pos.y].SetEdgeType(edge, EdgeType.Hall);
-                }
-            }
-        }
-
         GameObject spawnedRoom = Instantiate(room, GetSpawnPos(pos), Quaternion.identity, gameObject.transform);
         SpawnPerimeterObjects(pos, dungeonGrid[pos.x, pos.y], child, spawnedRoom);
         CreateEnemySpawnList(spawnedRoom, dungeonGrid[pos.x, pos.y]);
