@@ -14,7 +14,7 @@ public class BossHPBarManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        healthAmount = BossStats.HP;
+        healthAmount = BossStats.hp;
         Debug.Log(healthAmount);
     }
 
@@ -26,7 +26,7 @@ public class BossHPBarManager : MonoBehaviour
             BossStats.TakeDamage(10000);
         }
 
-        Square.fillAmount = (float)BossStats.HP / BossStats.MaxHP;
+        Square.fillAmount = (float)BossStats.hp / BossStats.MaxHP;
 
     }
 }

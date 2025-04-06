@@ -25,8 +25,8 @@ public class Enemy : MonoBehaviour
     protected float resSpeed; 
     public float detectionRange;
     public float attackRange;
-    bool isDead;
-    bool canMove;
+    public bool isAlive;
+    protected bool canMove;
 
     public float cooldown;
     protected float timer;
@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
 
         s_enemyList.Add(this);
 
-        isDead = false;
+        isAlive = true;
         canMove = true;
         cooldown = 1.5f;
 
@@ -128,7 +128,7 @@ void Update()
         canMove = true;
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         hp -= damage;
 
@@ -141,7 +141,7 @@ void Update()
     public void Die()
     {
         Debug.Log("Enemy killed");
-        isDead = true;
+        isAlive = false;
         s_enemyList.Remove(this);
         Destroy(gameObject);
         GameManager.instance.CheckForEnemies();
