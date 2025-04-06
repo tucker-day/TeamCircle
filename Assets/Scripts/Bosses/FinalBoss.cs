@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class FinalBoss : Enemy
 {
+    public GameObject projectile;
+    public GameObject launchPoint;
+
+    public float distance;
     public int MaxHP;
     void Awake()
     {
         MaxHP = 1000;
         hp = MaxHP;
+        speed = 2.0f;
+        attackRange = 8.0f;
+        damage = 15;
         isAlive = true;
     }
 
