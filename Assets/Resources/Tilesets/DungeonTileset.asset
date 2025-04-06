@@ -29,8 +29,7 @@ MonoBehaviour:
   - item: {fileID: 8205624513170101846, guid: ec66512a2d067704e8debb2a7c9bcca1, type: 3}
     weight: 4
     cost: 1
-  bossRooms: []
-  endRooms: []
+  bossRooms: {fileID: 8205624513170101846, guid: 74bc016deaea9e84d88ded7f46216b7c, type: 3}
   edges:
     upper:
       hall: {fileID: 8919108880552426637, guid: 8202446a5b279b0458380cc7de5eaeaf, type: 3}
@@ -73,5 +72,3 @@ MonoBehaviour:
   upperLowerHallBlocker: {fileID: 3291713178222489084, guid: f983e66954feb934593415c08913896c, type: 3}
   rightLeftHallBlocker: {fileID: 1529050977518983425, guid: daacf136b3cad084e99f5f3d1bbc62bc, type: 3}
   maxWeightRooms: 29
-  maxWeightBossRooms: 0
-  maxWeightEndRooms: 0
