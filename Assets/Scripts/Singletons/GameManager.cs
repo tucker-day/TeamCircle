@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private GameObject healthPickup;
     [SerializeField]
     private GameObject weaponPickup;
+
     private GameObject player;
 
     public bool minibossPresent = false;
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SpawnPickups();
+        DebugSpawnPickups();
     }
 
     // Check the static enemy list to see if enemies are present.
@@ -71,8 +72,13 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void SpawnHealthPickup(Vector3 enemyPos)
+    {
+        Object.Instantiate(healthPickup, enemyPos, Quaternion.identity);
+    }
+
     // Debug function for spawning pickups.
-    void SpawnPickups()
+    void DebugSpawnPickups()
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {

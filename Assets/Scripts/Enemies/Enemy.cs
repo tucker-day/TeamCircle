@@ -143,7 +143,18 @@ void Update()
         Debug.Log("Enemy killed");
         isDead = true;
         s_enemyList.Remove(this);
+        DropPickup();
         Destroy(gameObject);
         GameManager.instance.CheckForEnemies();
+    }
+
+    void DropPickup()
+    {
+        int dropChance = UnityEngine.Random.Range(0, 100);
+        if (dropChance >= 99)
+        {
+            Debug.Log("An enemy dropped a health pickup!");
+            GameManager.instance.SpawnHealthPickup(this.transform.position);
+        }
     }
 }
