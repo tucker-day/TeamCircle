@@ -13,12 +13,12 @@ public class FinalBoss : Enemy
     {
         MaxHP = 1000;
         hp = MaxHP;
-        speed = 2.0f;
-        attackRange = 8.0f;
+        speed = 3.0f;
+        attackRange = 5.0f;
         damage = 15;
         isAlive = true;
 
-        base.Start();
+        Start();
         ChangeState(new Chase());
     }
     public override void Chase()
@@ -27,8 +27,6 @@ public class FinalBoss : Enemy
         {
             transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
         }
-
-        Flip();
     }
 
     public override void Attack()
