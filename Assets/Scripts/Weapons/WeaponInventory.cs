@@ -5,6 +5,7 @@ using UnityEngine;
 public enum WeaponType
 {
     Sword,
+    Bow,
 
     NUM_WEAPONS
 }
@@ -42,8 +43,8 @@ public class WeaponInventory : MonoBehaviour
 
                     if (cooldowns[i] > weapons[i].GetCooldown())
                     {
-                        weapons[i].Trigger(movement.lastMovementDirection);
                         cooldowns[i] -= weapons[i].GetCooldown();
+                        weapons[i].Trigger(movement.lastMovementDirection);
                     }
                 }
             }
