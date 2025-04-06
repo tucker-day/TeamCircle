@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Unfreeze()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         speed = resSpeed;
         anim.speed = 1;
         canMove = true;

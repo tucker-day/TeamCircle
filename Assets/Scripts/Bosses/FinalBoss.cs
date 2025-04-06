@@ -5,6 +5,7 @@ using UnityEngine;
 public class FinalBoss : Enemy
 {
     public GameObject projectile;
+    public Projectile projScript;
     public GameObject launchPoint;
 
     public float distance;
@@ -34,6 +35,8 @@ public class FinalBoss : Enemy
         if (timer <= 0)
         {
             Instantiate(projectile, launchPoint.transform.position, Quaternion.identity);
+            projScript = projectile.GetComponent<Projectile>();
+            projScript.isBossProjectile = true;
             timer = cooldown;
         }
     }
