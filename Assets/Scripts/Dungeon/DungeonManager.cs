@@ -21,25 +21,25 @@ public class DungeonManager : MonoBehaviour
 
     private int branchReduction;
 
+#if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            int numChildren = transform.childCount;
-            for (int i = numChildren - 1; i >= 0; i--)
-            {
-                GameObject.Destroy(transform.GetChild(i).gameObject);
-            }
-
-            System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
             GenerateDungeon();
-            stopWatch.Stop();
-            Debug.Log("GENERATION TIME: " + stopWatch.Elapsed);
         }
     }
+#endif
 
     public void GenerateDungeon()
     {
+        // Destroy the children :D
+        int numChildren = transform.childCount;
+        for (int i = numChildren - 1; i >= 0; i--)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+
         // create the dungeon grid
         dungeonSize = settings.maxLength * 2 + 1;
         dungeonGrid = new RoomData[dungeonSize, dungeonSize];
