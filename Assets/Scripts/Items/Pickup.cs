@@ -26,8 +26,10 @@ public class Pickup : MonoBehaviour
         }
     }
 
-    public void LevelUpWeapon()
+    public void UpgradeWeapon(WeaponInventory weapons, int weaponValue)
     {
-        // TO BE ADDED
+        Debug.Log("Picked up a Weapon Upgrade!");
+        WeaponType type = (WeaponType)weaponValue;
+        weapons.LevelUpWeapon(type);
     }
 }

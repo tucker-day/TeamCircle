@@ -81,4 +81,10 @@ public class Bow : Equipment
             return cooldown + cooldownPerLevel * level;
         }
     }
+
+    public override void LevelUp()
+    {
+        base.LevelUp();
+        Debug.Log("Bow is now Level" + level);
+    }
 }
