@@ -17,6 +17,27 @@ public class FinalBoss : Enemy
         attackRange = 8.0f;
         damage = 15;
         isAlive = true;
+
+        base.Start();
+        ChangeState(new Chase());
+    }
+    public override void Chase()
+    {
+        if (Vector2.Distance(transform.position, playerPos.position) > attackRange)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
+        }
+
+        Flip();
+    }
+
+    public override void Attack()
+    {
+        if (timer <= 0)
+        {
+            Instantiate(projectile, launchPoint.transform.position, Quaternion.identity);
+            timer = cooldown;
+        }
     }
 
     public override void TakeDamage(int damage)
