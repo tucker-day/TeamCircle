@@ -96,9 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f898ff0936598448c7d4e2101d87fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   anim: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  speed: 5
   walk: 0
 --- !u!212 &2064258820366114470
 SpriteRenderer:
@@ -235,6 +235,8 @@ MonoBehaviour:
   weapons:
   - {fileID: 8929910073298752023}
   - {fileID: 5587047263798416269}
+  - {fileID: 7397448041922071730}
+  - {fileID: 886114215957277730}
 --- !u!1 &5632209069160737444
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +362,10 @@ PrefabInstance:
       value: 360
       objectReference: {fileID: 0}
     - target: {fileID: -3293797353492165939, guid: e4c824cebb22bf943af58c6821f6b4a1, type: 3}
+      propertyPath: FireballPrefab
+      value: 
+      objectReference: {fileID: 9034275945508944099}
+    - target: {fileID: -3293797353492165939, guid: e4c824cebb22bf943af58c6821f6b4a1, type: 3}
       propertyPath: damageIncrease
       value: 5
       objectReference: {fileID: 0}
@@ -417,6 +423,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7482174709387769900, guid: e4c824cebb22bf943af58c6821f6b4a1, type: 3}
   m_PrefabInstance: {fileID: 3810915062371501695}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7397448041922071730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3293797353492165939, guid: e4c824cebb22bf943af58c6821f6b4a1, type: 3}
+  m_PrefabInstance: {fileID: 3810915062371501695}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9034275945508944099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd094628ba7534048b704c76fcfd6d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &9034275945508944099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5297118361916571292, guid: e4c824cebb22bf943af58c6821f6b4a1, type: 3}
+  m_PrefabInstance: {fileID: 3810915062371501695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7303597923107598156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -466,13 +488,37 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7572674895831974766, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
+      propertyPath: initialSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7572674895831974766, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
+      propertyPath: initialDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7572674895831974766, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
       propertyPath: rotationSpeed
       value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 7572674895831974766, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
+      propertyPath: speedPerLevel
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7572674895831974766, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
+      propertyPath: damagePerLevel
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7572674895831974766, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
+      propertyPath: cooldownPerLevel
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7572674895831974766, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
       propertyPath: <icon>k__BackingField
       value: 
       objectReference: {fileID: -1644992686, guid: 4e60f453ea0907b4e9bba0d6d6a6eaae, type: 3}
+    - target: {fileID: 7572674895831974766, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
+      propertyPath: ShieldProjectilePrefab
+      value: 
+      objectReference: {fileID: -6053091954835547967, guid: 5b6ed22fb3887ed4c935c90167633ae6, type: 3}
     - target: {fileID: 8345653934767606854, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
       propertyPath: m_Name
       value: Shield
@@ -482,6 +528,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
+--- !u!114 &886114215957277730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7572674895831974766, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
+  m_PrefabInstance: {fileID: 7303597923107598156}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19523b208d6b4f647a83040c054ebfc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9215413932589554254 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1925339109454542082, guid: 77e6be743d3daf544bd06cd855762a9a, type: 3}
