@@ -21,5 +21,6 @@ MonoBehaviour:
   openChance: 0.3
   initialBudget: 20
   budgetIncreasePerDistance: 5
+  enemyHealthMult: 1
   bossFloor: 0
   bossSpawnPool: {fileID: 0}
