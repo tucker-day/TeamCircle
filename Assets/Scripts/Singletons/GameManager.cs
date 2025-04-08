@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject player;
 
+    public DungeonManager dungeonManager;
+
     public bool minibossPresent = false;
 
     // Start is called before the first frame update
@@ -57,9 +59,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SpawnEnemies()
+    public void SpawnEnemy(GameObject enemyObj, Vector2 pos)
     {
-        
+        if (enemyObj.TryGetComponent(out Enemy enemy))
+        {
+            GameObject instance = Instantiate(enemyObj, pos, Quaternion.identity);
+            instance.GetComponent<Enemy>().hp = Mathf.FloorToInt((float)enemy.hp * dungeonManager.settings.enemyHealthMult);
+        }
+        else
+        {
+            Debug.LogError("SpawnEnemy was told to spawn something that wasn't an enemy!");
+        }
     }
 
     public void GameOver()

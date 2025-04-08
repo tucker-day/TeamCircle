@@ -1184,6 +1184,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 117523268409199176, guid: d8ee5709ee1856e4aa1ce236d0eddb14, type: 3}
+      propertyPath: dungeonManager
+      value: 
+      objectReference: {fileID: 8546249880383604006}
     - target: {fileID: 1190454817504952324, guid: d8ee5709ee1856e4aa1ce236d0eddb14, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.071582
@@ -1494,6 +1498,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7039651994372825927, guid: f01c637161b249646b51497538cda6e4, type: 3}
   m_PrefabInstance: {fileID: 8546249880383604004}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8546249880383604006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3349224739289421390, guid: f01c637161b249646b51497538cda6e4, type: 3}
+  m_PrefabInstance: {fileID: 8546249880383604004}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac47b6e7b3e94a46951e7925a9a8c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8899479997374886365
 MonoBehaviour:
   m_ObjectHideFlags: 0
