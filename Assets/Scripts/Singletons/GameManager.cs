@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
     // Check the static enemy list to see if enemies are present.
     public bool CheckForEnemies()
     {
+#if UNITY_EDITOR
+        Debug.Log("Current Enemy Count: " + Enemy.s_enemyList.Count);
+#endif
         if (Enemy.s_enemyList.Count >= 1)
         {
 #if UNITY_EDITOR

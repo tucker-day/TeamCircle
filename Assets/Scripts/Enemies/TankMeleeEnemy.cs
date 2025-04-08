@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class TankMeleeEnemy : MeleeEnemy
 {
-    void Start()
+    void Awake()
     {
         hp = 60;
         speed = 0.8f;
         attackRange = 1.0f;
         damage = 10;
-        base.Start();
         ChangeState(new Chase());
     }
 }
