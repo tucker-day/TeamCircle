@@ -19,7 +19,6 @@ public class FinalBoss : Enemy
         damage = 15;
         isAlive = true;
 
-        Start();
         ChangeState(new Chase());
     }
     public override void Chase()
@@ -52,7 +51,7 @@ public class FinalBoss : Enemy
                 isAlive = false;
                 //anim.SetBool("isAlive", false);
                 //GameOver();
-                Destroy(gameObject);
+                Die();
             }
         }
     }

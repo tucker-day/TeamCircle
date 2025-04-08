@@ -8,13 +8,12 @@ public class RangedEnemy : Enemy
     public GameObject launchPoint;
 
     public float distance;
-    void Start()
+    void Awake()
     {
         hp = 25;
         speed = 1.0f;
         attackRange = 5.0f;
         damage = 10;
-        base.Start();
         ChangeState(new Chase());
     }
 
