@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b08bf330f83652b4fb6bd8fe55c96905
+guid: 11645941a60c2444f80592bf0d6048c6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Picture_0
+      name: Torches_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 28
-        height: 30
+        width: 16
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e4a820812afe244984b31a8cde31eb1
-      internalID: 292349397
+      spriteID: 011143d18a371474589e69c00adcdc32
+      internalID: -184472103
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Picture_1
+      name: Torches_1
       rect:
         serializedVersion: 2
-        x: 28
+        x: 16
         y: 0
-        width: 28
-        height: 30
+        width: 16
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7478603fbd3ada44ca14273f1aa68a31
-      internalID: -1235581987
+      spriteID: b1df729a438574c41af8c5c70ac86dc2
+      internalID: 1375957206
       vertices: []
       indices: 
       edges: []
@@ -149,8 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Picture_0: 292349397
-      Picture_1: -1235581987
+      Torches_0: -184472103
+      Torches_1: 1375957206
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
