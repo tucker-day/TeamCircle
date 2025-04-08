@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bd3675ce99cec4d9c62511b3aea410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <icon>k__BackingField: {fileID: 0}
+  cooldown: 1
+  <icon>k__BackingField: {fileID: -1968124172, guid: 1b0762bd4fa853d428bbb7be0d785e1f, type: 3}
   swordProjectilePrefab: {fileID: 5358998964798317007, guid: 03015a91d3da6d644975d2b4ed568df8, type: 3}
   initialDamage: 15
   damagePerLevel: 5
