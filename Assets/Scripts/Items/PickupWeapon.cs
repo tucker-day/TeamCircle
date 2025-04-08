@@ -14,7 +14,7 @@ public class PickupWeapon : Pickup
         base.Start();
 
         weapons = playerObj.GetComponent<WeaponInventory>();
-        weaponValue = Random.Range(0, 2);
+        weaponValue = Random.Range(0, (int)WeaponType.NUM_WEAPONS);
         Debug.Log("Spawned a weapon upgrade with a weapon value of " + weaponValue);
         // 0 is sword, 1 is bow. Future values will be added when more weapons are added and/or balanced.
     }
