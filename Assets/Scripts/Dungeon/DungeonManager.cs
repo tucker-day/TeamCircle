@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ public class DungeonManager : MonoBehaviour
     private Stack<Vector2Int> spawnList;
 
     private int branchReduction;
+    private bool bossRoomSpawned;
 
 #if UNITY_EDITOR
     private void Update()
@@ -33,28 +35,33 @@ public class DungeonManager : MonoBehaviour
 
     public void GenerateDungeon()
     {
-        // Destroy the children :D
-        int numChildren = transform.childCount;
-        for (int i = numChildren - 1; i >= 0; i--)
-        {
-            Destroy(transform.GetChild(i).gameObject);
-        }
+        bossRoomSpawned = false;
 
-        // create the dungeon grid
-        dungeonSize = settings.maxLength * 2 + 1;
-        dungeonGrid = new RoomData[dungeonSize, dungeonSize];
-        spawnList = new Stack<Vector2Int>();
-        spawnOffset = new Vector2(dungeonSize - 1, dungeonSize - 1) * settings.tileset.tileSize / 2;
-        branchReduction = 0;
-
-        SpawnRoom(new Vector2Int(settings.maxLength, settings.maxLength), settings.tileset.spawnRoom);
-        while (spawnList.Count > 0)
+        while (!bossRoomSpawned)
         {
-            Vector2Int spawnCoord = spawnList.Pop();
-            SpawnRoom(spawnCoord);
+            // Destroy the children :D
+            int numChildren = transform.childCount;
+            for (int i = numChildren - 1; i >= 0; i--)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+
+            // create the dungeon grid
+            dungeonSize = settings.maxLength * 2 + 1;
+            dungeonGrid = new RoomData[dungeonSize, dungeonSize];
+            spawnList = new Stack<Vector2Int>();
+            spawnOffset = new Vector2(dungeonSize - 1, dungeonSize - 1) * settings.tileset.tileSize / 2;
+            branchReduction = 0;
+
+            SpawnRoom(new Vector2Int(settings.maxLength, settings.maxLength), settings.tileset.spawnRoom);
+            while (spawnList.Count > 0)
+            {
+                Vector2Int spawnCoord = spawnList.Pop();
+                SpawnRoom(spawnCoord);
+            }
+            CreateAllHallBlockers();
+            LinkTogetherAllOpenRooms();
         }
-        CreateAllHallBlockers();
-        LinkTogetherAllOpenRooms();
     }
 
     // spawn a random room in a specific position. if a forceRoom is passed in, it will try to spawn
@@ -69,7 +76,18 @@ public class DungeonManager : MonoBehaviour
 
         GameObject room;
         ChildRoom child;
-        int cost = 0;
+        int cost = 1;
+        bool spawningBossRoom = false;
+
+        if (!bossRoomSpawned)
+        {
+            if (GetDistance(pos) >= settings.maxLength)
+            {
+                forceRoom = settings.tileset.bossRooms;
+                bossRoomSpawned = true;
+                spawningBossRoom = true;
+            }
+        }
 
         if (forceRoom == null)
         {
@@ -598,5 +616,30 @@ public class DungeonManager : MonoBehaviour
                 blocker.SetActive(false);
             }
         }
+    }
+
+    private int GetDistance(Vector2Int pos)
+    {
+        int distance = -1;
+        RoomData data = dungeonGrid[pos.x, pos.y];
+
+        foreach (Edges edge in Enum.GetValues(typeof(Edges)))
+        {
+            Vector2Int comparePos = pos + RoomData.GetEdgeVectorConversion(edge);
+            RoomData comparison = dungeonGrid[comparePos.x, comparePos.y];
+
+            if (comparison != null)
+            {
+                EdgeType compareEdge = comparison.GetEdgeType(RoomData.GetOppositeEdge(edge));
+
+                if (compareEdge != EdgeType.Wall)
+                {
+                    if (distance < comparison.distance) 
+                        distance = comparison.distance;
+                }
+            }
+        }
+
+        return distance + 1;
     }
 }
