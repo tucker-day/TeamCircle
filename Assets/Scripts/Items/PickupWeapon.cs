@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class PickupWeapon : Pickup
 {
     int weaponValue;
@@ -16,6 +17,12 @@ public class PickupWeapon : Pickup
         weapons = playerObj.GetComponent<WeaponInventory>();
         weaponValue = Random.Range(0, (int)WeaponType.NUM_WEAPONS);
         Debug.Log("Spawned a weapon upgrade with a weapon value of " + weaponValue);
+
+        if (weapons.GetWeaponSprite((WeaponType)weaponValue) != null)
+        {
+            GetComponent<SpriteRenderer>().sprite = weapons.GetWeaponSprite((WeaponType)weaponValue);
+        }
+
         // 0 is sword, 1 is bow. Future values will be added when more weapons are added and/or balanced.
     }
 
