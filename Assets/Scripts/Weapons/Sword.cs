@@ -65,4 +65,10 @@ public class Sword : Equipment
     {
         return initialDamage + damagePerLevel * level;
     }
+
+    public override void LevelUp()
+    {
+        base.LevelUp();
+        Debug.Log("Sword is now Level" + level);
+    }
 }

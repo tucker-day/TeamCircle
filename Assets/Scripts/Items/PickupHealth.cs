@@ -12,9 +12,9 @@ public class PickupHealth : Pickup
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("THERE IS A PICKUP HERE!");
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("THERE IS A PICKUP HERE!");
             Heal();
             Destroy(this.gameObject);
         }

@@ -6,6 +6,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [SerializeField]
+    private GameObject healthPickup;
+    [SerializeField]
+    private GameObject weaponPickup;
+
+    private GameObject player;
+
     public bool minibossPresent = false;
 
     // Start is called before the first frame update
@@ -21,13 +28,14 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        player = GameObject.FindGameObjectWithTag("Player");
         CheckForEnemies();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        DebugSpawnPickups();
     }
 
     // Check the static enemy list to see if enemies are present.
@@ -36,14 +44,14 @@ public class GameManager : MonoBehaviour
         if (Enemy.s_enemyList.Count >= 1)
         {
 #if UNITY_EDITOR
-            Debug.Log("THERE BE ENEMIES HERE!");
+            // Debug.Log("THERE BE ENEMIES HERE!");
 #endif
             return true;
         }
         else
         {
 #if UNITY_EDITOR
-            Debug.Log("No enemies detected. All clear!");
+            // Debug.Log("No enemies detected. All clear!");
 #endif
             return false;
         }
@@ -51,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnEnemies()
     {
-
+        
     }
 
     public void GameOver()
@@ -62,5 +70,27 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
 
+    }
+
+    public void SpawnHealthPickup(Vector3 enemyPos)
+    {
+        Object.Instantiate(healthPickup, enemyPos, Quaternion.identity);
+    }
+
+    // Debug function for spawning pickups.
+    void DebugSpawnPickups()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Vector3 spawnRange = new Vector3(player.transform.position.x + Random.Range(-3, 3),
+                player.transform.position.y + Random.Range(-3, 3), player.transform.position.z);
+            Object.Instantiate(healthPickup, spawnRange, Quaternion.identity);
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            Vector3 spawnRange = new Vector3(player.transform.position.x + Random.Range(-3, 3),
+                player.transform.position.y + Random.Range(-3, 3), player.transform.position.z);
+            Object.Instantiate(weaponPickup, spawnRange, Quaternion.identity);
+        }
     }
 }
