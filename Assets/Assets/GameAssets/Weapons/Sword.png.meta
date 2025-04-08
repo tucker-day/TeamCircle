@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b08bf330f83652b4fb6bd8fe55c96905
+guid: 1b0762bd4fa853d428bbb7be0d785e1f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Picture_0
+      name: Sword_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 28
-        height: 30
+        width: 32
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e4a820812afe244984b31a8cde31eb1
-      internalID: 292349397
+      spriteID: e50c376b5224411429e09e495e2afe19
+      internalID: -1968124172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Picture_1
+      name: Sword_1
       rect:
         serializedVersion: 2
-        x: 28
+        x: 32
         y: 0
-        width: 28
-        height: 30
+        width: 32
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7478603fbd3ada44ca14273f1aa68a31
-      internalID: -1235581987
+      spriteID: 2d2c75b68c8364c46871f349d6074e46
+      internalID: -1181748959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 152b213f34b115147b55918378e07165
+      internalID: 1653201978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14fac12ba924f294485a2ac60dd40741
+      internalID: 2012802035
       vertices: []
       indices: 
       edges: []
@@ -149,8 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Picture_0: 292349397
-      Picture_1: -1235581987
+      Sword_0: -1968124172
+      Sword_1: -1181748959
+      Sword_2: 1653201978
+      Sword_3: 2012802035
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
