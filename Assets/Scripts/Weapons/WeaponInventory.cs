@@ -27,6 +27,11 @@ public class WeaponInventory : MonoBehaviour
         weapons[(int)weapon].LevelUp();
     }
 
+    public Sprite GetWeaponSprite(WeaponType weapon)
+    {
+        return weapons[(int)weapon].icon;
+    }
+
     private void Start()
     {
         player = GetComponent<PlayerStats>();
