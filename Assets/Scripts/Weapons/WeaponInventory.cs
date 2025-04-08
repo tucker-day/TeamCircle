@@ -6,6 +6,8 @@ public enum WeaponType
 {
     Sword,
     Bow,
+    Fireball,
+    Shield,
 
     NUM_WEAPONS
 }
