@@ -2,25 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinalBoss : MonoBehaviour
+public class FinalBoss : Enemy
 {
-    public int HP;
+    public GameObject projectile;
+    public Projectile projScript;
+    public GameObject launchPoint;
+
+    public float distance;
     public int MaxHP;
-    public bool isAlive;//0 = dead, 1 = life
-    // Start is called before the first frame update
     void Awake()
     {
         MaxHP = 1000;
-        HP = MaxHP;
+        hp = MaxHP;
+        speed = 3.0f;
+        attackRange = 5.0f;
+        damage = 15;
         isAlive = true;
+
+        Start();
+        ChangeState(new Chase());
+    }
+    public override void Chase()
+    {
+        if (Vector2.Distance(transform.position, playerPos.position) > attackRange)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
+        }
     }
 
-    public void TakeDamage(int damage)
+    public override void Attack()
+    {
+        if (timer <= 0)
+        {
+            Instantiate(projectile, launchPoint.transform.position, Quaternion.identity);
+            projScript = projectile.GetComponent<Projectile>();
+            projScript.isBossProjectile = true;
+
+            timer = cooldown;
+        }
+    }
+
+    public override void TakeDamage(int damage)
     {
         if (isAlive == true)
         {
-            HP -= damage;
-            if (HP <= 0)
+            hp -= damage;
+            if (hp <= 0)
             {
                 isAlive = false;
                 //anim.SetBool("isAlive", false);

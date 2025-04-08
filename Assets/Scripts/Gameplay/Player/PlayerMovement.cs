@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private PlayerStats playerStats;
+    public Animator anim;
+    public SpriteRenderer spriteRenderer;
     Rigidbody2D body;
 
     float horizontal;
     float vertical;
-    private PlayerStats playerStats;
+
+    private bool canMove;
     public float speed = 5.0f;
-    public Animator anim;
-    public SpriteRenderer spriteRenderer;
+    private float frozenSpeed;
+    private float resSpeed;
+
     public float walk;
     public Vector2 lastMovementDirection { get; private set; }
 
@@ -24,12 +29,16 @@ public class PlayerMovement : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim.SetFloat("velocity", (horizontal * speed + vertical * speed) / 2.0f);
+
+        canMove = true;
+        resSpeed = speed;
+        frozenSpeed = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerStats.CurrentHP > 0)
+        if (playerStats.CurrentHP > 0 && canMove)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
@@ -72,5 +81,22 @@ public class PlayerMovement : MonoBehaviour
             velocity = -velocity;
         }
         anim.SetFloat("velocity", velocity);
+    }
+
+    public void Freeze()
+    {
+        speed = frozenSpeed;
+        anim.speed = 0;
+        canMove = false;
+
+        StartCoroutine("Unfreeze");
+    }
+
+    IEnumerator Unfreeze()
+    {
+        yield return new WaitForSeconds(2);
+        speed = resSpeed;
+        anim.speed = 1;
+        canMove = true;
     }
 }

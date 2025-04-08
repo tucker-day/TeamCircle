@@ -8,10 +8,13 @@ public class Projectile : MonoBehaviour
     public GameObject target;
     public PlayerStats playerStats;
     public Rigidbody2D projectileRb;
+    public PlayerMovement playerMovement;
 
     private Vector2 direction;
     private float lifespan = 2f;
     public float speed;
+
+    public bool isBossProjectile = false;
 
     void Start()
     {
@@ -21,6 +24,7 @@ public class Projectile : MonoBehaviour
         direction = (target.transform.position - transform.position).normalized * speed;
 
         playerStats = target.GetComponent<PlayerStats>();
+        playerMovement = target.GetComponent<PlayerMovement>();
         projectileRb.velocity = new Vector2(direction.x, direction.y);
 
         Destroy(gameObject, lifespan);
@@ -32,6 +36,12 @@ public class Projectile : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerStats.TakeDamage(5);
+            
+            if (isBossProjectile)
+            {
+                playerMovement.Freeze();
+            }
+
             Destroy(gameObject);
         }
     }
