@@ -11,13 +11,19 @@ public abstract class Equipment : MonoBehaviour
 
     public abstract void Trigger(Vector2 playerMovementDir);
 
+    private bool activated = false;
     public virtual void LevelUp()
     {
-        if (level < MAX_LEVEL)
+        if (level > 1 && !activated)
         {
-            level++;
+            activated = true;
+            Activate();
         }
+
+        if (level < MAX_LEVEL) level++;
     }
+
+    public virtual void Activate() { }
 
     public bool IsMaxLevel()
     {
