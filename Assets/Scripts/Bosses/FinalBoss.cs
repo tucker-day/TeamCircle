@@ -49,7 +49,7 @@ public class FinalBoss : Enemy
             if (hp <= 0)
             {
                 isAlive = false;
-                //anim.SetBool("isAlive", false);
+                anim.SetBool("isAlive", false);
                 //GameOver();
                 Die();
             }
