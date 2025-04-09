@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public DungeonManager dungeonManager;
 
+
     public bool minibossPresent = false;
 
     // Start is called before the first frame update
@@ -29,6 +30,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (dungeonManager != null)
+    {
+        dungeonManager.GenerateDungeon();
+    }
 
         player = GameObject.FindGameObjectWithTag("Player");
         CheckForEnemies();
