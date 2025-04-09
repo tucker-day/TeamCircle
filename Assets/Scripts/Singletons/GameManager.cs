@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Initialize an instance of the game manager.
+        if (dungeonManager != null)
+           {
+             dungeonManager.GenerateDungeon();
+           }
         if (instance == null)
         {
             instance = this;
@@ -30,10 +34,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (dungeonManager != null)
-    {
-        dungeonManager.GenerateDungeon();
-    }
+    
 
         player = GameObject.FindGameObjectWithTag("Player");
         CheckForEnemies();
