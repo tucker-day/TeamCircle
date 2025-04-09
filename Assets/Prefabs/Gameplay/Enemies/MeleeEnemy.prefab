@@ -71,14 +71,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 3768287529265729499}
   spriteRenderer: {fileID: 0}
+  rigidBody: {fileID: 0}
   playerObj: {fileID: 0}
   playerPos: {fileID: 0}
   playerStats: {fileID: 0}
-  hp: 0
-  damage: 0
+  hp: 50
+  damage: 5
   speed: 2
   detectionRange: 0
   attackRange: 1
+  isAlive: 0
   cooldown: 0
   distance: 0
 --- !u!61 &620514392355993056

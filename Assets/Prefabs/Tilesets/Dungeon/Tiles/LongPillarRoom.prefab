@@ -49,6 +49,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnEnemies: 1
+  spawnPoints:
+  - {x: 6, y: 3}
+  - {x: 6, y: -3}
+  - {x: -6, y: 3}
+  - {x: -6, y: -3}
+  - {x: 3, y: 6}
+  - {x: -3, y: 6}
+  - {x: 3, y: -6}
+  - {x: -3, y: -6}
   edgeRules:
     upper:
       <BuildInEdge>k__BackingField: 0
@@ -136,7 +145,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 20}
+  m_Size: {x: 20, y: 18}
   m_EdgeRadius: 0
 --- !u!1001 &3767389174324756056
 PrefabInstance:
