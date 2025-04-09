@@ -66,6 +66,9 @@ MonoBehaviour:
       <BuildInEdge>k__BackingField: 1
       <BuiltInEdgeType>k__BackingField: 0
   enemySpawns: []
+  chainedRooms: []
+  hallBlockers: []
+  enemiesSpawned: 0
 --- !u!50 &7374316391898477783
 Rigidbody2D:
   serializedVersion: 4

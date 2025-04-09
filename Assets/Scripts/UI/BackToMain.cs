@@ -16,6 +16,8 @@ public class BackToMain : MonoBehaviour
     public IEnumerator ChangeScene()
     {
         yield return new WaitForSeconds(1);
+        if (GameManager.instance)
+        { Enemy.s_enemyList.Clear(); }
         SceneManager.LoadScene("Main");
     }
 

@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     public bool CheckForEnemies()
     {
 #if UNITY_EDITOR
-        Debug.Log("Current Enemy Count: " + Enemy.s_enemyList.Count);
+        // Debug.Log("Current Enemy Count: " + Enemy.s_enemyList.Count);
 #endif
         if (Enemy.s_enemyList.Count >= 1)
         {
