@@ -24,6 +24,7 @@ public class ChildRoom : MonoBehaviour
 {
     [Header("Room Settings")]
     public bool spawnEnemies = true;
+    public Vector2[] spawnPoints;
     [Header("Edge Rules")]
     public EdgeRulesGroup edgeRules = new();
 
@@ -68,16 +69,16 @@ public class ChildRoom : MonoBehaviour
             foreach (ChildRoom room in chainedRooms)
             {
                 Vector2 roomPos = room.gameObject.transform.position;
-                
                 foreach (GameObject door in room.hallBlockers)
                 {
                     door.SetActive(true);
                 }
 
                 room.enemiesSpawned = true;
-                foreach (GameObject enemy in this.enemySpawns)
+                foreach (GameObject enemy in room.enemySpawns)
                 {
-                    Vector2 enemyPos = new Vector2(roomPos.x + UnityEngine.Random.Range(-10, 10), roomPos.y + UnityEngine.Random.Range(-10, 10));
+                    Vector2 enemyPos = new Vector2(roomPos.x + room.spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].x,
+                        roomPos.y + room.spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].y);
                     GameManager.instance.SpawnEnemy(enemy, enemyPos);
                 }
             }

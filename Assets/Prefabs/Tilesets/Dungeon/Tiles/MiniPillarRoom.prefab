@@ -48,6 +48,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnEnemies: 1
+  spawnPoints:
+  - {x: 0, y: 0}
+  - {x: 6, y: 3}
+  - {x: 6, y: -3}
+  - {x: -6, y: 3}
+  - {x: -6, y: -3}
+  - {x: 3, y: 6}
+  - {x: -3, y: 6}
+  - {x: 3, y: -6}
+  - {x: -3, y: -6}
   edgeRules:
     upper:
       <BuildInEdge>k__BackingField: 0
@@ -62,6 +72,9 @@ MonoBehaviour:
       <BuildInEdge>k__BackingField: 0
       <BuiltInEdgeType>k__BackingField: 0
   enemySpawns: []
+  chainedRooms: []
+  hallBlockers: []
+  enemiesSpawned: 0
 --- !u!50 &7374316391898477783
 Rigidbody2D:
   serializedVersion: 4
@@ -132,7 +145,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 20}
+  m_Size: {x: 20, y: 18}
   m_EdgeRadius: 0
 --- !u!1001 &7666563892217498862
 PrefabInstance:
