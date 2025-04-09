@@ -28,6 +28,8 @@ public class Shield : Equipment
     [SerializeField]
     private int rotationSpeed;
 
+    public int BounceCount;
+
     public override void Trigger(Vector2 playerMovementDir)
     {
         SpawnProjectile(playerMovementDir);
@@ -41,6 +43,8 @@ public class Shield : Equipment
     {
         ShieldProjectilePrefab.damage = GetDamage();
         ShieldProjectilePrefab.speed = GetSpeed();
+
+        ShieldProjectilePrefab.BounceCount = level;
 
         GameObject instance = Instantiate(ShieldProjectilePrefab.gameObject, transform.position, Quaternion.identity);
 
