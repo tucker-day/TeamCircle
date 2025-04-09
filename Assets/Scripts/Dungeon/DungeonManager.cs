@@ -23,15 +23,21 @@ public class DungeonManager : MonoBehaviour
     private int branchReduction;
     private bool bossRoomSpawned;
 
-#if UNITY_EDITOR
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            GenerateDungeon();
-        }
-    }
-#endif
+//#if UNITY_EDITOR
+  //  private void Update()
+   // {
+    //    if (Input.GetKeyDown(KeyCode.G))
+    //    {
+//            GenerateDungeon();
+      // }
+   // }
+//#endif
+private void Start()
+{
+    GenerateDungeon();
+}
+
+
 
     public void GenerateDungeon()
     {
