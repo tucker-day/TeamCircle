@@ -37,9 +37,34 @@ public class ChildRoom : MonoBehaviour
     [HideInInspector]
     public bool enemiesSpawned;
 
+    private List<GameObject> minimapObjects = new();
+    private bool revealed = false;
+
     void Awake()
     {
         chainedRooms = null;
+    }
+
+    private void Start()
+    {
+        RecursivelyAddChildrenToMinimapList(gameObject);
+    }
+
+    private void RecursivelyAddChildrenToMinimapList(GameObject main)
+    {
+        int numChildren = main.transform.childCount;
+        for (int i = numChildren - 1; i >= 0; i--)
+        {
+            GameObject child = main.transform.GetChild(i).gameObject;
+
+            RecursivelyAddChildrenToMinimapList(child);
+
+            if (child.layer == LayerMask.NameToLayer("Minimap"))
+            {
+                if (spawnEnemies) child.SetActive(false);
+                minimapObjects.Add(child);
+            }
+        }
     }
 
     public EdgeRules GetRulesByEnum(Edges edge)
@@ -61,6 +86,12 @@ public class ChildRoom : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
+        revealed = true;
+        foreach (GameObject mini in minimapObjects)
+        {
+            mini.SetActive(true);
+        }
+
         if (spawnEnemies && !enemiesSpawned && other.gameObject.CompareTag("Player"))
         {
             enemiesSpawned = true;
@@ -87,6 +118,15 @@ public class ChildRoom : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D other)
     {
+        if (!revealed)
+        {
+            revealed = true;
+            foreach (GameObject mini in minimapObjects)
+            {
+                mini.SetActive(true);
+            }
+        }
+
         if (other.gameObject.CompareTag("Player") && Enemy.s_enemyList.Count == 0)
         {
             foreach (ChildRoom room in chainedRooms)
