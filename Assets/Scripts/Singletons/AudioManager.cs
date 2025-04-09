@@ -100,7 +100,7 @@ public class AudioManager : MonoBehaviour
 
             StartCoroutine("FadeMusic");
         }
-        if (/*(Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) ||*/ GameManager.instance.CheckForEnemies() && !GameManager.instance.minibossPresent)
+        if (/*(Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) ||*/ GameManager.instance.CheckForEnemies() && !GameManager.instance.CheckForRareEnemies())
         {
             calmToCombat = true;
             minibossToCombat = true;
@@ -112,7 +112,7 @@ public class AudioManager : MonoBehaviour
 
             StartCoroutine("FadeMusic");
         }
-        if (/*(Input.GetKeyDown(KeyCode.LeftShift) && mus_miniboss.volume == 0f) ||*/ GameManager.instance.minibossPresent)
+        if (/*(Input.GetKeyDown(KeyCode.LeftShift) && mus_miniboss.volume == 0f) ||*/ GameManager.instance.CheckForRareEnemies())
         {
             calmToMiniboss = true;
             combatToMiniboss = true;

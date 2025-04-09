@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public IEnemyState currentState;
 
     public static List<Enemy> s_enemyList = new List<Enemy>();
+    public static List<Enemy> s_rareEnemyList = new List<Enemy>();
 
     public Animator anim;
     public SpriteRenderer spriteRenderer;
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
     public float attackRange;
     public bool isAlive;
     protected bool canMove;
+    public bool isRareEnemy = false;
 
     public float cooldown;
     protected float timer;
@@ -50,7 +52,17 @@ public class Enemy : MonoBehaviour
 
         resSpeed = speed;
         frozenSpeed = 0.0f;
-}
+
+        if (isRareEnemy)
+        {
+            hp *= 3;
+            damage *= 2;
+            speed *= 1.5f;
+            this.gameObject.transform.localScale *= new Vector2(this.gameObject.transform.localScale.x * 1.5f, this.gameObject.transform.localScale.y * 1.5f);
+            spriteRenderer.color = new Color(1f, 0.8f, 0.6f, 1f);
+            s_rareEnemyList.Add(this);
+        }
+    }
 
 void Update()
     {
@@ -144,15 +156,28 @@ void Update()
         DropPickup();
         Destroy(gameObject);
         GameManager.instance.CheckForEnemies();
+
+        if (isRareEnemy)
+        {
+            s_rareEnemyList.Remove(this);
+            GameManager.instance.CheckForRareEnemies();
+        }
     }
 
     void DropPickup()
     {
-        int dropChance = UnityEngine.Random.Range(0, 100);
-        if (dropChance >= 99)
+        if (!isRareEnemy)
         {
-            Debug.Log("An enemy dropped a health pickup!");
-            GameManager.instance.SpawnHealthPickup(this.transform.position);
+            int dropChance = UnityEngine.Random.Range(0, 100);
+            if (dropChance >= 99)
+            {
+                Debug.Log("An enemy dropped a health pickup!");
+                GameManager.instance.SpawnHealthPickup(this.transform.position);
+            }
+        }
+        if (isRareEnemy)
+        {
+            GameManager.instance.SpawnWeaponPickup(this.transform.position);
         }
     }
 }

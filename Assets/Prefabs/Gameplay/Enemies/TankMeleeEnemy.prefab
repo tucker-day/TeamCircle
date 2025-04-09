@@ -205,5 +205,6 @@ MonoBehaviour:
   detectionRange: 0
   attackRange: 1
   isAlive: 0
+  isRareEnemy: 0
   cooldown: 0
   distance: 0
