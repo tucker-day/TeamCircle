@@ -79,6 +79,7 @@ MonoBehaviour:
   endTime: 0
   rotationSpeed: 360
   Square: {fileID: 2725381488646290643}
+  BounceCount: 0
 --- !u!58 &4860273994877697481
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -113,7 +114,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.1
 --- !u!1 &2725381488646290643
 GameObject:
   m_ObjectHideFlags: 0
