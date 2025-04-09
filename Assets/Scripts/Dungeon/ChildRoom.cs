@@ -118,15 +118,6 @@ public class ChildRoom : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D other)
     {
-        if (!revealed)
-        {
-            revealed = true;
-            foreach (GameObject mini in minimapObjects)
-            {
-                mini.SetActive(true);
-            }
-        }
-
         if (other.gameObject.CompareTag("Player") && Enemy.s_enemyList.Count == 0)
         {
             foreach (ChildRoom room in chainedRooms)
