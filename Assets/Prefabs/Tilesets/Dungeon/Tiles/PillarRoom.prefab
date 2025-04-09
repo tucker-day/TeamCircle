@@ -50,18 +50,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnEnemies: 1
   spawnPoints:
-  - {x: 6, y: 3}
-  - {x: 6, y: -3}
-  - {x: -6, y: 3}
-  - {x: -6, y: -3}
-  - {x: 3, y: 6}
-  - {x: -3, y: 6}
-  - {x: 3, y: -6}
-  - {x: -3, y: -6}
-  - {x: 6, y: 6}
-  - {x: -6, y: 6}
-  - {x: 6, y: -6}
-  - {x: -6, y: -6}
+  - {x: 6, y: 2.5}
+  - {x: 6, y: -2.5}
+  - {x: -6, y: 2.5}
+  - {x: -6, y: -2.5}
+  - {x: 3, y: 5}
+  - {x: -3, y: 5}
+  - {x: 3, y: -5}
+  - {x: -3, y: -5}
+  - {x: 6, y: 5}
+  - {x: -6, y: 5}
+  - {x: 6, y: -5}
+  - {x: -6, y: -5}
   edgeRules:
     upper:
       <BuildInEdge>k__BackingField: 0
