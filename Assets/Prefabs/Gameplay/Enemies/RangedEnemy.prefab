@@ -127,6 +127,7 @@ MonoBehaviour:
   detectionRange: 0
   attackRange: 5
   isAlive: 0
+  isRareEnemy: 0
   cooldown: 0
   projectile: {fileID: 3045264751135808310, guid: f30c6d765af7abc4dae41f479f44675a, type: 3}
   launchPoint: {fileID: 6278824184101793319}
