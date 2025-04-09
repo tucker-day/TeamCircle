@@ -100,13 +100,6 @@ void Update()
         currentState.EnterState(this);
     }
 
-    /*public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Projectile")
-        {
-            TakeDamage(damage);
-        }
-    }*/
     public virtual void Move() { }
 
     public virtual void Chase() { }
@@ -132,11 +125,14 @@ void Update()
 
     public virtual void TakeDamage(int damage)
     {
-        hp -= damage;
-
-        if (hp <= 0 )
+        if (isAlive)
         {
-            Die();
+            hp -= damage;
+
+            if (hp <= 0)
+            {
+                Die();
+            }
         }
     }
 
