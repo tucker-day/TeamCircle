@@ -125,11 +125,14 @@ void Update()
 
     public virtual void TakeDamage(int damage)
     {
-        hp -= damage;
-
-        if (hp <= 0 )
+        if (isAlive)
         {
-            Die();
+            hp -= damage;
+
+            if (hp <= 0)
+            {
+                Die();
+            }
         }
     }
 
