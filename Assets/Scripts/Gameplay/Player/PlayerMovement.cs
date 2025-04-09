@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<PlayerStats>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        anim.SetFloat("velocity", (horizontal * speed + vertical * speed) / 2.0f);
 
         canMove = true;
         resSpeed = speed;
@@ -75,10 +74,20 @@ public class PlayerMovement : MonoBehaviour
     {
         body.velocity = new Vector2 (horizontal * speed, vertical * speed);
 
-        float velocity = (horizontal * speed + vertical * speed) / 2.0f;
-        if (velocity < 0)
+        float velocity = (horizontal * speed) + (vertical * speed) / 2.0f;
+
+        if (velocity != 0)
         {
-            velocity = -velocity;
+            if (velocity < 0)
+            {
+                velocity = -velocity;
+            }
+
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
         }
         anim.SetFloat("velocity", velocity);
     }
