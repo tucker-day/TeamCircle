@@ -5,36 +5,54 @@ using UnityEngine;
 
 public class Fireball : Equipment
 {
-    public GameObject FireballPrefab;
-    public GameObject FireballInstance;
-    public float rotationSpeed;
-    [SerializeField]
-    int damage;
-    [SerializeField]
-    int damageIncrease;//changes per level
+    public float rotateSpeed;
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z + (rotationSpeed * Time.deltaTime));
-    }
+    [SerializeField]
+    private FireballProjectile OrbitingFireball;
 
-    public void OnTriggerEnter2D(Collider2D Enemy)
+    [SerializeField]
+    private int initialDamage;
+    [SerializeField]
+    private int damagePerLevel;
+
+    [SerializeField]
+    private float initialSpeed;
+    [SerializeField]
+    private float speedPerLevel;
+
+    [SerializeField]
+    private float cooldownPerLevel;
+
+    [SerializeField]
+    private List<int> projectileIncreaseThresholds;
+
+
+    private void Update()
     {
-        if (Enemy.TryGetComponent<Enemy>(out Enemy enemy) == true)
-        {
-            enemy.TakeDamage(damage + damageIncrease * level);
-        }
-    }
-    public override void LevelUp()
-    {
-        base.LevelUp();
-        if (level == 1) { 
-            FireballInstance = GameObject.Instantiate(FireballPrefab);
-        }
+        transform.rotation = Quaternion.Euler(0f,0f, transform.rotation.eulerAngles.z + (rotateSpeed * Time.deltaTime));
     }
     public override void Trigger(Vector2 playerMovementDir)
     {
+        OrbitingFireball.damage = GetDamage();
+    }
+    private int GetDamage()
+    {
+        return initialDamage + damagePerLevel * level;
+    }
 
+    private float GetSpeed()
+    {
+        return initialSpeed + speedPerLevel * level;
+    }
+
+    public override void LevelUp()
+    {
+        base.LevelUp();
+        Debug.Log("Fireball is now Level" + level);
+    }
+    public override void Activate()
+    {
+        base.Activate();
+        OrbitingFireball.gameObject.SetActive(true);
     }
 }
