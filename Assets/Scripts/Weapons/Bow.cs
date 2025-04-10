@@ -51,6 +51,7 @@ public class Bow : Equipment
         bowProjectilePrefab.speed = GetSpeed();
         
         GameObject instance = Instantiate(bowProjectilePrefab.gameObject, transform.position, Quaternion.identity);
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[18]);
 
         float angle = Vector2.Angle(Vector2.right, direction);
         if (direction.y < 0)

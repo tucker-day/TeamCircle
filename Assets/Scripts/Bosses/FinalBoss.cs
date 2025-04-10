@@ -38,6 +38,7 @@ public class FinalBoss : Enemy
             projScript.isBossProjectile = true;
 
             timer = cooldown;
+            AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[14]);
         }
     }
 
@@ -46,11 +47,14 @@ public class FinalBoss : Enemy
         if (isAlive == true)
         {
             hp -= damage;
+            AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[15]);
+
             if (hp <= 0)
             {
                 isAlive = false;
                 anim.SetBool("isAlive", false);
                 //GameOver();
+                AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[16]);
                 Die();
             }
         }
