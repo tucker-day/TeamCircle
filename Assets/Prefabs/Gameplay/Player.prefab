@@ -238,6 +238,7 @@ MonoBehaviour:
   - {fileID: 5587047263798416269}
   - {fileID: 7397448041922071730}
   - {fileID: 886114215957277730}
+  - {fileID: 2211573705162838487}
 --- !u!1 &5632209069160737444
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,8 +272,90 @@ Transform:
   - {fileID: 2701133152363786923}
   - {fileID: 9215413932589554254}
   - {fileID: 5045676935795286767}
+  - {fileID: 2217364107532044626}
   m_Father: {fileID: 1574595745127572957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1724021850016347111
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3890435387810342364}
+    m_Modifications:
+    - target: {fileID: 674944198888071728, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: <icon>k__BackingField
+      value: 
+      objectReference: {fileID: -840752583, guid: 65b45902826dbb747925607f56b2199b, type: 3}
+    - target: {fileID: 674944198888071728, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: IceSpikeProjectilePrefab
+      value: 
+      objectReference: {fileID: -3801482242690391377, guid: b5761ae0bb8fe614c9d68485de302a6a, type: 3}
+    - target: {fileID: 2152468106405992068, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152468106405992068, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152468106405992068, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152468106405992068, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152468106405992068, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152468106405992068, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152468106405992068, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152468106405992068, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152468106405992068, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152468106405992068, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587328287313571059, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: m_Name
+      value: IceSpike
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+--- !u!114 &2211573705162838487 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 674944198888071728, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+  m_PrefabInstance: {fileID: 1724021850016347111}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d6bac11029ef5b4f90e7deb82179ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2217364107532044626 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 660160342073703093, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+  m_PrefabInstance: {fileID: 1724021850016347111}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3719951095813139794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -376,7 +459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3293326921422638852, guid: 132b3b76cb85f8548ad214617d7d670f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6452974212493058993, guid: 132b3b76cb85f8548ad214617d7d670f, type: 3}
       propertyPath: m_LocalScale.x
