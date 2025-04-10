@@ -13,16 +13,36 @@ public class StartGame : MonoBehaviour
     {
         fade=FindObjectOfType<FadeInOutSceneAnim>();
         startButton.onClick.AddListener(OnStartButtonPressed);
+
+    }
+    public IEnumerator ChangeScene()
+{
+    if (fade != null)
+    {
+        fade.FadeIn(); // fade to black
+        yield return new WaitForSeconds(1.2f);
     }
 
-    public IEnumerator ChangeScene()
+    if (AudioManager.instance != null)
     {
-        if (!GameManager.instance)
-        { fade.FadeIn(); }
-        yield return new WaitForSeconds(1);
         Destroy(AudioManager.instance);
-        SceneManager.LoadScene("Dungeon");
     }
+
+    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Dungeon");
+    asyncLoad.allowSceneActivation = false;
+
+    while (!asyncLoad.isDone)
+    {
+        // When the scene is almost loaded (90%), activate it
+        if (asyncLoad.progress >= 0.9f)
+        {
+            asyncLoad.allowSceneActivation = true;
+        }
+
+        yield return null;
+    }
+}
+
 
     public void OnStartButtonPressed()
     {
