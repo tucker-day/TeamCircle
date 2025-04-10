@@ -613,6 +613,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7409646245424266096, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
+      propertyPath: Bow
+      value: 
+      objectReference: {fileID: 8529203048291125634, guid: 86d61ef0572f07d4781989f307282ab4, type: 3}
+    - target: {fileID: 7409646245424266096, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
+      propertyPath: Sword
+      value: 
+      objectReference: {fileID: 6595386542030509406, guid: 17c30b026507b13479e7ace02ec6a01f, type: 3}
     - target: {fileID: 8495228574475592281, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
       propertyPath: m_Name
       value: chest_0

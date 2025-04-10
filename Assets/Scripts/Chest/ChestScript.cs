@@ -11,6 +11,8 @@ public class ChestScript : MonoBehaviour
     //public Item contents; 
     public bool ChestOpen;
     //public Signal raiseItem;
+    public GameObject Bow;
+    public GameObject Sword; 
 
     // Start is called before the first frame update
     void Start()
