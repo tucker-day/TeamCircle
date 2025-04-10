@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f27caf1bc1ca3d04abd956ffa0a6b330
+guid: 1686291ed1ce79042975cc79567484fb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: chest_0
+      name: Arrow_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 30
-        height: 26
+        width: 26
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d42df07e6672a046932e0e5094a7e1d
-      internalID: 1167584248
+      spriteID: fa4c748d1b6cd25478b091797c35a102
+      internalID: -15303410
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: chest_1
+      name: Arrow_1
       rect:
         serializedVersion: 2
-        x: 30
+        x: 26
         y: 0
-        width: 30
-        height: 26
+        width: 26
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,29 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ae720e7223a40143b6efeaa4b3e6b5f
-      internalID: -2117086460
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: chest_2
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 0
-        width: 30
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 67eced7d39b57f24cbee93c48638ff55
-      internalID: 1789503961
+      spriteID: 7b3f56b851e18b24f8d5b8594f816ea9
+      internalID: -1406192575
       vertices: []
       indices: 
       edges: []
@@ -170,9 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      chest_0: 1167584248
-      chest_1: -2117086460
-      chest_2: 1789503961
+      Arrow_0: -15303410
+      Arrow_1: -1406192575
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
