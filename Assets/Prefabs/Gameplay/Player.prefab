@@ -284,6 +284,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 3890435387810342364}
     m_Modifications:
     - target: {fileID: 674944198888071728, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
+      propertyPath: cooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 674944198888071728, guid: 44e39dfe8950d3b4b880bff5d475245b, type: 3}
       propertyPath: <icon>k__BackingField
       value: 
       objectReference: {fileID: -840752583, guid: 65b45902826dbb747925607f56b2199b, type: 3}
