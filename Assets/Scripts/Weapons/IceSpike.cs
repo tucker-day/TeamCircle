@@ -25,33 +25,17 @@ public class IceSpike : Equipment
     [SerializeField]
     private List<int> projectileIncreaseThresholds;
 
-    [SerializeField]
-    private int rotationSpeed;
-
-    public int BounceCount;
-
     public override void Trigger(Vector2 playerMovementDir)
     {
         SpawnProjectile(playerMovementDir);
-    }
-    private void Update()
-    {
-        transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z + (rotationSpeed * Time.deltaTime));
     }
 
     private void SpawnProjectile(Vector2 direction)
     {
         IceSpikeProjectilePrefab.damage = GetDamage();
         IceSpikeProjectilePrefab.speed = GetSpeed();
-
+        Debug.Log("Ice Spike Spawned");
         GameObject instance = Instantiate(IceSpikeProjectilePrefab.gameObject, transform.position, Quaternion.identity);
-
-        float angle = Vector2.Angle(Vector2.right, direction);
-        if (direction.y < 0)
-        {
-            angle *= -1;
-        }
-        instance.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     private int GetDamage()

@@ -26,25 +26,16 @@ public class IceSpikeProjectile : MonoBehaviour
     {
         endTime = Time.time + LIFETIME;
         FindNearestEnemy();
-    }
-
-    private void FixedUpdate()
-    {
+        
         if (SelectedEnemy != null)
         {
-            Vector3 Target = SelectedEnemy.transform.position - transform.position;
-            Vector3 NormalizedTarget = Vector3.Normalize(Target);
-            transform.position = NormalizedTarget * speed * Time.fixedDeltaTime;
-        }
-        else
-        {
-            FindNearestEnemy();
+            Vector3 Target = SelectedEnemy.transform.position;
+            transform.position = Target;
+            SelectedEnemy.GetComponent<Enemy>().Freeze();
+            SelectedEnemy.GetComponent<Enemy>().TakeDamage(damage);
         }
 
-        if (Time.time > endTime)
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject, 3.0f);
     }
 
     private void FindNearestEnemy()
@@ -74,15 +65,6 @@ public class IceSpikeProjectile : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out Enemy enemy))
-        {
-            enemy.TakeDamage(damage);
             Destroy(gameObject);
         }
     }
