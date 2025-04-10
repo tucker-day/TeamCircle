@@ -148,7 +148,7 @@ void Update()
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         Debug.Log("Enemy killed");
         isAlive = false;

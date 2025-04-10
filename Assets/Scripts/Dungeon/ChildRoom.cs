@@ -77,8 +77,8 @@ public class ChildRoom : MonoBehaviour
                 room.enemiesSpawned = true;
                 foreach (GameObject enemy in room.enemySpawns)
                 {
-                    Vector2 enemyPos = new Vector2(roomPos.x + room.spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].x,
-                        roomPos.y + room.spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].y);
+                    int spawnPoint = UnityEngine.Random.Range(0, room.spawnPoints.Length);
+                    Vector2 enemyPos = new Vector2(roomPos.x + room.spawnPoints[spawnPoint].x, roomPos.y + room.spawnPoints[spawnPoint].y);
                     GameManager.instance.SpawnEnemy(enemy, enemyPos);
                 }
             }
