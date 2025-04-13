@@ -133,4 +133,31 @@ public class GameManager : MonoBehaviour
         // Increase enemy health multiplier by 1.33.
         // Increase rare enemy spawn chance by 1 to 3.
     }
+    public void RegenerateDungeon()
+{
+    StartCoroutine(HandleDungeonTransition());
+}
+
+private IEnumerator HandleDungeonTransition()
+{
+    PortalAnim fade = FindObjectOfType<PortalAnim>();
+
+    fade.FadeIn();
+    yield return new WaitForSeconds(1f); 
+
+    GameObject player = GameObject.FindGameObjectWithTag("Player");
+    if (player != null)
+    {
+        player.transform.position = Vector2.zero;
+    }
+
+    dungeonManager.GenerateDungeon();
+
+    yield return new WaitForSeconds(0.5f); 
+
+    fade.FadeOut();
+}
+
+
+
 }

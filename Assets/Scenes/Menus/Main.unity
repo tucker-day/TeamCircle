@@ -2072,10 +2072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8a8970c0e144a4ea636b8f5be8add7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasgroup: {fileID: 352625857}
-  fadein: 0
-  fadeout: 0
-  TimeToFade: 1
+  fadeCanvasGroup: {fileID: 352625857}
+  fadeDuration: 1
 --- !u!224 &1263013823
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2374,7 +2372,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1856647963}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

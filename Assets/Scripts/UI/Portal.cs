@@ -1,16 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
-public class Portal : MonoBehaviour
-{
-    public string sceneToLoad; 
-
+public class Portal : MonoBehaviour{
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            
-             other.transform.position = Vector2.zero;
+            GameManager.instance.RegenerateDungeon();
         }
     }
 }
