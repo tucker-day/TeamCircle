@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
         canMove = true;
         resSpeed = speed;
-        frozenSpeed = 0.0f;
+        frozenSpeed = 1.5f;
     }
 
     // Update is called once per frame
@@ -95,17 +95,15 @@ public class PlayerMovement : MonoBehaviour
     public void Freeze()
     {
         speed = frozenSpeed;
-        anim.speed = 0;
-        canMove = false;
+        anim.speed = 0.5f;
 
         StartCoroutine("Unfreeze");
     }
 
     IEnumerator Unfreeze()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         speed = resSpeed;
         anim.speed = 1;
-        canMove = true;
     }
 }
