@@ -29,7 +29,12 @@ public class ChestScript : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Wow! A CHEST!");
-            GameManager.instance.SpawnWeaponPickup(this.transform.position);
+            for (int i = 0; i < 3; i++)
+            {
+                GameManager.instance.SpawnWeaponPickup(new Vector3(this.transform.position.x + Random.Range(-2, 2),
+                    this.transform.position.y + Random.Range(-2, 2), this.transform.position.z));
+            }
+
             Destroy(this.gameObject);
         }
     }
