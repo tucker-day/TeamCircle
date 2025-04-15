@@ -140,6 +140,7 @@ void Update()
     {
         if (isAlive)
         {
+            ShowDamage(damage.ToString());
             hp -= damage;
 
             if (hp <= 0)
@@ -151,7 +152,11 @@ void Update()
 
     public void ShowDamage(string damageTxt)
     {
-
+        if (damagePopupPf)
+        {
+            GameObject damageObj = Instantiate(damagePopupPf, transform.position, Quaternion.identity);
+            damageObj.GetComponent<TextMesh>().text = damageTxt;
+        }
     }
 
     public virtual void Die()
