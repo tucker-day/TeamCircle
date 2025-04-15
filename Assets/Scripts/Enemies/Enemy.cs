@@ -154,8 +154,10 @@ void Update()
     {
         if (damagePopupPf)
         {
-            GameObject damageObj = Instantiate(damagePopupPf, transform.position, Quaternion.identity);
+            Vector3 damagePos = transform.position + new Vector3(-0.2f, 0.5f, 0);
+            GameObject damageObj = Instantiate(damagePopupPf, damagePos, Quaternion.identity);
             damageObj.GetComponent<TextMesh>().text = damageTxt;
+            Destroy(damageObj, 0.5f);
         }
     }
 
