@@ -29,7 +29,7 @@ public class MinimapManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(player.transform.position.x);
+        // Debug.Log(player.transform.position.x);
         minimapCamera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, minimapCamera.transform.position.z);
     }
 
