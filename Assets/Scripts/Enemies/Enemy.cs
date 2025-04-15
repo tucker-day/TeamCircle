@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public static List<Enemy> s_enemyList = new List<Enemy>();
     public static List<Enemy> s_rareEnemyList = new List<Enemy>();
 
+    [SerializeField] private GameObject damagePopupPf;
     public Animator anim;
     public SpriteRenderer spriteRenderer;
     public Rigidbody2D rigidBody;
@@ -146,6 +147,11 @@ void Update()
                 Die();
             }
         }
+    }
+
+    public void ShowDamage(string damageTxt)
+    {
+
     }
 
     public virtual void Die()
