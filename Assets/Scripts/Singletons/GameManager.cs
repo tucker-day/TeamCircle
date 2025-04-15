@@ -133,17 +133,24 @@ public class GameManager : MonoBehaviour
         // Increase enemy health multiplier by 1.33.
         // Increase rare enemy spawn chance by 1 to 3.
     }
-    public void RegenerateDungeon()
+    private bool isEnteringPortal = false;
+
+public void RegenerateDungeon()
 {
-    StartCoroutine(HandleDungeonTransition());
+    if (!isEnteringPortal)
+    {
+        StartCoroutine(HandleDungeonTransition());
+    }
 }
 
 private IEnumerator HandleDungeonTransition()
 {
-    PortalAnim fade = FindObjectOfType<PortalAnim>();
+    isEnteringPortal = true;
 
-    fade.FadeIn();
-    yield return new WaitForSeconds(1f); 
+    PortalAnim fade = FindObjectOfType<PortalAnim>();
+    if (fade != null) fade.FadeIn();
+
+    yield return new WaitForSeconds(1f);
 
     GameObject player = GameObject.FindGameObjectWithTag("Player");
     if (player != null)
@@ -153,10 +160,14 @@ private IEnumerator HandleDungeonTransition()
 
     dungeonManager.GenerateDungeon();
 
-    yield return new WaitForSeconds(0.5f); 
+    yield return new WaitForSeconds(0.5f);
 
-    fade.FadeOut();
+    if (fade != null) fade.FadeOut();
+
+    yield return new WaitForSeconds(1f); 
+    isEnteringPortal = false;
 }
+
 
 
 
