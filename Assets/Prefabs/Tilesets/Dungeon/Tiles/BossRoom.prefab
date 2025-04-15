@@ -50,6 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnEnemies: 1
+  spawnPoints:
+  - {x: 0, y: 0}
+  - {x: 0, y: 5}
   edgeRules:
     upper:
       <BuildInEdge>k__BackingField: 0
