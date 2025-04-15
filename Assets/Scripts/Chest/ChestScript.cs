@@ -23,4 +23,14 @@ public class ChestScript : MonoBehaviour
     {
         
     }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Wow! A CHEST!");
+            GameManager.instance.SpawnWeaponPickup(this.transform.position);
+            Destroy(this.gameObject);
+        }
+    }
 }
