@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1634a0fa22e4642b7254bc7dae1bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePopupPf: {fileID: 8791593511826495688, guid: a90ce9ae89dd84f46acd38b0ec43ea3b, type: 3}
   anim: {fileID: 3768287529265729499}
   spriteRenderer: {fileID: 0}
   rigidBody: {fileID: 0}

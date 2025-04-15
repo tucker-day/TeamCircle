@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc36dceae179254882fd0069146bfb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePopupPf: {fileID: 8791593511826495688, guid: a90ce9ae89dd84f46acd38b0ec43ea3b, type: 3}
   anim: {fileID: 0}
   spriteRenderer: {fileID: 0}
   rigidBody: {fileID: 0}
@@ -113,6 +114,7 @@ MonoBehaviour:
   detectionRange: 0
   attackRange: 0
   isAlive: 0
+  isRareEnemy: 0
   cooldown: 0
   projectile: {fileID: 381813992771785860, guid: aa917b5177626f14fb45b7f50cb94b4c, type: 3}
   projScript: {fileID: 0}
