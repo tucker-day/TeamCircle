@@ -45,9 +45,12 @@ public class ChildRoom : MonoBehaviour
         chainedRooms = null;
     }
 
-    private void Start()
+    private void Update()
     {
-        RecursivelyAddChildrenToMinimapList(gameObject);
+        if (minimapObjects.Count == 0)
+        {
+            RecursivelyAddChildrenToMinimapList(gameObject);
+        }
     }
 
     private void RecursivelyAddChildrenToMinimapList(GameObject main)
