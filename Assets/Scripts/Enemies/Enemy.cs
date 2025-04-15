@@ -156,6 +156,7 @@ void Update()
         {
             Vector3 damagePos = transform.position + new Vector3(-0.2f, 0.5f, 0);
             GameObject damageObj = Instantiate(damagePopupPf, damagePos, Quaternion.identity);
+            damageObj.GetComponent<MeshRenderer>().sortingOrder = 5;
             damageObj.GetComponent<TextMesh>().text = damageTxt;
             Destroy(damageObj, 0.5f);
         }
