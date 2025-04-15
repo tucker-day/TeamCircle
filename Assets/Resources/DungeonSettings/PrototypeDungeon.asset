@@ -23,4 +23,5 @@ MonoBehaviour:
   budgetIncreasePerDistance: 5
   enemyHealthMult: 1
   bossFloor: 0
-  bossSpawnPool: {fileID: 0}
+  bossObject: {fileID: 3638653470677425529, guid: b0d2215e47ebf0440b0149fe0f84e7f1, type: 3}
+  bossSpawnPool: {fileID: 11400000, guid: 8ad7a2ad295b9b240a9ac2ec1cd36f90, type: 2}

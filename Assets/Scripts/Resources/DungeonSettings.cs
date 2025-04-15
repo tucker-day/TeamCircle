@@ -25,6 +25,7 @@ public class DungeonSettings : ScriptableObject
 
     [Header("Boss Settings")]
     public bool bossFloor;
+    public GameObject bossObject;
     public EnemySpawnPool bossSpawnPool;
 
     public void OnValidate()
