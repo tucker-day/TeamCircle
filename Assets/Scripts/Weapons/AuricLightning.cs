@@ -21,17 +21,21 @@ public class AuricLightning : Equipment
     [SerializeField]
     private float cooldownPerLevel;
 
+    [SerializeField]
+    private float rotateSpeed;
+
+    public void Update()
+    {
+        transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z + (rotateSpeed * Time.deltaTime));
+    }
     public override void Trigger(Vector2 playerMovementDir)
     {
-        SpawnProjectile(playerMovementDir);
+        AuricLightningProjectilePrefab.damage = GetDamage();
     }
 
     private void SpawnProjectile(Vector2 direction)
     {
-        AuricLightningProjectilePrefab.damage = GetDamage();
-        AuricLightningProjectilePrefab.speed = GetSpeed();
 
-        GameObject instance = Instantiate(AuricLightningProjectilePrefab.gameObject, transform.position, Quaternion.identity);
     }
 
     private int GetDamage()

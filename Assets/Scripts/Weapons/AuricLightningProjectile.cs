@@ -12,7 +12,7 @@ public class AuricLightningProjectile : MonoBehaviour
 
     public float speed;
 
-    public float endTime;
+    public float endTime = 0.0f;
 
     [SerializeField]
     GameObject IceSpikeSquare;
@@ -22,5 +22,16 @@ public class AuricLightningProjectile : MonoBehaviour
 
     }
 
-
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        {
+            endTime -= Time.deltaTime;
+            if (endTime <= 0.0f) {
+                endTime = 1.0f;
+                Debug.Log("lightning attack");
+                enemy.TakeDamage(damage);
+            }
+        }
+    }
 }
