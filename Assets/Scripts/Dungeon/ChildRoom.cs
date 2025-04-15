@@ -38,7 +38,7 @@ public class ChildRoom : MonoBehaviour
     public bool enemiesSpawned;
 
     private List<GameObject> minimapObjects = new();
-    private bool revealed = false;
+    private bool done = false;
 
     void Awake()
     {
@@ -86,7 +86,6 @@ public class ChildRoom : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        revealed = true;
         foreach (GameObject mini in minimapObjects)
         {
             mini.SetActive(true);
@@ -106,26 +105,40 @@ public class ChildRoom : MonoBehaviour
                 }
 
                 room.enemiesSpawned = true;
-                foreach (GameObject enemy in room.enemySpawns)
-                {
-                    int spawnPoint = UnityEngine.Random.Range(0, room.spawnPoints.Length);
-                    Vector2 enemyPos = new Vector2(roomPos.x + room.spawnPoints[spawnPoint].x, roomPos.y + room.spawnPoints[spawnPoint].y);
-                    GameManager.instance.SpawnEnemy(enemy, enemyPos);
-                }
+                SpawnEnemies(room, roomPos);
             }
+        }
+    }
+
+    protected virtual void SpawnEnemies(ChildRoom room, Vector2 roomPos)
+    {
+        foreach (GameObject enemy in room.enemySpawns)
+        {
+            int spawnPoint = UnityEngine.Random.Range(0, room.spawnPoints.Length);
+            Vector2 enemyPos = new Vector2(roomPos.x + room.spawnPoints[spawnPoint].x, roomPos.y + room.spawnPoints[spawnPoint].y);
+            GameManager.instance.SpawnEnemy(enemy, enemyPos);
         }
     }
 
     public void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") && Enemy.s_enemyList.Count == 0)
+        if (other.gameObject.CompareTag("Player") && Enemy.s_enemyList.Count == 0 && !done)
         {
             foreach (ChildRoom room in chainedRooms)
             {
-                foreach (GameObject door in room.hallBlockers)
-                {
-                    door.SetActive(false);
-                }
+                room.RoomFinish();
+            }
+        }
+    }
+
+    public virtual void RoomFinish()
+    {
+        if (!done)
+        {
+            done = true;
+            foreach (GameObject door in hallBlockers)
+            {
+                door.SetActive(false);
             }
         }
     }

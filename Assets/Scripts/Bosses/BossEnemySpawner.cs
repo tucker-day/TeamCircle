@@ -5,38 +5,15 @@ using UnityEngine;
 public class BossEnemySpawner : MonoBehaviour
 {
     public FinalBoss BossStats;
-    int RandomEnemySpawn;
     public float Timer = 0.0f;
     public float spawnTime = 2.0f;
-    public float WaitTime = 2.0f;
-    [SerializeField]
-    private GameObject RangedEnemy;
-    [SerializeField]
-    private GameObject MeleeEnemy;
-    [SerializeField]
-    private GameObject TankMeleeEnemy;
-    [SerializeField]
-    private GameObject BossGo;
-
 
     public void SpawnEnemies()
     {
-        RandomEnemySpawn = Random.Range(0, 3);
-        if (RandomEnemySpawn == 0)
-        {
-            Debug.Log("melee enemy");
-            Instantiate(MeleeEnemy, BossGo.transform);
-        }
-        if(RandomEnemySpawn == 1)
-        {
-            Debug.Log("ranged enemy");
-            Instantiate(RangedEnemy, BossGo.transform);
-        }
-        if (RandomEnemySpawn == 2)
-        {
-            Debug.Log("tank enemy");
-            Instantiate(TankMeleeEnemy, BossGo.transform);
-        }
+        GameManager.instance.dungeonManager.settings.bossSpawnPool.GetRandomEnemy(out GameObject enemy, out int cost);
+        Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
+        GameManager.instance.SpawnEnemy(enemy, enemyPos);
+        Timer -= spawnTime;
     }
 
     void Update()
@@ -47,8 +24,12 @@ public class BossEnemySpawner : MonoBehaviour
             if (Timer > spawnTime)
             {
                 SpawnEnemies();
-                Timer = Timer - WaitTime;
+                Timer = Timer - spawnTime;
             }
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }
