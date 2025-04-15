@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public static List<Enemy> s_enemyList = new List<Enemy>();
     public static List<Enemy> s_rareEnemyList = new List<Enemy>();
 
+    [SerializeField] private GameObject damagePopupPf;
     public Animator anim;
     public SpriteRenderer spriteRenderer;
     public Rigidbody2D rigidBody;
@@ -139,12 +140,25 @@ void Update()
     {
         if (isAlive)
         {
+            ShowDamage(damage.ToString());
             hp -= damage;
 
             if (hp <= 0)
             {
                 Die();
             }
+        }
+    }
+
+    public void ShowDamage(string damageTxt)
+    {
+        if (damagePopupPf)
+        {
+            Vector3 damagePos = transform.position + new Vector3(-0.2f, 0.5f, 0);
+            GameObject damageObj = Instantiate(damagePopupPf, damagePos, Quaternion.identity);
+            damageObj.GetComponent<MeshRenderer>().sortingOrder = 5;
+            damageObj.GetComponent<TextMesh>().text = damageTxt;
+            Destroy(damageObj, 0.5f);
         }
     }
 
