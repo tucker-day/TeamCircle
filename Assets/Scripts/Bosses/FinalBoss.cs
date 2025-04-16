@@ -12,8 +12,6 @@ public class FinalBoss : Enemy
     public int MaxHP;
     void Awake()
     {
-        isRareEnemy = false;
-        isBoss = true;
         MaxHP = 1000;
         hp = MaxHP;
         speed = 3.0f;
