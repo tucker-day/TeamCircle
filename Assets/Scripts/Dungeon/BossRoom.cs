@@ -6,9 +6,9 @@ public class BossRoom : ChildRoom
 {
     public BossEnemySpawner bossEnemySpawner;
 
-    protected override void SpawnEnemies(ChildRoom room, Vector2 roomPos)
+    protected override void SpawnEnemies()
     {
-        GameManager.instance.SpawnEnemy(GameManager.instance.dungeonManager.settings.bossObject, roomPos);
-        Instantiate(bossEnemySpawner.gameObject, roomPos, Quaternion.identity).GetComponent<BossEnemySpawner>().BossStats = FindObjectOfType<FinalBoss>();
+        GameManager.instance.SpawnEnemy(GameManager.instance.dungeonManager.settings.bossObject, transform.position);
+        Instantiate(bossEnemySpawner.gameObject, transform.position, Quaternion.identity).GetComponent<BossEnemySpawner>().BossStats = FindObjectOfType<FinalBoss>();
     }
 }
