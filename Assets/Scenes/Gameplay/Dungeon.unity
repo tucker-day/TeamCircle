@@ -183,6 +183,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0552eff3920eeb94da0038cd74c4a76d, type: 3}
+--- !u!1 &214987912 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8495228574475592281, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
+  m_PrefabInstance: {fileID: 2013552646}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &324366304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -838,9 +843,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7409646245424266096, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
+      propertyPath: Bow
+      value: 
+      objectReference: {fileID: 8529203048291125634, guid: 86d61ef0572f07d4781989f307282ab4, type: 3}
+    - target: {fileID: 7409646245424266096, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
+      propertyPath: Sword
+      value: 
+      objectReference: {fileID: 6595386542030509406, guid: 17c30b026507b13479e7ace02ec6a01f, type: 3}
+    - target: {fileID: 7409646245424266096, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
+      propertyPath: chestPrefab
+      value: 
+      objectReference: {fileID: 214987912}
+    - target: {fileID: 7409646245424266096, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
+      propertyPath: chestContent
+      value: 
+      objectReference: {fileID: 214987912}
     - target: {fileID: 8495228574475592281, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
       propertyPath: m_Name
       value: chest_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495228574475592281, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1096,6 +1121,10 @@ PrefabInstance:
     - target: {fileID: 3028242576476946142, guid: 38902b9d744d364429ec27536e2f35b5, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035063722523707389, guid: 38902b9d744d364429ec27536e2f35b5, type: 3}
+      propertyPath: duration
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5886312507426039612, guid: 38902b9d744d364429ec27536e2f35b5, type: 3}
       propertyPath: HUD
