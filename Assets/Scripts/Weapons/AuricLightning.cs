@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AuricLightning : Equipment
+public class AuricLightning : Equipment , IWeaponIconProvider
 {
     const float SPAWN_DELAY = 0.1f;
 
@@ -23,6 +23,10 @@ public class AuricLightning : Equipment
 
     [SerializeField]
     private float rotateSpeed;
+    public Sprite GetIcon()
+{
+    return icon; 
+}
 
     public void Update()
     {

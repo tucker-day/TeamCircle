@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bow : Equipment
+public class Bow : Equipment , IWeaponIconProvider
 {
     const float SPAWN_DELAY = 0.1f;
 
@@ -27,6 +27,10 @@ public class Bow : Equipment
 
     private int burstCount;
 
+public Sprite GetIcon()
+{
+    return icon; 
+}
     public override void Trigger(Vector2 playerMovementDir)
     {
         if (burstCount <= 0)

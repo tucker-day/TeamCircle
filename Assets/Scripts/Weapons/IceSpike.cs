@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceSpike : Equipment
+public class IceSpike : Equipment , IWeaponIconProvider
 {
     const float SPAWN_DELAY = 0.1f;
 
@@ -24,6 +24,11 @@ public class IceSpike : Equipment
 
     [SerializeField]
     private List<int> projectileIncreaseThresholds;
+
+    public Sprite GetIcon()
+{
+    return icon; 
+}
 
     public override void Trigger(Vector2 playerMovementDir)
     {

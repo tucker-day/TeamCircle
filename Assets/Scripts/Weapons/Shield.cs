@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shield : Equipment
+public class Shield : Equipment , IWeaponIconProvider
 {
     const float SPAWN_DELAY = 0.1f;
 
@@ -29,6 +29,11 @@ public class Shield : Equipment
     private int rotationSpeed;
 
     public int BounceCount;
+
+    public Sprite GetIcon()
+{
+    return icon; 
+}
 
     public override void Trigger(Vector2 playerMovementDir)
     {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class PickupWeapon : Pickup
@@ -32,6 +33,31 @@ public class PickupWeapon : Pickup
         {
             Debug.Log("THERE IS A PICKUP HERE!");
             UpgradeWeapon(weapons, weaponValue);
+
+            // Show the next available weapon UI
+        FindObjectOfType<WeaponShowUIManager>().ShowSpecificWeapon(weaponValue);
+
+        // Show weapon icon in specific slot
+        string uiName = "Weapon" + (weaponValue + 1);
+        GameObject uiObj = GameObject.Find(uiName);
+
+        if (uiObj != null)
+        {
+            uiObj.SetActive(true);
+
+            Transform iconHolder = uiObj.transform.Find("1");
+            if (iconHolder != null)
+            {
+                Image img = iconHolder.GetComponent<Image>();
+                Sprite sprite = weapons.GetWeaponSprite((WeaponType)weaponValue);
+
+                if (img != null && sprite != null)
+                {
+                    img.sprite = sprite;
+                    img.color = Color.white;
+                }
+            }
+        }
             Destroy(this.gameObject);
         }
     }
