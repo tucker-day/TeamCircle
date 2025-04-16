@@ -78,11 +78,14 @@ public class GameManager : MonoBehaviour
         if (enemyObj.TryGetComponent(out Enemy enemy))
         {
             GameObject instance = Instantiate(enemyObj, pos, Quaternion.identity);
+            Enemy instanceEnemy = instance.GetComponent<Enemy>();
+
+            instanceEnemy.hp *= Mathf.FloorToInt((float)instanceEnemy.hp * dungeonManager.settings.enemyHealthMult);
 
             int rareEnemySpawn = Random.Range(0, rareEnemyChance + rareEnemyChanceIncrease);
             if (rareEnemySpawn >= rareEnemyChance)
             {
-                instance.GetComponent<Enemy>().isRareEnemy = true;
+                instanceEnemy.isRareEnemy = true;
             }
         }
         else
