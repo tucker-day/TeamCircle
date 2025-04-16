@@ -97,7 +97,7 @@ public class ChildRoom : MonoBehaviour
             }
         }
 
-        if (spawnEnemies && !enemiesSpawned && )
+        if (spawnEnemies && !enemiesSpawned && other.gameObject.CompareTag("Player"))
         {
             enemiesSpawned = true;
             Debug.Log("Spawn some enemies!");
