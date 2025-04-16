@@ -19,12 +19,18 @@ using UnityEngine;
        private SpriteRenderer spriteRenderer;
 
     // The material that was in use, when the script started.
-    private Material originalMaterial;
+      private Material originalMaterial;
 
     // The currently running coroutine.
-       private Coroutine flashRoutine;
+       private Coroutine flashRoutine = null;
 
-     private void Update()
+     private void Start()
+      {
+        spriteRenderer= GetComponent<SpriteRenderer>();
+        originalMaterial = spriteRenderer.material; 
+      }
+
+    private void Update()
      {
             if (Input.GetKeyDown(flashKey))
              {
@@ -34,6 +40,9 @@ using UnityEngine;
 
 
       }
+
+    //gameobject.getComponent<ColorFeedback>().Flash(),
+
 
     public void Flash()
     {

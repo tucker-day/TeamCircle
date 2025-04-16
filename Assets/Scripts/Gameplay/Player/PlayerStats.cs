@@ -38,7 +38,7 @@ public class PlayerStats : MonoBehaviour
         if (isAlive == true) {
             CurrentHP -= damage;
             AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[6]);
-
+            gameObject.GetComponent<ColourFeedback>().Flash();
             if (CurrentHP <= 0)
             {
                 anim.SetBool("isAlive", false);
