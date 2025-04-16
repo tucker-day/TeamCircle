@@ -68,6 +68,7 @@ MonoBehaviour:
   hallBlockers: []
   enemiesSpawned: 0
   bossEnemySpawner: {fileID: 3534450318216799238, guid: 0552eff3920eeb94da0038cd74c4a76d, type: 3}
+  bossHPBarManager: {fileID: 6947147702793268346, guid: 1b5120274d0cff740a3bc7e0d2bc7548, type: 3}
 --- !u!50 &7374316391898477783
 Rigidbody2D:
   serializedVersion: 4
