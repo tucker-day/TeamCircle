@@ -25,6 +25,9 @@ public class IceSpike : Equipment , IWeaponIconProvider
     [SerializeField]
     private List<int> projectileIncreaseThresholds;
 
+    [SerializeField]
+    private WeaponLevel levelDisplay;
+
     public Sprite GetIcon()
 {
     return icon; 
@@ -56,6 +59,7 @@ public class IceSpike : Equipment , IWeaponIconProvider
     public override void LevelUp()
     {
         base.LevelUp();
+        levelDisplay.SetWeaponLevel(level);
         Debug.Log("Ice Spike is now Level" + level);
     }
 }

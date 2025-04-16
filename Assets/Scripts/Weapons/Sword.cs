@@ -18,6 +18,9 @@ public class Sword : Equipment , IWeaponIconProvider
     [SerializeField]
     private List<int> projectileIncreaseThresholds;
 
+    [SerializeField]
+    private WeaponLevel levelDisplay;
+
     private bool flipSword = false;
 
     public Sprite GetIcon()
@@ -76,6 +79,7 @@ public class Sword : Equipment , IWeaponIconProvider
     public override void LevelUp()
     {
         base.LevelUp();
+        levelDisplay.SetWeaponLevel(level);
         Debug.Log("Sword is now Level" + level);
     }
 }

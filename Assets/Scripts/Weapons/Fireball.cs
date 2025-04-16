@@ -27,6 +27,9 @@ public class Fireball : Equipment, IWeaponIconProvider
     [SerializeField]
     private List<int> projectileIncreaseThresholds;
 
+    [SerializeField]
+    private WeaponLevel levelDisplay;
+
     public Sprite GetIcon()
     {
         return icon;
@@ -54,6 +57,7 @@ public class Fireball : Equipment, IWeaponIconProvider
     public override void LevelUp()
     {
         base.LevelUp();
+        levelDisplay.SetWeaponLevel(level);
         Debug.Log("Fireball is now Level" + level);
     }
     public override void Activate()

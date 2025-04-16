@@ -23,6 +23,10 @@ public class AuricLightning : Equipment , IWeaponIconProvider
 
     [SerializeField]
     private float rotateSpeed;
+
+    [SerializeField]
+    private WeaponLevel levelDisplay;
+
     public Sprite GetIcon()
 {
     return icon; 
@@ -55,6 +59,7 @@ public class AuricLightning : Equipment , IWeaponIconProvider
     public override void LevelUp()
     {
         base.LevelUp();
+        levelDisplay.SetWeaponLevel(level);
         Debug.Log("Auric Lightning is now Level" + level);
     }
     public override void Activate()

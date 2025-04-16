@@ -27,7 +27,10 @@ public class Bow : Equipment , IWeaponIconProvider
 
     private int burstCount;
 
-public Sprite GetIcon()
+    [SerializeField]
+    private WeaponLevel levelDisplay;
+
+    public Sprite GetIcon()
 {
     return icon; 
 }
@@ -90,6 +93,7 @@ public Sprite GetIcon()
     public override void LevelUp()
     {
         base.LevelUp();
+        levelDisplay.SetWeaponLevel(level);
         Debug.Log("Bow is now Level" + level);
     }
 }

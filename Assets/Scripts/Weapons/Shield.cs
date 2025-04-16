@@ -26,6 +26,9 @@ public class Shield : Equipment , IWeaponIconProvider
     private List<int> projectileIncreaseThresholds;
 
     [SerializeField]
+    private WeaponLevel levelDisplay;
+
+    [SerializeField]
     private int rotationSpeed;
 
     public int BounceCount;
@@ -74,6 +77,7 @@ public class Shield : Equipment , IWeaponIconProvider
     public override void LevelUp()
     {
         base.LevelUp();
+        levelDisplay.SetWeaponLevel(level);
         Debug.Log("Shield is now Level" + level);
     }
 }
