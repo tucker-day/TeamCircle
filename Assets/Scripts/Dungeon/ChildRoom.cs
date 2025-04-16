@@ -89,12 +89,15 @@ public class ChildRoom : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        foreach (GameObject mini in minimapObjects)
+        if (other.gameObject.CompareTag("Player"))
         {
-            mini.SetActive(true);
+            foreach (GameObject mini in minimapObjects)
+            {
+                mini.SetActive(true);
+            }
         }
 
-        if (spawnEnemies && !enemiesSpawned && other.gameObject.CompareTag("Player"))
+        if (spawnEnemies && !enemiesSpawned && )
         {
             enemiesSpawned = true;
             Debug.Log("Spawn some enemies!");
