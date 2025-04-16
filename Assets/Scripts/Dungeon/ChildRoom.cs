@@ -39,6 +39,7 @@ public class ChildRoom : MonoBehaviour
 
     private List<GameObject> minimapObjects = new();
     private bool done = false;
+    public bool revealed = false;
 
     void Awake()
     {
@@ -89,11 +90,15 @@ public class ChildRoom : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !revealed)
         {
-            foreach (GameObject mini in minimapObjects)
+            foreach (ChildRoom chainedRoom in chainedRooms)
             {
-                mini.SetActive(true);
+                chainedRoom.revealed = true;
+                foreach (GameObject mini in chainedRoom.minimapObjects)
+                {
+                    mini.SetActive(true);
+                }
             }
         }
 
