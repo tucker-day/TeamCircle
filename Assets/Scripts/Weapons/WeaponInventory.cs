@@ -8,6 +8,8 @@ public enum WeaponType
     Bow,
     Fireball,
     Shield,
+    IceSpike,
+    AuricLightning,
 
     NUM_WEAPONS
 }

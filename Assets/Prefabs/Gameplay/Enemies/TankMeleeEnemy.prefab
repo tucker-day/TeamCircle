@@ -193,15 +193,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7abb58600c6a0349ae25b837e166058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePopupPf: {fileID: 8791593511826495688, guid: a90ce9ae89dd84f46acd38b0ec43ea3b, type: 3}
   anim: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  rigidBody: {fileID: 0}
   playerObj: {fileID: 0}
   playerPos: {fileID: 0}
   playerStats: {fileID: 0}
-  hp: 0
-  damage: 0
-  speed: 0
+  hp: 60
+  damage: 10
+  speed: 0.8
   detectionRange: 0
-  attackRange: 0
+  attackRange: 1
+  isAlive: 0
+  isRareEnemy: 0
   cooldown: 0
   distance: 0

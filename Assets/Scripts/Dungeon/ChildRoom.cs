@@ -24,10 +24,11 @@ public class ChildRoom : MonoBehaviour
 {
     [Header("Room Settings")]
     public bool spawnEnemies = true;
+    public Vector2[] spawnPoints;
     [Header("Edge Rules")]
     public EdgeRulesGroup edgeRules = new();
 
-    [HideInInspector]
+    // [HideInInspector]
     public List<GameObject> enemySpawns = new();
     [HideInInspector]
     public List<ChildRoom> chainedRooms;
@@ -35,6 +36,40 @@ public class ChildRoom : MonoBehaviour
     public List<GameObject> hallBlockers = new();
     [HideInInspector]
     public bool enemiesSpawned;
+
+    private List<GameObject> minimapObjects = new();
+    private bool done = false;
+    public bool revealed = false;
+
+    void Awake()
+    {
+        chainedRooms = null;
+    }
+
+    private void Update()
+    {
+        if (minimapObjects.Count == 0)
+        {
+            RecursivelyAddChildrenToMinimapList(gameObject);
+        }
+    }
+
+    private void RecursivelyAddChildrenToMinimapList(GameObject main)
+    {
+        int numChildren = main.transform.childCount;
+        for (int i = numChildren - 1; i >= 0; i--)
+        {
+            GameObject child = main.transform.GetChild(i).gameObject;
+
+            RecursivelyAddChildrenToMinimapList(child);
+
+            if (child.layer == LayerMask.NameToLayer("Minimap"))
+            {
+                if (spawnEnemies) child.SetActive(false);
+                minimapObjects.Add(child);
+            }
+        }
+    }
 
     public EdgeRules GetRulesByEnum(Edges edge)
     {
@@ -50,6 +85,72 @@ public class ChildRoom : MonoBehaviour
                 return edgeRules.left;
             default:
                 return null;
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player") && !revealed)
+        {
+            foreach (ChildRoom chainedRoom in chainedRooms)
+            {
+                chainedRoom.revealed = true;
+                foreach (GameObject mini in chainedRoom.minimapObjects)
+                {
+                    mini.SetActive(true);
+                }
+            }
+        }
+
+        if (spawnEnemies && !enemiesSpawned && other.gameObject.CompareTag("Player"))
+        {
+            enemiesSpawned = true;
+            Debug.Log("Spawn some enemies!");
+
+            foreach (ChildRoom room in chainedRooms)
+            {
+                Vector2 roomPos = room.gameObject.transform.position;
+                foreach (GameObject door in room.hallBlockers)
+                {
+                    door.SetActive(true);
+                }
+
+                room.enemiesSpawned = true;
+                room.SpawnEnemies();
+            }
+        }
+    }
+
+    protected virtual void SpawnEnemies()
+    {
+        foreach (GameObject enemy in enemySpawns)
+        {
+            int spawnPoint = UnityEngine.Random.Range(0, spawnPoints.Length);
+            Vector2 enemyPos = new Vector2(transform.position.x + spawnPoints[spawnPoint].x, transform.position.y + spawnPoints[spawnPoint].y);
+            GameManager.instance.SpawnEnemy(enemy, enemyPos);
+        }
+    }
+
+    public void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player") && Enemy.s_enemyList.Count == 0 && !done)
+        {
+            foreach (ChildRoom room in chainedRooms)
+            {
+                room.RoomFinish();
+            }
+        }
+    }
+
+    public virtual void RoomFinish()
+    {
+        if (!done)
+        {
+            done = true;
+            foreach (GameObject door in hallBlockers)
+            {
+                door.SetActive(false);
+            }
         }
     }
 }

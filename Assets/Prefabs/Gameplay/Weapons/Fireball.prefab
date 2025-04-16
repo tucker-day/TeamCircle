@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5297118361916571292
+--- !u!1 &1143336853682998496
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7482174709387769900}
-  - component: {fileID: -3293797353492165939}
-  - component: {fileID: 4577461360645113523}
+  - component: {fileID: 2416411666907859536}
+  - component: {fileID: 1446995888804559025}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -18,69 +17,103 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7482174709387769900
+--- !u!4 &2416411666907859536
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5297118361916571292}
+  m_GameObject: {fileID: 1143336853682998496}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7817325027893388250}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3293797353492165939
+--- !u!114 &1446995888804559025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5297118361916571292}
+  m_GameObject: {fileID: 1143336853682998496}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd094628ba7534048b704c76fcfd6d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 1
   <icon>k__BackingField: {fileID: 1655633783, guid: 676242e93f20d5b42a60452e2c4adc83, type: 3}
-  rotationSpeed: 360
-  damage: 20
-  damageIncrease: 5
---- !u!58 &4577461360645113523
-CircleCollider2D:
+  rotateSpeed: 360
+  OrbitingFireball: {fileID: 3631181747699775295, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+  initialDamage: 20
+  damagePerLevel: 5
+  initialSpeed: 1
+  speedPerLevel: 1
+  cooldownPerLevel: 0
+  projectileIncreaseThresholds: 
+--- !u!1001 &5884349962187906876
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5297118361916571292}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 1.25, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2416411666907859536}
+    m_Modifications:
+    - target: {fileID: 2908888764084922216, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_Name
+      value: OrbitingFireball
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+--- !u!4 &7817325027893388250 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4455712240075554022, guid: 8123bc02ab18d1b46a80f022d5576996, type: 3}
+  m_PrefabInstance: {fileID: 5884349962187906876}
+  m_PrefabAsset: {fileID: 0}

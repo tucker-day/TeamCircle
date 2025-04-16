@@ -28,6 +28,19 @@ public class MeleeEnemy : Enemy
         {
             playerStats.TakeDamage(damage);
             timer = cooldown;
+            AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[0]);
         }
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[1]);
+    }
+
+    public override void Die()
+    {
+        AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[2]);
+        base.Die();
     }
 }

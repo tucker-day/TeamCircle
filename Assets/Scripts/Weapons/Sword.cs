@@ -22,10 +22,10 @@ public class Sword : Equipment
     
     public override void Trigger(Vector2 playerMovementDir)
     {
-        if (playerMovementDir.x != 0)
-        {
-            flipSword = playerMovementDir.x < 0;
-        }
+        if (playerMovementDir.x > 0.0f)
+        { flipSword = false; }
+        else if (playerMovementDir.x < 0.0f)
+        {  flipSword = true; }
 
         int projectiles = 1;
         foreach (int i in projectileIncreaseThresholds)
@@ -53,6 +53,7 @@ public class Sword : Equipment
 
         swordProjectilePrefab.damage = GetDamage();
         GameObject instance = Instantiate(swordProjectilePrefab.gameObject, transform.position + offset, Quaternion.identity, gameObject.transform);
+        AudioManager.instance.PlaySFX(AudioManager.instance.soundEffects[10]);
 
         if (flip)
         {

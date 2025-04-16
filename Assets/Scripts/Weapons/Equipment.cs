@@ -14,13 +14,13 @@ public abstract class Equipment : MonoBehaviour
     private bool activated = false;
     public virtual void LevelUp()
     {
-        if (level > 1 && !activated)
+        if (level < MAX_LEVEL) level++;
+
+        if (level >= 1 && !activated)
         {
             activated = true;
             Activate();
         }
-
-        if (level < MAX_LEVEL) level++;
     }
 
     public virtual void Activate() { }

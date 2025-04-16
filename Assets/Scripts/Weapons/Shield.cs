@@ -25,25 +25,13 @@ public class Shield : Equipment
     [SerializeField]
     private List<int> projectileIncreaseThresholds;
 
-    private int burstCount;
     [SerializeField]
     private int rotationSpeed;
 
+    public int BounceCount;
+
     public override void Trigger(Vector2 playerMovementDir)
     {
-        if (burstCount <= 0)
-        {
-            Debug.Log("Burst Init");
-            foreach (int i in projectileIncreaseThresholds)
-            {
-                if (level >= i) burstCount++;
-            }
-        }
-        else
-        {
-            burstCount--;
-        }
-
         SpawnProjectile(playerMovementDir);
     }
     private void Update()
@@ -55,6 +43,8 @@ public class Shield : Equipment
     {
         ShieldProjectilePrefab.damage = GetDamage();
         ShieldProjectilePrefab.speed = GetSpeed();
+
+        ShieldProjectilePrefab.BounceCount = level;
 
         GameObject instance = Instantiate(ShieldProjectilePrefab.gameObject, transform.position, Quaternion.identity);
 
@@ -74,18 +64,6 @@ public class Shield : Equipment
     private float GetSpeed()
     {
         return initialSpeed + speedPerLevel * level;
-    }
-
-    public override float GetCooldown()
-    {
-        if (burstCount > 0)
-        {
-            return SPAWN_DELAY;
-        }
-        else
-        {
-            return cooldown + cooldownPerLevel * level;
-        }
     }
 
     public override void LevelUp()

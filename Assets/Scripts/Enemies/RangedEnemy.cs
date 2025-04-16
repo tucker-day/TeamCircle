@@ -33,6 +33,18 @@ public class RangedEnemy : Enemy
         {
             Instantiate(projectile, launchPoint.transform.position, Quaternion.identity);
             timer = cooldown;
+            AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[3]);
         }
+    }
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[4]);
+    }
+
+    public override void Die()
+    {
+        AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[5]);
+        base.Die();
     }
 }

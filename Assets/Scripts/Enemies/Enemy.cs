@@ -12,7 +12,9 @@ public class Enemy : MonoBehaviour
     public IEnemyState currentState;
 
     public static List<Enemy> s_enemyList = new List<Enemy>();
+    public static List<Enemy> s_rareEnemyList = new List<Enemy>();
 
+    [SerializeField] private GameObject damagePopupPf;
     public Animator anim;
     public SpriteRenderer spriteRenderer;
     public Rigidbody2D rigidBody;
@@ -29,6 +31,8 @@ public class Enemy : MonoBehaviour
     public float attackRange;
     public bool isAlive;
     protected bool canMove;
+    public bool isRareEnemy = false;
+    public bool isBoss = false;
 
     public float cooldown;
     protected float timer;
@@ -50,7 +54,17 @@ public class Enemy : MonoBehaviour
 
         resSpeed = speed;
         frozenSpeed = 0.0f;
-}
+
+        if (isRareEnemy)
+        {
+            hp *= 3;
+            damage *= 2;
+            speed *= 1.5f;
+            this.gameObject.transform.localScale *= new Vector2(this.gameObject.transform.localScale.x * 1.5f, this.gameObject.transform.localScale.y * 1.5f);
+            spriteRenderer.color = new Color(1f, 0.8f, 0.6f, 1f);
+            s_rareEnemyList.Add(this);
+        }
+    }
 
 void Update()
     {
@@ -100,13 +114,6 @@ void Update()
         currentState.EnterState(this);
     }
 
-    /*public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Projectile")
-        {
-            TakeDamage(damage);
-        }
-    }*/
     public virtual void Move() { }
 
     public virtual void Chase() { }
@@ -132,15 +139,31 @@ void Update()
 
     public virtual void TakeDamage(int damage)
     {
-        hp -= damage;
-
-        if (hp <= 0 )
+        if (isAlive)
         {
-            Die();
+            ShowDamage(damage.ToString());
+            hp -= damage;
+
+            if (hp <= 0)
+            {
+                Die();
+            }
         }
     }
 
-    public void Die()
+    public void ShowDamage(string damageTxt)
+    {
+        if (damagePopupPf)
+        {
+            Vector3 damagePos = transform.position + new Vector3(-0.2f, 0.5f, 0);
+            GameObject damageObj = Instantiate(damagePopupPf, damagePos, Quaternion.identity);
+            damageObj.GetComponent<MeshRenderer>().sortingOrder = 5;
+            damageObj.GetComponent<TextMesh>().text = damageTxt;
+            Destroy(damageObj, 0.5f);
+        }
+    }
+
+    public virtual void Die()
     {
         Debug.Log("Enemy killed");
         isAlive = false;
@@ -148,15 +171,32 @@ void Update()
         DropPickup();
         Destroy(gameObject);
         GameManager.instance.CheckForEnemies();
+
+        if (isRareEnemy)
+        {
+            s_rareEnemyList.Remove(this);
+            GameManager.instance.CheckForRareEnemies();
+        }
     }
 
     void DropPickup()
     {
-        int dropChance = UnityEngine.Random.Range(0, 100);
-        if (dropChance >= 99)
+        if (!isRareEnemy)
         {
-            Debug.Log("An enemy dropped a health pickup!");
-            GameManager.instance.SpawnHealthPickup(this.transform.position);
+            int dropChance = UnityEngine.Random.Range(0, 100);
+            if (dropChance >= 99)
+            {
+                Debug.Log("An enemy dropped a health pickup!");
+                GameManager.instance.SpawnHealthPickup(this.transform.position);
+            }
+        }
+        if (isRareEnemy)
+        {
+            GameManager.instance.SpawnWeaponPickup(this.transform.position);
+        }
+        if (isBoss)
+        {
+            GameManager.instance.SpawnChest(this.transform.position);
         }
     }
 }

@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 274409299, guid: 0b461c0be71f6da4abf2f9e33638f1c3, type: 3}
+  m_Sprite: {fileID: 337454944, guid: 0b461c0be71f6da4abf2f9e33638f1c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc36dceae179254882fd0069146bfb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePopupPf: {fileID: 8791593511826495688, guid: a90ce9ae89dd84f46acd38b0ec43ea3b, type: 3}
   anim: {fileID: 0}
   spriteRenderer: {fileID: 0}
   rigidBody: {fileID: 0}
@@ -113,6 +114,7 @@ MonoBehaviour:
   detectionRange: 0
   attackRange: 0
   isAlive: 0
+  isRareEnemy: 0
   cooldown: 0
   projectile: {fileID: 381813992771785860, guid: aa917b5177626f14fb45b7f50cb94b4c, type: 3}
   projScript: {fileID: 0}
@@ -199,7 +201,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.010611296, y: -0.037140608}
+  m_Offset: {x: -0.0075440407, y: -0.027938604}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -210,7 +212,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.0611644, y: 2.1142216}
+  m_Size: {x: 1.9691458, y: 1.9363191}
   m_EdgeRadius: 0
 --- !u!1 &9104094003341873410
 GameObject:

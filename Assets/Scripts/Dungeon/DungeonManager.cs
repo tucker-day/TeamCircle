@@ -24,14 +24,15 @@ public class DungeonManager : MonoBehaviour
     private bool bossRoomSpawned;
 
 #if UNITY_EDITOR
-    private void Update()
+   private void Update()
+   {
+    if (Input.GetKeyDown(KeyCode.G))
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            GenerateDungeon();
-        }
+         GenerateDungeon();
+       }
     }
 #endif
+
 
     public void GenerateDungeon()
     {
@@ -549,6 +550,7 @@ public class DungeonManager : MonoBehaviour
 
     private void LinkOpensOnRoom(int x, int y, List<ChildRoom> links = null)
     {
+        Debug.Log("test");
         if (dungeonGrid[x, y] == null) return;
         if (dungeonGrid[x, y].childRoom.chainedRooms != null) return;
 

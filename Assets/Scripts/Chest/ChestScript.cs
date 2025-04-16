@@ -72,10 +72,18 @@ public class ChestScript : MonoBehaviour
         DropRandomWeapon();
     }
 
-    private void DropRandomWeapon()
+    public void OnTriggerEnter2D(Collider2D other)
     {
-       
-        int randomIndex = Random.Range(0, weapons.Length);
-        Instantiate(weapons[randomIndex], chestInstance.transform.position, Quaternion.identity);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Wow! A CHEST!");
+            for (int i = 0; i < 3; i++)
+            {
+                GameManager.instance.SpawnWeaponPickup(new Vector3(this.transform.position.x + Random.Range(-2, 2),
+                    this.transform.position.y + Random.Range(-2, 2), this.transform.position.z));
+            }
+
+            Destroy(this.gameObject);
+        }
     }
 }

@@ -27,6 +27,8 @@ public class AudioManager : MonoBehaviour
     public float musVolume;
     public float sfxVolume;
 
+    public List<AudioClip> recentlyPlayed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,12 +54,23 @@ public class AudioManager : MonoBehaviour
         if (GameManager.instance)
         {
             CheckMusicUpdate();
+            recentlyPlayed.Clear();
         }
 
         CheckMusicVolume();
+
 #if UNITY_EDITOR
         TestSoundEffects();
 #endif
+    }
+
+    public void CheckForLastPlayed(AudioClip sfx)
+    {
+        if (!recentlyPlayed.Contains(sfx))
+        {
+            PlaySFX(sfx);
+            recentlyPlayed.Add(sfx);
+        }
     }
 
     // This function checks for any volume changes and adjusts volume based on said changes.
@@ -100,7 +113,7 @@ public class AudioManager : MonoBehaviour
 
             StartCoroutine("FadeMusic");
         }
-        if (/*(Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) ||*/ GameManager.instance.CheckForEnemies() && !GameManager.instance.minibossPresent)
+        if (/*(Input.GetKeyDown(KeyCode.Tab) && mus_combat.volume == 0f) ||*/ GameManager.instance.CheckForEnemies() && !GameManager.instance.CheckForRareEnemies())
         {
             calmToCombat = true;
             minibossToCombat = true;
@@ -112,7 +125,7 @@ public class AudioManager : MonoBehaviour
 
             StartCoroutine("FadeMusic");
         }
-        if (/*(Input.GetKeyDown(KeyCode.LeftShift) && mus_miniboss.volume == 0f) ||*/ GameManager.instance.minibossPresent)
+        if (/*(Input.GetKeyDown(KeyCode.LeftShift) && mus_miniboss.volume == 0f) ||*/ GameManager.instance.CheckForRareEnemies())
         {
             calmToMiniboss = true;
             combatToMiniboss = true;

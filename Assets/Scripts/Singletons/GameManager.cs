@@ -10,17 +10,23 @@ public class GameManager : MonoBehaviour
     private GameObject healthPickup;
     [SerializeField]
     private GameObject weaponPickup;
+    [SerializeField]
+    private GameObject chest;
 
     private GameObject player;
 
     public DungeonManager dungeonManager;
-
-    public bool minibossPresent = false;
+    public int rareEnemyChance = 300;
+    int rareEnemyChanceIncrease = 3;
 
     // Start is called before the first frame update
     void Start()
     {
         // Initialize an instance of the game manager.
+        if (dungeonManager != null)
+           {
+             dungeonManager.GenerateDungeon();
+           }
         if (instance == null)
         {
             instance = this;
@@ -29,9 +35,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    
 
         player = GameObject.FindGameObjectWithTag("Player");
         CheckForEnemies();
+        CheckForRareEnemies();
     }
 
     // Update is called once per frame
@@ -43,21 +51,24 @@ public class GameManager : MonoBehaviour
     // Check the static enemy list to see if enemies are present.
     public bool CheckForEnemies()
     {
-#if UNITY_EDITOR
-        Debug.Log("Current Enemy Count: " + Enemy.s_enemyList.Count);
-#endif
         if (Enemy.s_enemyList.Count >= 1)
         {
-#if UNITY_EDITOR
-            // Debug.Log("THERE BE ENEMIES HERE!");
-#endif
             return true;
         }
         else
         {
-#if UNITY_EDITOR
-            // Debug.Log("No enemies detected. All clear!");
-#endif
+            return false;
+        }
+    }
+
+    public bool CheckForRareEnemies()
+    {
+        if (Enemy.s_rareEnemyList.Count >= 1)
+        {
+            return true;
+        }
+        else
+        {
             return false;
         }
     }
@@ -67,7 +78,12 @@ public class GameManager : MonoBehaviour
         if (enemyObj.TryGetComponent(out Enemy enemy))
         {
             GameObject instance = Instantiate(enemyObj, pos, Quaternion.identity);
-            instance.GetComponent<Enemy>().hp = Mathf.FloorToInt((float)enemy.hp * dungeonManager.settings.enemyHealthMult);
+
+            int rareEnemySpawn = Random.Range(0, rareEnemyChance + rareEnemyChanceIncrease);
+            if (rareEnemySpawn >= rareEnemyChance)
+            {
+                instance.GetComponent<Enemy>().isRareEnemy = true;
+            }
         }
         else
         {
@@ -90,6 +106,16 @@ public class GameManager : MonoBehaviour
         Object.Instantiate(healthPickup, enemyPos, Quaternion.identity);
     }
 
+    public void SpawnWeaponPickup(Vector3 enemyPos)
+    {
+        Object.Instantiate(weaponPickup, enemyPos, Quaternion.identity);
+    }
+
+    public void SpawnChest(Vector3 enemyPos)
+    {
+        Object.Instantiate(chest, enemyPos, Quaternion.identity);
+    }
+
     // Debug function for spawning pickups.
     void DebugSpawnPickups()
     {
@@ -106,4 +132,48 @@ public class GameManager : MonoBehaviour
             Object.Instantiate(weaponPickup, spawnRange, Quaternion.identity);
         }
     }
+
+    public void FinishFloor()
+    {
+        // Increase enemy health multiplier by 1.33.
+        // Increase rare enemy spawn chance by 1 to 3.
+    }
+    private bool isEnteringPortal = false;
+
+public void RegenerateDungeon()
+{
+    if (!isEnteringPortal)
+    {
+        StartCoroutine(HandleDungeonTransition());
+    }
+}
+
+private IEnumerator HandleDungeonTransition()
+{
+    isEnteringPortal = true;
+
+    PortalAnim fade = FindObjectOfType<PortalAnim>();
+    if (fade != null) fade.FadeIn();
+
+    yield return new WaitForSeconds(1f);
+
+    GameObject player = GameObject.FindGameObjectWithTag("Player");
+    if (player != null)
+    {
+        player.transform.position = Vector2.zero;
+    }
+
+    dungeonManager.GenerateDungeon();
+
+    yield return new WaitForSeconds(0.5f);
+
+    if (fade != null) fade.FadeOut();
+
+    yield return new WaitForSeconds(1f); 
+    isEnteringPortal = false;
+}
+
+
+
+
 }
