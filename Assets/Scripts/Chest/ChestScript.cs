@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class ChestScript : MonoBehaviour
+
 {
     public GameObject[] weapons; 
     public GameObject chestPrefab; 
