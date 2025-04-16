@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.071582, y: 1.071582, z: 1.071582}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPickup: {fileID: 1748282408087741086, guid: a96f1064c8c16204197f4f0a983d35a3, type: 3}
   weaponPickup: {fileID: 1748282408087741086, guid: e1b075a5581dcd944b464e63c72fb99c, type: 3}
+  chest: {fileID: 8495228574475592281, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
   dungeonManager: {fileID: 0}
   rareEnemyChance: 300
-  minibossPresent: 0
+  baseSettings: {fileID: 11400000, guid: 08ebfd59b6242874ab39e54fa8b9a4cb, type: 2}

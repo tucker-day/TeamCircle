@@ -30,10 +30,9 @@ public class Sword : Equipment , IWeaponIconProvider
     
     public override void Trigger(Vector2 playerMovementDir)
     {
-        print("Player Movement: " + Input.GetAxis("Horizontal"));
-        if (Input.GetAxis("Horizontal") > 0.0f)
+        if (playerMovementDir.x > 0.0f)
         { flipSword = false; }
-        else if (Input.GetAxis("Horizontal") < 0.0f)
+        else if (playerMovementDir.x < 0.0f)
         {  flipSword = true; }
 
         int projectiles = 1;

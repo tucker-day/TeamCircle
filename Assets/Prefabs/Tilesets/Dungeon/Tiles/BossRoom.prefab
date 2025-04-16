@@ -49,7 +49,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnEnemies: 1
-  spawnPoints: []
+  spawnPoints:
+  - {x: 0, y: 0}
+  - {x: 0, y: 5}
   edgeRules:
     upper:
       <BuildInEdge>k__BackingField: 0
@@ -67,7 +69,11 @@ MonoBehaviour:
   chainedRooms: []
   hallBlockers: []
   enemiesSpawned: 0
+  revealed: 0
   bossEnemySpawner: {fileID: 3534450318216799238, guid: 0552eff3920eeb94da0038cd74c4a76d, type: 3}
+  bossHPBarManager: {fileID: 6947147702793268346, guid: 1b5120274d0cff740a3bc7e0d2bc7548, type: 3}
+  boss: {fileID: 0}
+  PortalPrefab: {fileID: 2324469982353114173, guid: 2fffa88203e4a404cb02971358490a28, type: 3}
 --- !u!50 &7374316391898477783
 Rigidbody2D:
   serializedVersion: 4

@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private GameObject healthPickup;
     [SerializeField]
     private GameObject weaponPickup;
+    [SerializeField]
+    private GameObject chest;
 
     private GameObject player;
 
@@ -17,12 +19,16 @@ public class GameManager : MonoBehaviour
     public int rareEnemyChance = 300;
     int rareEnemyChanceIncrease = 3;
 
+    public DungeonSettings baseSettings;
+    private int floor = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         // Initialize an instance of the game manager.
         if (dungeonManager != null)
            {
+            dungeonManager.settings = GenerateDungeonSettings(floor);
              dungeonManager.GenerateDungeon();
            }
         if (instance == null)
@@ -76,11 +82,14 @@ public class GameManager : MonoBehaviour
         if (enemyObj.TryGetComponent(out Enemy enemy))
         {
             GameObject instance = Instantiate(enemyObj, pos, Quaternion.identity);
+            Enemy instanceEnemy = instance.GetComponent<Enemy>();
+
+            instanceEnemy.hp *= Mathf.FloorToInt((float)instanceEnemy.hp * dungeonManager.settings.enemyHealthMult);
 
             int rareEnemySpawn = Random.Range(0, rareEnemyChance + rareEnemyChanceIncrease);
             if (rareEnemySpawn >= rareEnemyChance)
             {
-                instance.GetComponent<Enemy>().isRareEnemy = true;
+                instanceEnemy.isRareEnemy = true;
             }
         }
         else
@@ -109,6 +118,11 @@ public class GameManager : MonoBehaviour
         Object.Instantiate(weaponPickup, enemyPos, Quaternion.identity);
     }
 
+    public void SpawnChest(Vector3 enemyPos)
+    {
+        Object.Instantiate(chest, enemyPos, Quaternion.identity);
+    }
+
     // Debug function for spawning pickups.
     void DebugSpawnPickups()
     {
@@ -131,4 +145,70 @@ public class GameManager : MonoBehaviour
         // Increase enemy health multiplier by 1.33.
         // Increase rare enemy spawn chance by 1 to 3.
     }
+    private bool isEnteringPortal = false;
+
+public void RegenerateDungeon()
+{
+    if (!isEnteringPortal)
+    {
+        StartCoroutine(HandleDungeonTransition());
+    }
+}
+
+    private IEnumerator HandleDungeonTransition()
+    {
+        isEnteringPortal = true;
+        floor++;
+
+        PortalAnim fade = FindObjectOfType<PortalAnim>();
+        if (fade != null) fade.FadeIn();
+
+        yield return new WaitForSeconds(1f);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = Vector2.zero;
+        }
+
+        dungeonManager.settings = GenerateDungeonSettings(floor);
+        dungeonManager.GenerateDungeon();
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (fade != null) fade.FadeOut();
+
+        yield return new WaitForSeconds(1f); 
+        isEnteringPortal = false;
+    }
+
+    const int baseBudgetIncreasePerFloor = 20;
+    const int maxInitalBudget = 100;
+    const float healthIncreasePerFloor = 0.2f;
+
+    private DungeonSettings GenerateDungeonSettings(int floor)
+    {
+        DungeonSettings newSettings = ScriptableObject.CreateInstance<DungeonSettings>();
+
+        newSettings.maxLength = baseSettings.maxLength;
+        newSettings.tileset = baseSettings.tileset;
+        newSettings.spawnPool = baseSettings.spawnPool;
+
+        newSettings.branchChance = baseSettings.branchChance;
+        newSettings.allHallChance = baseSettings.allHallChance;
+        newSettings.maxBranchDistance = baseSettings.maxBranchDistance;
+
+        newSettings.openChance = baseSettings.openChance;
+
+        newSettings.initialBudget = Mathf.Clamp(baseSettings.initialBudget + baseBudgetIncreasePerFloor * floor, 0, maxInitalBudget);
+        newSettings.budgetIncreasePerDistance = baseSettings.initialBudget;
+        newSettings.enemyHealthMult = baseSettings.enemyHealthMult + healthIncreasePerFloor * floor;
+
+        newSettings.bossObject = baseSettings.bossObject;
+        newSettings.bossSpawnPool = baseSettings.bossSpawnPool;
+
+        return newSettings;
+    }
+
+
 }
