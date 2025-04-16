@@ -1,40 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class FadeInOutSceneAnim : MonoBehaviour
 {
-    public CanvasGroup canvasgroup;
-    public bool fadein = false;
-    public bool fadeout = false;
-    public float TimeToFade;
+    public CanvasGroup fadeCanvasGroup;
+    public float fadeDuration = 1f;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (fadein)
-        {
-            if (canvasgroup.alpha < 1)
-            {
-                canvasgroup.alpha += TimeToFade * Time.deltaTime;
-                if (canvasgroup.alpha >= 1)
-                { fadein = false; }
-            }
-        } 
-        if (fadeout)
-        {
-            if (canvasgroup.alpha >= 0)
-            {
-                canvasgroup.alpha -= TimeToFade * Time.deltaTime;
-                if (canvasgroup.alpha == 0)
-                { fadeout = false; }
-            }
-        } 
+        
+            fadeCanvasGroup.alpha = 0f; 
     }
 
-    public void FadeIn()
-    { fadein = true; }
+    public void FadeIn()  
+    {
+        StartCoroutine(Fade(0f, 1f));
+    }
 
-    public void FadeOut()
-    { fadeout = true; }
+    public void FadeOut() 
+    {
+        StartCoroutine(Fade(1f, 0f));
+    }
+
+    private IEnumerator Fade(float startAlpha, float endAlpha)
+    {
+        float elapsed = 0f;
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / fadeDuration);
+            fadeCanvasGroup.alpha = alpha;
+            yield return null;
+        }
+
+        fadeCanvasGroup.alpha = endAlpha;
+    }
 }
