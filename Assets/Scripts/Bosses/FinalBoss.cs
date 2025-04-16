@@ -21,6 +21,8 @@ public class FinalBoss : Enemy
         damage = 15;
         isAlive = true;
 
+        s_rareEnemyList.Add(this);
+
         ChangeState(new Chase());
     }
     public override void Chase()
@@ -58,6 +60,7 @@ public class FinalBoss : Enemy
                 anim.SetBool("isAlive", false);
                 //GameOver();
                 AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[16]);
+                s_rareEnemyList.Remove(this);
                 Die();
             }
         }
