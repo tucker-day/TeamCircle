@@ -28,12 +28,20 @@ public class StartGame : MonoBehaviour
         Destroy(AudioManager.instance);
     }
 
-    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Dungeon");
+    string sceneToLoad = "Dungeon";
+
+    //  If already in Dungeon, reload it instead
+    if (SceneManager.GetActiveScene().name == "Dungeon")
+    {
+        SceneManager.LoadScene("Dungeon");
+        yield break; // no need to do async load if it's a reload
+    }
+
+    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad);
     asyncLoad.allowSceneActivation = false;
 
     while (!asyncLoad.isDone)
     {
-        // When the scene is almost loaded (90%), activate it
         if (asyncLoad.progress >= 0.9f)
         {
             asyncLoad.allowSceneActivation = true;
