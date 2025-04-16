@@ -6,27 +6,19 @@ using UnityEngine.UI;
 
 public class BossHPBarManager : MonoBehaviour
 {
-    [SerializeField]
-    private FinalBoss BossStats;
+    public FinalBoss BossStats;
     public Image Square;
-    public float healthAmount;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        healthAmount = BossStats.hp;
-        Debug.Log(healthAmount);
-    }
 
     // Update is called once per frame
     public void Update()
     {
-        if (Input.GetKeyDown("i"))
+        if (BossStats.isAlive)
         {
-            BossStats.TakeDamage(10000);
+            Square.fillAmount = (float)BossStats.hp / BossStats.MaxHP;
         }
-
-        Square.fillAmount = (float)BossStats.hp / BossStats.MaxHP;
-
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
