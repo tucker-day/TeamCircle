@@ -19,12 +19,16 @@ public class GameManager : MonoBehaviour
     public int rareEnemyChance = 300;
     int rareEnemyChanceIncrease = 3;
 
+    public DungeonSettings baseSettings;
+    private int floor = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         // Initialize an instance of the game manager.
         if (dungeonManager != null)
            {
+            dungeonManager.settings = GenerateDungeonSettings(floor);
              dungeonManager.GenerateDungeon();
            }
         if (instance == null)
@@ -148,32 +152,60 @@ public void RegenerateDungeon()
     }
 }
 
-private IEnumerator HandleDungeonTransition()
-{
-    isEnteringPortal = true;
-
-    PortalAnim fade = FindObjectOfType<PortalAnim>();
-    if (fade != null) fade.FadeIn();
-
-    yield return new WaitForSeconds(1f);
-
-    GameObject player = GameObject.FindGameObjectWithTag("Player");
-    if (player != null)
+    private IEnumerator HandleDungeonTransition()
     {
-        player.transform.position = Vector2.zero;
+        isEnteringPortal = true;
+        floor++;
+
+        PortalAnim fade = FindObjectOfType<PortalAnim>();
+        if (fade != null) fade.FadeIn();
+
+        yield return new WaitForSeconds(1f);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = Vector2.zero;
+        }
+
+        dungeonManager.settings = GenerateDungeonSettings(floor);
+        dungeonManager.GenerateDungeon();
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (fade != null) fade.FadeOut();
+
+        yield return new WaitForSeconds(1f); 
+        isEnteringPortal = false;
     }
 
-    dungeonManager.GenerateDungeon();
+    const int baseBudgetIncreasePerFloor = 20;
+    const int maxInitalBudget = 100;
+    const float healthIncreasePerFloor = 0.2f;
 
-    yield return new WaitForSeconds(0.5f);
+    private DungeonSettings GenerateDungeonSettings(int floor)
+    {
+        DungeonSettings newSettings = ScriptableObject.CreateInstance<DungeonSettings>();
 
-    if (fade != null) fade.FadeOut();
+        newSettings.maxLength = baseSettings.maxLength;
+        newSettings.tileset = baseSettings.tileset;
+        newSettings.spawnPool = baseSettings.spawnPool;
 
-    yield return new WaitForSeconds(1f); 
-    isEnteringPortal = false;
-}
+        newSettings.branchChance = baseSettings.branchChance;
+        newSettings.allHallChance = baseSettings.allHallChance;
+        newSettings.maxBranchDistance = baseSettings.maxBranchDistance;
 
+        newSettings.openChance = baseSettings.openChance;
 
+        newSettings.initialBudget = Mathf.Clamp(baseSettings.initialBudget + baseBudgetIncreasePerFloor * floor, 0, maxInitalBudget);
+        newSettings.budgetIncreasePerDistance = baseSettings.initialBudget;
+        newSettings.enemyHealthMult = baseSettings.enemyHealthMult + healthIncreasePerFloor * floor;
+
+        newSettings.bossObject = baseSettings.bossObject;
+        newSettings.bossSpawnPool = baseSettings.bossSpawnPool;
+
+        return newSettings;
+    }
 
 
 }
