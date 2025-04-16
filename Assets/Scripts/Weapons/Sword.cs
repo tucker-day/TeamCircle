@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : Equipment
+public class Sword : Equipment , IWeaponIconProvider
 {
     const float SPAWN_DELAY = 0.15f;
     const float Y_OFFSET = 1.5f;
@@ -18,7 +18,15 @@ public class Sword : Equipment
     [SerializeField]
     private List<int> projectileIncreaseThresholds;
 
+    [SerializeField]
+    private WeaponLevel levelDisplay;
+
     private bool flipSword = false;
+
+    public Sprite GetIcon()
+{
+    return icon; 
+}
     
     public override void Trigger(Vector2 playerMovementDir)
     {
@@ -70,6 +78,7 @@ public class Sword : Equipment
     public override void LevelUp()
     {
         base.LevelUp();
+        levelDisplay.SetWeaponLevel(level);
         Debug.Log("Sword is now Level" + level);
     }
 }

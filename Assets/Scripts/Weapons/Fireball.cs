@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Fireball : Equipment
+public class Fireball : Equipment, IWeaponIconProvider
+
 {
     public float rotateSpeed;
 
@@ -25,6 +26,14 @@ public class Fireball : Equipment
 
     [SerializeField]
     private List<int> projectileIncreaseThresholds;
+
+    [SerializeField]
+    private WeaponLevel levelDisplay;
+
+    public Sprite GetIcon()
+    {
+        return icon;
+    }
 
 
     private void Update()
@@ -48,6 +57,7 @@ public class Fireball : Equipment
     public override void LevelUp()
     {
         base.LevelUp();
+        levelDisplay.SetWeaponLevel(level);
         Debug.Log("Fireball is now Level" + level);
     }
     public override void Activate()

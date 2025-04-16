@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AuricLightning : Equipment
+public class AuricLightning : Equipment , IWeaponIconProvider
 {
     const float SPAWN_DELAY = 0.1f;
 
@@ -23,6 +23,14 @@ public class AuricLightning : Equipment
 
     [SerializeField]
     private float rotateSpeed;
+
+    [SerializeField]
+    private WeaponLevel levelDisplay;
+
+    public Sprite GetIcon()
+{
+    return icon; 
+}
 
     public void Update()
     {
@@ -51,6 +59,7 @@ public class AuricLightning : Equipment
     public override void LevelUp()
     {
         base.LevelUp();
+        levelDisplay.SetWeaponLevel(level);
         Debug.Log("Auric Lightning is now Level" + level);
     }
     public override void Activate()

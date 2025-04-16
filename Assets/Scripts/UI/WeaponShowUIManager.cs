@@ -1,39 +1,42 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponShowUIManager : MonoBehaviour
 {
-   public List<GameObject> weaponUIObjects; 
-    private int WeaponShowing = 1; 
+    [Tooltip("Assign Weapon1 to Weapon6 in order.")]
+    public List<GameObject> weaponUIObjects;
+
+    private HashSet<int> shownWeaponIndices = new HashSet<int>();
 
     void Start()
     {
-        UpdateWeaponShown();
-    }
-    void Update()
-{
-    if (Input.GetKeyDown(KeyCode.P))
-    {
-        ShowNextWeapon();
-    }
-}
-
-
-    public void ShowNextWeapon()
-    {
-        if (WeaponShowing < weaponUIObjects.Count)
+        
+        foreach (GameObject ui in weaponUIObjects)
         {
-            WeaponShowing++;
-            UpdateWeaponShown();
+            if (ui != null)
+                ui.SetActive(false);
         }
+
+        // Show only the first weapon slot (e.g., Sword)
+        ShowSpecificWeapon(0);
     }
 
-    void UpdateWeaponShown()
+    public void ShowSpecificWeapon(int weaponIndex)
     {
-        for (int i = 0; i < weaponUIObjects.Count; i++)
+        if (!shownWeaponIndices.Contains(weaponIndex))
         {
-            weaponUIObjects[i].SetActive(i < WeaponShowing);
+            shownWeaponIndices.Add(weaponIndex);
+
+            if (weaponIndex >= 0 && weaponIndex < weaponUIObjects.Count)
+            {
+                weaponUIObjects[weaponIndex].SetActive(true);
+                Debug.Log($"Showing Weapon{weaponIndex + 1}");
+            }
+            else
+            {
+                Debug.LogWarning($" Weapon index {weaponIndex} out of range");
+            }
         }
     }
 }
