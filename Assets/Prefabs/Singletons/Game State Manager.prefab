@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPickup: {fileID: 1748282408087741086, guid: a96f1064c8c16204197f4f0a983d35a3, type: 3}
   weaponPickup: {fileID: 1748282408087741086, guid: e1b075a5581dcd944b464e63c72fb99c, type: 3}
+  chest: {fileID: 8495228574475592281, guid: 565f87cc1a8e6a744bc113d1a9373075, type: 3}
   dungeonManager: {fileID: 0}
   rareEnemyChance: 300
   minibossPresent: 0

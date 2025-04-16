@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
     public bool isAlive;
     protected bool canMove;
     public bool isRareEnemy = false;
+    public bool isBoss = false;
 
     public float cooldown;
     protected float timer;
@@ -192,6 +193,10 @@ void Update()
         if (isRareEnemy)
         {
             GameManager.instance.SpawnWeaponPickup(this.transform.position);
+        }
+        if (isBoss)
+        {
+            GameManager.instance.SpawnChest(this.transform.position);
         }
     }
 }

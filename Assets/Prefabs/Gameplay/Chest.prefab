@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7409646245424266096}
   - component: {fileID: 7334022815393105681}
   m_Layer: 0
-  m_Name: chest_0
+  m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -130,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9375, y: 0.8125}
+  m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &7409646245424266096
 MonoBehaviour:
@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c2c2f25ff9fd841b1b0a89782e03ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChestOpen: 0
 --- !u!95 &7334022815393105681
 Animator:
   serializedVersion: 5

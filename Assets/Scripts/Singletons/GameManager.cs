@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private GameObject healthPickup;
     [SerializeField]
     private GameObject weaponPickup;
+    [SerializeField]
+    private GameObject chest;
 
     private GameObject player;
 
@@ -107,6 +109,11 @@ public class GameManager : MonoBehaviour
     public void SpawnWeaponPickup(Vector3 enemyPos)
     {
         Object.Instantiate(weaponPickup, enemyPos, Quaternion.identity);
+    }
+
+    public void SpawnChest(Vector3 enemyPos)
+    {
+        Object.Instantiate(chest, enemyPos, Quaternion.identity);
     }
 
     // Debug function for spawning pickups.
