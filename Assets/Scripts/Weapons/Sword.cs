@@ -22,9 +22,9 @@ public class Sword : Equipment
     
     public override void Trigger(Vector2 playerMovementDir)
     {
-        if (playerMovementDir.x > 0)
+        if (playerMovementDir.x > 0.0f)
         { flipSword = false; }
-        else if (playerMovementDir.x < 0)
+        else if (playerMovementDir.x < 0.0f)
         {  flipSword = true; }
 
         int projectiles = 1;

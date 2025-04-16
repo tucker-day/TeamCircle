@@ -38,16 +38,20 @@ public class ChildRoom : MonoBehaviour
     public bool enemiesSpawned;
 
     private List<GameObject> minimapObjects = new();
-    private bool revealed = false;
+    private bool done = false;
+    public bool revealed = false;
 
     void Awake()
     {
         chainedRooms = null;
     }
 
-    private void Start()
+    private void Update()
     {
-        RecursivelyAddChildrenToMinimapList(gameObject);
+        if (minimapObjects.Count == 0)
+        {
+            RecursivelyAddChildrenToMinimapList(gameObject);
+        }
     }
 
     private void RecursivelyAddChildrenToMinimapList(GameObject main)
@@ -86,10 +90,16 @@ public class ChildRoom : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        revealed = true;
-        foreach (GameObject mini in minimapObjects)
+        if (other.gameObject.CompareTag("Player") && !revealed)
         {
-            mini.SetActive(true);
+            foreach (ChildRoom chainedRoom in chainedRooms)
+            {
+                chainedRoom.revealed = true;
+                foreach (GameObject mini in chainedRoom.minimapObjects)
+                {
+                    mini.SetActive(true);
+                }
+            }
         }
 
         if (spawnEnemies && !enemiesSpawned && other.gameObject.CompareTag("Player"))
@@ -106,26 +116,40 @@ public class ChildRoom : MonoBehaviour
                 }
 
                 room.enemiesSpawned = true;
-                foreach (GameObject enemy in room.enemySpawns)
-                {
-                    int spawnPoint = UnityEngine.Random.Range(0, room.spawnPoints.Length);
-                    Vector2 enemyPos = new Vector2(roomPos.x + room.spawnPoints[spawnPoint].x, roomPos.y + room.spawnPoints[spawnPoint].y);
-                    GameManager.instance.SpawnEnemy(enemy, enemyPos);
-                }
+                room.SpawnEnemies();
             }
+        }
+    }
+
+    protected virtual void SpawnEnemies()
+    {
+        foreach (GameObject enemy in enemySpawns)
+        {
+            int spawnPoint = UnityEngine.Random.Range(0, spawnPoints.Length);
+            Vector2 enemyPos = new Vector2(transform.position.x + spawnPoints[spawnPoint].x, transform.position.y + spawnPoints[spawnPoint].y);
+            GameManager.instance.SpawnEnemy(enemy, enemyPos);
         }
     }
 
     public void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") && Enemy.s_enemyList.Count == 0)
+        if (other.gameObject.CompareTag("Player") && Enemy.s_enemyList.Count == 0 && !done)
         {
             foreach (ChildRoom room in chainedRooms)
             {
-                foreach (GameObject door in room.hallBlockers)
-                {
-                    door.SetActive(false);
-                }
+                room.RoomFinish();
+            }
+        }
+    }
+
+    public virtual void RoomFinish()
+    {
+        if (!done)
+        {
+            done = true;
+            foreach (GameObject door in hallBlockers)
+            {
+                door.SetActive(false);
             }
         }
     }

@@ -48,6 +48,7 @@ public class FinalBoss : Enemy
     {
         if (isAlive == true)
         {
+            ShowDamage(damage.ToString());
             hp -= damage;
             AudioManager.instance.CheckForLastPlayed(AudioManager.instance.soundEffects[15]);
 

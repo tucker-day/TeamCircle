@@ -16,10 +16,8 @@ public class GameManager : MonoBehaviour
     private GameObject player;
 
     public DungeonManager dungeonManager;
-    public int rareEnemyChance = 100;
-    int rareEnemyChanceIncrease = 1;
-
-    public bool minibossPresent = false;
+    public int rareEnemyChance = 300;
+    int rareEnemyChanceIncrease = 3;
 
     // Start is called before the first frame update
     void Start()
