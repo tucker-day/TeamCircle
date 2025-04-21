@@ -24,12 +24,18 @@ public class ColourFeedback : MonoBehaviour
     // The currently running coroutine.
     private Coroutine flashRoutine;
 
+    private void Start()
+    {
+        spriteRenderer= GetComponent<SpriteRenderer>();
+
+        originalMaterial = spriteRenderer.material;
+    }
     private void Update()
     {
         if (Input.GetKeyDown(flashKey))
         {
             Color randomColor = colors[Random.Range(0, colors.Length)];
-            // flashMaterial.Flash(randomColor);    
+            //flashMaterial.Flash(randomColor);    
         }
 
 
